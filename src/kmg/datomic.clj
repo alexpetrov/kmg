@@ -11,6 +11,9 @@
 
 (def schema [
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Media type
+
   {:db/ident :media/id
    :db/valueType :db.type/string
    :db/cardinality :db.cardinality/one
@@ -30,6 +33,13 @@
    :db/valueType :db.type/string
    :db/cardinality :db.cardinality/one
    :db/doc "Title of media."
+   :db/id (d/tempid :db.part/db)
+   :db.install/_attribute :db.part/db}
+
+  {:db/ident :media/url
+   :db/valueType :db.type/uri
+   :db/cardinality :db.cardinality/one
+   :db/doc "URL of media."
    :db/id (d/tempid :db.part/db)
    :db.install/_attribute :db.part/db}
 
@@ -89,6 +99,43 @@
    :db/doc "Stats for media. How many times this media was completed by all users. Therefore this is stats there is no need to save history for it."
    :db/id (d/tempid :db.part/db)
    :db.install/_attribute :db.part/db}
+
+;; End of Media type declaration
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Author type
+
+  {:db/ident :author/id
+   :db/valueType :db.type/string
+   :db/cardinality :db.cardinality/one
+   :db/unique :db.unique/identity
+   :db/doc "Author unique identifier"
+   :db/id (d/tempid :db.part/db)
+   :db.install/_attribute :db.part/db}
+
+  {:db/ident :author/name
+   :db/valueType :db.type/string
+   :db/cardinality :db.cardinality/one
+   :db/doc "Author name"
+   :db/id (d/tempid :db.part/db)
+   :db.install/_attribute :db.part/db}
+
+  {:db/ident :author/user
+   :db/valueType :db.type/ref
+   :db/cardinality :db.cardinality/one
+   :db/doc "Author user in knowledge-media-guide, if exists"
+   :db/id (d/tempid :db.part/db)
+   :db.install/_attribute :db.part/db}
+
+;; End of Author type declaration
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Type of knowledge-media type
+
+
+
 
 ])
 
