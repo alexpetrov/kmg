@@ -53,7 +53,7 @@
   {:db/ident :media/annotation
    :db/valueType :db.type/string
    :db/cardinality :db.cardinality/one
-   :db/fulltext true
+   ;; :db/fulltext true ;; TODO add when really necessary for some feature
    :db/doc "Annotation for media."
    :db/id (d/tempid :db.part/db)
    :db.install/_attribute :db.part/db}
@@ -187,7 +187,7 @@
   {:db/ident :specialization/annotation
    :db/valueType :db.type/string
    :db/cardinality :db.cardinality/one
-   :db/fulltext true
+   ;; :db/fulltext true ;; add when it will be necessary
    :db/doc "Specialization annotation in Markdown."
    :db/id (d/tempid :db.part/db)
    :db.install/_attribute :db.part/db}
@@ -204,6 +204,43 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Recommendation type
+  {:db/ident :recommendation/specialization
+   :db/valueType :db.type/ref
+   :db/cardinality :db.cardinality/one ;; TODO: What cardinality should be here
+   :db/doc "Specializations of this Recommendation."
+   :db/id (d/tempid :db.part/db)
+   :db.install/_attribute :db.part/db}
+
+  {:db/ident :recommendation/media
+   :db/valueType :db.type/ref
+   :db/cardinality :db.cardinality/one ;; TODO: What cardinality should be here
+   :db/doc "Media of this Recommendation."
+   :db/id (d/tempid :db.part/db)
+   :db.install/_attribute :db.part/db}
+
+  {:db/ident :recommendation/priority
+   :db/valueType :db.type/long
+   :db/cardinality :db.cardinality/one
+   :db/index true
+   :db/doc "Priority of this Recommendation."
+   :db/id (d/tempid :db.part/db)
+   :db.install/_attribute :db.part/db}
+
+  {:db/ident :recommendation/necessary
+   :db/valueType :db.type/boolean
+   :db/cardinality :db.cardinality/one
+   :db/index true
+   :db/doc "Is this Recommendation really Necessary."
+   :db/id (d/tempid :db.part/db)
+   :db.install/_attribute :db.part/db}
+
+  {:db/ident :recommendation/description
+   :db/valueType :db.type/string
+   :db/cardinality :db.cardinality/one
+   ;;   :db/fulltext true ;; TODO: Add full text when it will be necessary for some feature
+   :db/doc "Is this Recommendation really Necessary."
+   :db/id (d/tempid :db.part/db)
+   :db.install/_attribute :db.part/db}
 
 
 

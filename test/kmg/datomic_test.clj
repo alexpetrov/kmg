@@ -135,3 +135,20 @@
              [:db.type/string :db.cardinality/one]))
       (is (= (attr-spec db :specialization/prerequisite)
              [:db.type/ref :db.cardinality/many])))))
+
+(deftest test-schema-for-recommendation
+  (let [conn (fresh-conn)]
+    (d/transact conn schema)
+    (let [db (d/db conn)]
+      (is (= (attr-spec db :recommendation/specialization)
+             [:db.type/ref :db.cardinality/one]))
+      (is (= (attr-spec db :recommendation/media)
+             [:db.type/ref :db.cardinality/one]))
+      (is (= (attr-spec db :recommendation/priority)
+             [:db.type/long :db.cardinality/one]))
+      (is (= (attr-spec db :recommendation/necessary)
+             [:db.type/boolean :db.cardinality/one]))
+      (is (= (attr-spec db :recommendation/description)
+             [:db.type/string :db.cardinality/one]))
+
+)))
