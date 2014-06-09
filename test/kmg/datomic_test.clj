@@ -149,6 +149,15 @@
       (is (= (attr-spec db :recommendation/necessary)
              [:db.type/boolean :db.cardinality/one]))
       (is (= (attr-spec db :recommendation/description)
-             [:db.type/string :db.cardinality/one]))
+             [:db.type/string :db.cardinality/one])))))
 
-)))
+(deftest test-schema-for-user
+  (let [conn (fresh-conn)]
+    (d/transact conn schema)
+    (let [db (d/db conn)]
+      (is (= (attr-spec db :user/name)
+          [:db.type/string :db.cardinality/one]))
+      (is (= (attr-spec db :user/start-career-year)
+          [:db.type/long :db.cardinality/one]))
+      (is (= (attr-spec db :user/goal)
+          [:db.type/ref :db.cardinality/one])))))

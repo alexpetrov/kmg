@@ -206,14 +206,14 @@
 ;; Recommendation type
   {:db/ident :recommendation/specialization
    :db/valueType :db.type/ref
-   :db/cardinality :db.cardinality/one ;; TODO: What cardinality should be here
+   :db/cardinality :db.cardinality/one
    :db/doc "Specializations of this Recommendation."
    :db/id (d/tempid :db.part/db)
    :db.install/_attribute :db.part/db}
 
   {:db/ident :recommendation/media
    :db/valueType :db.type/ref
-   :db/cardinality :db.cardinality/one ;; TODO: What cardinality should be here
+   :db/cardinality :db.cardinality/one
    :db/doc "Media of this Recommendation."
    :db/id (d/tempid :db.part/db)
    :db.install/_attribute :db.part/db}
@@ -238,9 +238,42 @@
    :db/valueType :db.type/string
    :db/cardinality :db.cardinality/one
    ;;   :db/fulltext true ;; TODO: Add full text when it will be necessary for some feature
-   :db/doc "Is this Recommendation really Necessary."
+   :db/doc "Recommendation description."
    :db/id (d/tempid :db.part/db)
    :db.install/_attribute :db.part/db}
+
+;; End of Recommendation type
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; User type
+  {:db/ident :user/name
+   :db/valueType :db.type/string
+   :db/cardinality :db.cardinality/one
+   :db/doc "User name. Login, in other words."
+   :db/id (d/tempid :db.part/db)
+   :db.install/_attribute :db.part/db}
+
+  {:db/ident :user/start-career-year
+   :db/valueType :db.type/long
+   :db/cardinality :db.cardinality/one
+   :db/doc "Year of start career in this profession. Needs to calculate current experience."
+   :db/id (d/tempid :db.part/db)
+   :db.install/_attribute :db.part/db}
+
+  {:db/ident :user/goal
+   :db/valueType :db.type/ref
+   :db/cardinality :db.cardinality/one
+   :db/doc "Goal is current user specialization in progress. From history this field will be formed list off all specializations of user."
+   :db/id (d/tempid :db.part/db)
+   :db.install/_attribute :db.part/db}
+;; TODO Add fields for authentication
+
+;; End of User type
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Feedback type
 
 
 
