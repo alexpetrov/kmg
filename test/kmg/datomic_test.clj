@@ -13,8 +13,8 @@
   (d/connect uri))
 
 (defn show-schema []
-  (let [conn (time (fresh-conn))]
-    (time (d/transact conn schema))
+  (let [conn (fresh-conn)]
+    (d/transact conn schema)
     (graph-datomic uri)
     #_(graph-datomic uri :save-as "the-schema.dot")
 ))
@@ -32,6 +32,12 @@
                [?c :db/ident ?cardinality]]
                db field-name)))
 
+(defn schema-enum-value [db enum]
+  (ffirst (d/q '[:find ?enum
+                 :in $ ?enum
+                 :where
+                 [?id :db/ident ?enum]]
+       db enum)))
 
 (deftest test-schema-for-media-type
   (let [conn (fresh-conn)]
@@ -48,7 +54,7 @@
              [:db.type/string :db.cardinality/one]))
 
       (is (= (attr-spec db :media/url)
-             [:db.type/uri :db.cardinality/one]))
+             [:db.type/string :db.cardinality/one]))
 
       (is (= (attr-spec db :media/author)
              [:db.type/ref :db.cardinality/many]))
@@ -74,10 +80,10 @@
       (is (= (attr-spec db :media/stats)
              [:db.type/long :db.cardinality/one])))))
 
-(deftest test-schame-for-author-type
+(deftest test-schema-for-author-type
   (let [conn (fresh-conn)]
-    (identity (d/transact conn schema))
-    (let [db (identity (d/db conn))]
+    (d/transact conn schema)
+    (let [db (d/db conn)]
       (is (= (attr-spec db :author/id)
              [:db.type/string :db.cardinality/one]))
 
@@ -86,3 +92,46 @@
 
       (is (= (attr-spec db :author/user)
              [:db.type/ref :db.cardinality/one])))))
+
+
+(deftest test-media-type-enum-values
+  (let [conn (fresh-conn)]
+    (d/transact conn schema)
+    (let [db (d/db conn)]
+      (is (= (schema-enum-value db :media.type/book)
+             :media.type/book))
+      (is (= (schema-enum-value db :media.type/article)
+             :media.type/article))
+      (is (= (schema-enum-value db :media.type/video)
+             :media.type/video))
+      (is (= (schema-enum-value db :media.type/podcast)
+             :media.type/podcast))
+      (is (= (schema-enum-value db :media.type/blog)
+             :media.type/blog))
+      (is (= (schema-enum-value db :media.type/course)
+             :media.type/course)))))
+
+(deftest test-schema-for-locale
+  (let [conn (fresh-conn)]
+    (d/transact conn schema)
+    (let [db (d/db conn)]
+      (is (= (attr-spec db :locale/id)
+             [:db.type/string :db.cardinality/one]))
+
+      (is (= (attr-spec db :locale/title)
+             [:db.type/string :db.cardinality/one]))
+
+)))
+
+(deftest test-schema-for-specialization
+  (let [conn (fresh-conn)]
+    (d/transact conn schema)
+    (let [db (d/db conn)]
+      (is (= (attr-spec db :specialization/id)
+             [:db.type/string :db.cardinality/one]))
+      (is (= (attr-spec db :specialization/title)
+             [:db.type/string :db.cardinality/one]))
+      (is (= (attr-spec db :specialization/annotation)
+             [:db.type/string :db.cardinality/one]))
+      (is (= (attr-spec db :specialization/prerequisite)
+             [:db.type/ref :db.cardinality/many])))))

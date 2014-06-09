@@ -25,7 +25,7 @@
   {:db/ident :media/type
    :db/valueType :db.type/ref
    :db/cardinality :db.cardinality/one
-   :db/doc "Type of media. Reference to Type Entity."
+   :db/doc "Type of media. Reference to media.type enum."
    :db/id (d/tempid :db.part/db)
    :db.install/_attribute :db.part/db}
 
@@ -37,7 +37,7 @@
    :db.install/_attribute :db.part/db}
 
   {:db/ident :media/url
-   :db/valueType :db.type/uri
+   :db/valueType :db.type/string
    :db/cardinality :db.cardinality/one
    :db/doc "URL of media."
    :db/id (d/tempid :db.part/db)
@@ -53,6 +53,7 @@
   {:db/ident :media/annotation
    :db/valueType :db.type/string
    :db/cardinality :db.cardinality/one
+   :db/fulltext true
    :db/doc "Annotation for media."
    :db/id (d/tempid :db.part/db)
    :db.install/_attribute :db.part/db}
@@ -81,14 +82,14 @@
   {:db/ident :media/locale
    :db/valueType :db.type/ref
    :db/cardinality :db.cardinality/one
-   :db/doc "Locale of media. English :en by default."
+   :db/doc "Locale of media. English :en by default if nothing is declared."
    :db/id (d/tempid :db.part/db)
    :db.install/_attribute :db.part/db}
 
   {:db/ident :media/localization
    :db/valueType :db.type/ref
    :db/cardinality :db.cardinality/one
-   :db/doc "Localization of media. This means, that this media is localization of another media. So it should be recommended to users with :media/locale of this one as preferred locale in profile."
+   :db/doc "Localization of media. Reference to original. This means, that this media is localization of another media. So it should be recommended to users with :media/locale of this one as preferred locale in profile."
    :db/id (d/tempid :db.part/db)
    :db.install/_attribute :db.part/db}
 
@@ -132,8 +133,77 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Type of knowledge-media type
+;; Enum for knowledge-media type
 
+  [:db/add (d/tempid :db.part/user) :db/ident :media.type/book]
+  [:db/add (d/tempid :db.part/user) :db/ident :media.type/article]
+  [:db/add (d/tempid :db.part/user) :db/ident :media.type/video]
+  [:db/add (d/tempid :db.part/user) :db/ident :media.type/podcast]
+  [:db/add (d/tempid :db.part/user) :db/ident :media.type/course]
+  [:db/add (d/tempid :db.part/user) :db/ident :media.type/blog]
+
+
+;; End of knowledge-media type enum
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Locale type
+  {:db/ident :locale/id
+   :db/valueType :db.type/string
+   :db/cardinality :db.cardinality/one
+   :db/unique :db.unique/identity
+   :db/doc "Locale unique identifier"
+   :db/id (d/tempid :db.part/db)
+   :db.install/_attribute :db.part/db}
+
+  {:db/ident :locale/title
+   :db/valueType :db.type/string
+   :db/cardinality :db.cardinality/one
+   :db/unique :db.unique/identity
+   :db/doc "Locale title"
+   :db/id (d/tempid :db.part/db)
+   :db.install/_attribute :db.part/db}
+
+;; End of Locale type
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Specialization type
+  {:db/ident :specialization/id
+   :db/valueType :db.type/string
+   :db/cardinality :db.cardinality/one
+   :db/unique :db.unique/identity
+   :db/doc "Specialization unique identifier"
+   :db/id (d/tempid :db.part/db)
+   :db.install/_attribute :db.part/db}
+
+  {:db/ident :specialization/title
+   :db/valueType :db.type/string
+   :db/cardinality :db.cardinality/one
+   :db/doc "Specialization title"
+   :db/id (d/tempid :db.part/db)
+   :db.install/_attribute :db.part/db}
+
+  {:db/ident :specialization/annotation
+   :db/valueType :db.type/string
+   :db/cardinality :db.cardinality/one
+   :db/fulltext true
+   :db/doc "Specialization annotation in Markdown."
+   :db/id (d/tempid :db.part/db)
+   :db.install/_attribute :db.part/db}
+
+  {:db/ident :specialization/prerequisite
+   :db/valueType :db.type/ref
+   :db/cardinality :db.cardinality/many
+   :db/doc "Prerequisite Specializations for this one. Self reference."
+   :db/id (d/tempid :db.part/db)
+   :db.install/_attribute :db.part/db}
+
+;; End of Specialization type
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Recommendation type
 
 
 
