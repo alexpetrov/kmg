@@ -161,3 +161,24 @@
           [:db.type/long :db.cardinality/one]))
       (is (= (attr-spec db :user/goal)
           [:db.type/ref :db.cardinality/one])))))
+
+(deftest test-schema-for-feedback
+  (let [conn (fresh-conn)]
+    (d/transact conn schema)
+    (let [db (d/db conn)]
+      (is (= (attr-spec db :feedback/user)
+             [:db.type/ref :db.cardinality/one]))
+      (is (= (attr-spec db :feedback.recommendation/id)
+             [:db.type/ref :db.cardinality/one]))
+      (is (= (attr-spec db :feedback.recommendation/tx)
+             [:db.type/long :db.cardinality/one]))
+      (is (= (attr-spec db :feedback/complete)
+             [:db.type/boolean :db.cardinality/one]))
+      (is (= (attr-spec db :feedback.comment/text)
+             [:db.type/string :db.cardinality/one]))
+      (is (= (attr-spec db :feedback.comment/show)
+             [:db.type/boolean :db.cardinality/one]))
+      (is (= (attr-spec db :feedback/complete)
+             [:db.type/boolean :db.cardinality/one]))
+
+)))

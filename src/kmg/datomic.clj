@@ -274,8 +274,48 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Feedback type
+  {:db/ident :feedback/user
+   :db/valueType :db.type/ref
+   :db/cardinality :db.cardinality/one
+   :db/doc "Feedback's User."
+   :db/id (d/tempid :db.part/db)
+   :db.install/_attribute :db.part/db}
 
+  {:db/ident :feedback.recommendation/id
+   :db/valueType :db.type/ref
+   :db/cardinality :db.cardinality/one
+   :db/doc "Recommendation id for which this Feedback is for."
+   :db/id (d/tempid :db.part/db)
+   :db.install/_attribute :db.part/db}
 
+  {:db/ident :feedback.recommendation/tx
+   :db/valueType :db.type/long
+   :db/cardinality :db.cardinality/one
+   :db/doc "Recommendation actual transaction for which this Feedback is for."
+   :db/id (d/tempid :db.part/db)
+   :db.install/_attribute :db.part/db}
+
+  {:db/ident :feedback.comment/text
+   :db/valueType :db.type/string
+   :db/cardinality :db.cardinality/one
+   :db/doc "Feedback comment in markdown."
+   :db/id (d/tempid :db.part/db)
+   :db.install/_attribute :db.part/db}
+
+  {:db/ident :feedback.comment/show
+   :db/valueType :db.type/boolean
+   :db/cardinality :db.cardinality/one
+   :db/doc "Is comment allowed to show after premoderation."
+   :db/id (d/tempid :db.part/db)
+   :db.install/_attribute :db.part/db}
+
+  {:db/ident :feedback/complete
+   :db/valueType :db.type/boolean
+   :db/noHistory true
+   :db/cardinality :db.cardinality/one
+   :db/doc "Is recommendation completed."
+   :db/id (d/tempid :db.part/db)
+   :db.install/_attribute :db.part/db}
 
 ])
 
