@@ -80,7 +80,7 @@
    :db.install/_attribute :db.part/db}
 
   {:db/ident :media/locale
-   :db/valueType :db.type/ref
+   :db/valueType :db.type/keyword
    :db/cardinality :db.cardinality/one
    :db/doc "Locale of media. English :en by default if nothing is declared."
    :db/id (d/tempid :db.part/db)
@@ -144,27 +144,6 @@
 
 
 ;; End of knowledge-media type enum
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Locale type
-  {:db/ident :locale/id
-   :db/valueType :db.type/string
-   :db/cardinality :db.cardinality/one
-   :db/unique :db.unique/identity
-   :db/doc "Locale unique identifier"
-   :db/id (d/tempid :db.part/db)
-   :db.install/_attribute :db.part/db}
-
-  {:db/ident :locale/title
-   :db/valueType :db.type/string
-   :db/cardinality :db.cardinality/one
-   :db/unique :db.unique/identity
-   :db/doc "Locale title"
-   :db/id (d/tempid :db.part/db)
-   :db.install/_attribute :db.part/db}
-
-;; End of Locale type
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

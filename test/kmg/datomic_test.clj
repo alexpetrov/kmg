@@ -72,7 +72,7 @@
              [:db.type/boolean :db.cardinality/one]))
 
       (is (= (attr-spec db :media/locale)
-             [:db.type/ref :db.cardinality/one]))
+             [:db.type/keyword :db.cardinality/one]))
 
       (is (= (attr-spec db :media/localization)
              [:db.type/ref :db.cardinality/one]))
@@ -110,18 +110,6 @@
              :media.type/blog))
       (is (= (schema-enum-value db :media.type/course)
              :media.type/course)))))
-
-(deftest test-schema-for-locale
-  (let [conn (fresh-conn)]
-    (d/transact conn schema)
-    (let [db (d/db conn)]
-      (is (= (attr-spec db :locale/id)
-             [:db.type/string :db.cardinality/one]))
-
-      (is (= (attr-spec db :locale/title)
-             [:db.type/string :db.cardinality/one]))
-
-)))
 
 (deftest test-schema-for-specialization
   (let [conn (fresh-conn)]
