@@ -1,6 +1,6 @@
 (defproject kmg "0.1.0-SNAPSHOT"
   :description "Knowledge Media Guide"
-  :url "http://example.com/FIXME"
+  :url "https://github.com/alexpetrov/kmg"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.5.1"]

@@ -1,14 +1,9 @@
-# kmg
+# Knowledge Media Guide
 
-A Clojure library designed to ... well, that part is up to you.
-
-## Usage
-
-FIXME
+Systematization and recommendation service on professional knowledge media
 
 ## License
 
 Copyright © 2014 FIXME
 
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
+Distributed under the Eclipse Public License either version 1.0.
