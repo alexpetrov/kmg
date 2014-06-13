@@ -9,7 +9,7 @@
 #_(def conn (d/connect db-url))
 #_(defn db [] (d/db conn))
 
-(def schema [
+(def kmg-schema [
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Media type
@@ -58,13 +58,6 @@
    :db/id (d/tempid :db.part/db)
    :db.install/_attribute :db.part/db}
 
-  {:db/ident :media/prerequisite
-   :db/valueType :db.type/ref
-   :db/cardinality :db.cardinality/many
-   :db/doc "Prerequisite media. Media that is required, to be able to understand this one."
-   :db/id (d/tempid :db.part/db)
-   :db.install/_attribute :db.part/db}
-
   {:db/ident :media/experience
    :db/valueType :db.type/long
    :db/cardinality :db.cardinality/one
@@ -86,13 +79,6 @@
    :db/id (d/tempid :db.part/db)
    :db.install/_attribute :db.part/db}
 
-  {:db/ident :media/localization
-   :db/valueType :db.type/ref
-   :db/cardinality :db.cardinality/one
-   :db/doc "Localization of media. Reference to original. This means, that this media is localization of another media. So it should be recommended to users with :media/locale of this one as preferred locale in profile."
-   :db/id (d/tempid :db.part/db)
-   :db.install/_attribute :db.part/db}
-
   {:db/ident :media/stats
    :db/valueType :db.type/long
    :db/cardinality :db.cardinality/one
@@ -102,6 +88,39 @@
    :db.install/_attribute :db.part/db}
 
 ;; End of Media type declaration
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Media Relationship type
+  {:db/ident :media.relationship/media_from
+   :db/valueType :db.type/ref
+   :db/cardinality :db.cardinality/one
+   :db/doc "'From' end of relationship between media."
+   :db/id (d/tempid :db.part/db)
+   :db.install/_attribute :db.part/db}
+
+  {:db/ident :media.relationship/media_to
+   :db/valueType :db.type/ref
+   :db/cardinality :db.cardinality/one
+   :db/doc "'To' end of relationship between media."
+   :db/id (d/tempid :db.part/db)
+   :db.install/_attribute :db.part/db}
+
+  {:db/ident :media.relationship/type
+   :db/valueType :db.type/keyword
+   :db/cardinality :db.cardinality/one
+   :db/doc "Type of relationship. For example: :localization, :prerequisite."
+   :db/id (d/tempid :db.part/db)
+   :db.install/_attribute :db.part/db}
+
+  {:db/ident :media.relationship/description
+   :db/valueType :db.type/string
+   :db/cardinality :db.cardinality/one
+   :db/doc "Description of relationship. For example, why this is prerequisite."
+   :db/id (d/tempid :db.part/db)
+   :db.install/_attribute :db.part/db}
+
+;; End of Media Relationship type declaration
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
