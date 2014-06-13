@@ -19,8 +19,8 @@
   (let [conn (fresh-conn)
         db (d/db conn)]
     (d/transact conn kmg-schema)
-    (graph-datomic uri)
-    #_(graph-datomic uri :save-as "the-schema.dot")
+    #_(graph-datomic uri)
+    (graph-datomic uri :save-as "kmg-schema.dot")
     ))
 
 ;; (show-schema)
