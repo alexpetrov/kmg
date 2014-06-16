@@ -1,11 +1,11 @@
-(ns kmg.datomic-test
+(ns kmg.schema-test
   (:require
    [datomic.api :as d]
    [datomic-schema-grapher.dot :as dot]
    [datomic-schema-grapher.core :refer (graph-datomic)]
    [clojure.test :refer :all])
   (:use
-   kmg.datomic
+   kmg.kmg-schema
    clojure.test))
 
 

@@ -1,4 +1,4 @@
-(ns kmg.datomic
+(ns kmg.schema
   (:require
     [datomic.api :as d]
     [clojure.edn :as edn]
