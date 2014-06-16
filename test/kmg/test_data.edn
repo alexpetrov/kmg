@@ -1,3 +1,29 @@
 [
+{:specialization/id "spec1"
+ :specialization/title "spec1_title"
+ :specialization/annotation "spec1_annotation"
+ :db/id #db/id[:db.part/user -1000001]}
+
+{:specialization/id "spec2"
+ :specialization/title "spec2_title"
+ :specialization/annotation "spec2_annotation"
+;; :specialization/prerequisite [:specialization/id "spec1"]
+ :specialization/prerequisite #db/id[:db.part/user -1000001]
+ :db/id #db/id[:db.part/user -1000002]}
+
+{:media/id "book1"
+ :media/type :media.type/book
+ :media/title "book1_title"
+ :media/essential true
+ :media/experience 0
+ :db/id #db/id[:db.part/user -1000003]}
+
+{:media/id "book2"
+ :media/type :media.type/book
+ :media/title "book2_title"
+ :media/essential true
+ :media/experience 0
+ :db/id #db/id[:db.part/user -1000004]}
+
 
 ]

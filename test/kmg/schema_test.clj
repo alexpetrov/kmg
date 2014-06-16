@@ -5,7 +5,7 @@
    [datomic-schema-grapher.core :refer (graph-datomic)]
    [clojure.test :refer :all])
   (:use
-   kmg.kmg-schema
+   kmg.schema
    clojure.test))
 
 
@@ -25,10 +25,12 @@
 
 ;; (show-schema)
 
+(def test-data (read-string (slurp "test/kmg/test_data.edn")))
+
 (defn before [f]
-  (let [conn (fresh-conn)
-        db (d/db conn)]
-    (d/transact conn kmg-schema))
+  (let [conn (fresh-conn)]
+    (d/transact conn kmg-schema)
+    @(d/transact conn test-data))
   (f))
 
 (use-fixtures :each before)
@@ -168,3 +170,14 @@
          [:db.type/boolean :db.cardinality/one]))
   (is (= (attr-spec :feedback/complete)
          [:db.type/boolean :db.cardinality/one])))
+
+(deftest test-kmg-test-data
+  (is (= (d/q '[:find ?title
+         :where
+                [?id :media/title ?title]]
+       (db))
+         #{["book2_title"] ["book1_title"]}))
+
+  (print (d/touch (d/entity (db) [:specialization/id "spec1"])))
+ (is (= (:specialization/title (d/touch (d/entity (db) [:specialization/id "spec1"]))) "spec1_title"))
+  )
