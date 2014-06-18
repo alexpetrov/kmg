@@ -188,17 +188,57 @@
          [?id :recommendation/media ?bid]
          [?bid :media/id ?media_id]
          ]
-       db [:specialization/id "spec1"]))
+       db [:specialization/id spec]))
+
+(defn recommendations-for-user [db user]
+  (d/q '[:find (max ?priority) ?rid ?media_id ?comment
+         :in $ ?uid
+         :where
+         [?uid :user/name ?user]
+         [?uid :user/goal ?sid]
+         [?id :recommendation/specialization ?sid]
+         [?id :recommendation/priority ?priority]
+         [?id :recommendation/media ?mid]
+         [?id :recommendation/id ?rid]
+         [?completed_rec_id :recommendation/id ?rid]
+
+         [?fid :feedback/user ?uid]
+         [?fid :feedback/recommendation ?completed_rec_id]
+         [?fid :feedback.comment/text ?comment]
+         [?fid :feedback/complete true]
+
+         [?mid :media/id ?media_id]
+         ]
+       db [:user/name user]))
+
+;;(before #(recommendations-for-user (db) "user1"))
+;;(before #(recommendations (db) "spec1"))
+
+
 
 (deftest test-kmg-test-data
+  (is (= (d/q '[:find ?name
+                :where
+                [?id :user/name ?name]]
+               (db))
+         #{["user1"] ["user2"]}))
+
+  (is (= (d/q '[:find ?text
+                :where
+                [?id :feedback.comment/text ?text]]
+               (db))
+         #{["spec1_book1_is_awesome"] ["spec1_book1_is_irrelevant"]}))
+
   (is (= (d/q '[:find ?title
-         :where
+                :where
                 [?id :media/title ?title]]
-       (db))
+               (db))
          #{["book2_title"] ["book3_title"] ["book1_title"] ["book4_title"]}))
+
   #_(is (= (recommendations (db) "spec1")
          #{["book1"] ["book2"] ["book3"]}))
-  (print (recommendations (db) "spec1"))
+  (print (recommendations (db) "spec2"))
   (print (d/touch (d/entity (db) [:specialization/id "spec1"])))
  (is (= (:specialization/title (d/touch (d/entity (db) [:specialization/id "spec1"]))) "spec1_title"))
+
   )
