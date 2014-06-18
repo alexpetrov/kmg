@@ -1,29 +1,106 @@
-[
-{:specialization/id "spec1"
- :specialization/title "spec1_title"
- :specialization/annotation "spec1_annotation"
- :db/id #db/id[:db.part/user -1000001]}
+{ :specializations [{:specialization/id "spec1"
+                     :specialization/title "spec1_title"
+                     :specialization/annotation "spec1_annotation"
+                     :db/id #db/id[:db.part/user -1000001]}
 
-{:specialization/id "spec2"
- :specialization/title "spec2_title"
- :specialization/annotation "spec2_annotation"
-;; :specialization/prerequisite [:specialization/id "spec1"]
- :specialization/prerequisite #db/id[:db.part/user -1000001]
- :db/id #db/id[:db.part/user -1000002]}
+                    {:specialization/id "spec2"
+                     :specialization/title "spec2_title"
+                     :specialization/annotation "spec2_annotation"
+                     ;; :specialization/prerequisite [:specialization/id "spec1"]
+                     :specialization/prerequisite #db/id[:db.part/user -1000001]
+                     :db/id #db/id[:db.part/user -1000002]}
+                    ]
+  :media [{:media/id "book1"
+          :media/type :media.type/book
+          :media/title "book1_title"
+          :media/essential true
+          :media/experience 0
+          :db/id #db/id[:db.part/user -1000001]}
 
-{:media/id "book1"
- :media/type :media.type/book
- :media/title "book1_title"
- :media/essential true
- :media/experience 0
- :db/id #db/id[:db.part/user -1000003]}
+         {:media/id "book2"
+          :media/type :media.type/book
+          :media/title "book2_title"
+          :media/essential true
+          :media/experience 1
+          :db/id #db/id[:db.part/user -1000002]}
 
-{:media/id "book2"
- :media/type :media.type/book
- :media/title "book2_title"
- :media/essential true
- :media/experience 0
- :db/id #db/id[:db.part/user -1000004]}
+         {:media/id "book3"
+          :media/type :media.type/book
+          :media/title "book3_title"
+          :media/essential true
+          :media/experience 2
+          :db/id #db/id[:db.part/user -1000003]}
+         {:media/id "book4"
+          :media/type :media.type/book
+          :media/title "book4_title"
+          :media/essential false
+          :media/experience 3
+          :db/id #db/id[:db.part/user -1000004]}
 
+         ]
+  :recommendations [{:recommendation/specialization [:specialization/id "spec1"]
+                     :recommendation/media [:media/id "book1"]
+                     :recommendation/id "spec1_book1"
+                     :recommendation/priority 1000
+                     :recommendation/necessary true
+                     :recommendation/description "spec1 book1"
+                     :db/id #db/id[:db.part/user -1000001]
+                     }
+                    {:recommendation/specialization [:specialization/id "spec1"]
+                     :recommendation/media [:media/id "book2"]
+                     :recommendation/id "spec1_book2"
+                     :recommendation/priority 900
+                     :recommendation/necessary false
+                     :recommendation/description "spec1 book2"
+                     :db/id #db/id[:db.part/user -1000002]
+                     }
+                    {:recommendation/specialization [:specialization/id "spec1"]
+                     :recommendation/media [:media/id "book3"]
+                     :recommendation/id "spec1_book3"
 
-]
+                     :recommendation/priority 800
+                     :recommendation/necessary false
+                     :recommendation/description "spec1 book3"
+                     :db/id #db/id[:db.part/user -1000003]
+                     }
+                    {:recommendation/specialization [:specialization/id "spec2"]
+                     :recommendation/media [:media/id "book3"]
+                     :recommendation/id "spec2_book3"
+
+                     :recommendation/priority 1000
+                     :recommendation/necessary true
+                     :recommendation/description "spec2 book3"
+                     :db/id #db/id[:db.part/user -1000004]
+                     }
+                    {:recommendation/specialization [:specialization/id "spec2"]
+                     :recommendation/media [:media/id "book4"]
+                     :recommendation/id "spec2_book4"
+                     :recommendation/priority 900
+                     :recommendation/necessary true
+                     :recommendation/description "spec2 book4"
+                     :db/id #db/id[:db.part/user -1000005]
+                     }]
+  :users [{:user/name "user1"
+           :user/start-career-year 2014
+           :user/goal [:specialization/id "spec1"]
+           :db/id #db/id[:db.part/user -1000001]}
+          {:user/name "user2"
+           :user/start-career-year 2013
+           :user/goal [:specialization/id "spec1"]
+           :db/id #db/id[:db.part/user -1000002]}]
+
+  :feedback [{:feedback/user [:user/name "user1"]
+              :feedback/recommendation [:recommendation/id "spec1_book1"]
+              :feedback/complete true
+              :feedback/relevant true
+              :feedback.comment/text "spec1_book1_is_awesome"
+              :feedback.comment/show true
+              :db/id #db/id[:db.part/user -1000001]}
+             {:feedback/user [:user/name "user2"]
+              :feedback/recommendation [:recommendation/id "spec1_book1"]
+              :feedback/complete true
+              :feedback/relevant false
+              :feedback.comment/text "spec1_book1_is_irrelevant"
+              :feedback.comment/show true
+              :db/id #db/id[:db.part/user -1000002]}]
+}

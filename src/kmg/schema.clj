@@ -216,6 +216,14 @@
    :db/id (d/tempid :db.part/db)
    :db.install/_attribute :db.part/db}
 
+  {:db/ident :recommendation/id
+   :db/valueType :db.type/string
+   :db/cardinality :db.cardinality/one
+   :db/unique :db.unique/identity
+   :db/doc "Recommendation id, supposed to be concatenation of specialization id and media id. Needs to reference from user feedback."
+   :db/id (d/tempid :db.part/db)
+   :db.install/_attribute :db.part/db}
+
   {:db/ident :recommendation/priority
    :db/valueType :db.type/long
    :db/cardinality :db.cardinality/one
@@ -248,6 +256,7 @@
   {:db/ident :user/name
    :db/valueType :db.type/string
    :db/cardinality :db.cardinality/one
+   :db/unique :db.unique/identity
    :db/doc "User name. Login, in other words."
    :db/id (d/tempid :db.part/db)
    :db.install/_attribute :db.part/db}
@@ -279,17 +288,17 @@
    :db/id (d/tempid :db.part/db)
    :db.install/_attribute :db.part/db}
 
-  {:db/ident :feedback.recommendation/id
+  {:db/ident :feedback/recommendation
    :db/valueType :db.type/ref
    :db/cardinality :db.cardinality/one
-   :db/doc "Recommendation id for which this Feedback is for."
+   :db/doc "Recommendation for which this Feedback is for."
    :db/id (d/tempid :db.part/db)
    :db.install/_attribute :db.part/db}
 
-  {:db/ident :feedback.recommendation/tx
-   :db/valueType :db.type/long
+  {:db/ident :feedback/relevant
+   :db/valueType :db.type/boolean
    :db/cardinality :db.cardinality/one
-   :db/doc "Recommendation actual transaction for which this Feedback is for."
+   :db/doc "Is this recommendation relevant."
    :db/id (d/tempid :db.part/db)
    :db.install/_attribute :db.part/db}
 

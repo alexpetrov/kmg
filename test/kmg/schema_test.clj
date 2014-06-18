@@ -25,12 +25,17 @@
 
 ;; (show-schema)
 
-(def test-data (read-string (slurp "test/kmg/test_data.edn")))
+#_(def test-data (read-string (slurp "test/kmg/test_data.edn")))
 
 (defn before [f]
-  (let [conn (fresh-conn)]
+  (let [conn (fresh-conn)
+        test-data (read-string (slurp "test/kmg/test_data.edn"))]
     (d/transact conn kmg-schema)
-    @(d/transact conn test-data))
+    @(d/transact conn (:specializations test-data))
+    @(d/transact conn (:media test-data))
+    @(d/transact conn (:recommendations test-data))
+    @(d/transact conn (:users test-data))
+    @(d/transact conn (:feedback test-data)))
   (f))
 
 (use-fixtures :each before)
@@ -140,6 +145,9 @@
          [:db.type/ref :db.cardinality/one]))
   (is (= (attr-spec :recommendation/media)
          [:db.type/ref :db.cardinality/one]))
+  (is (= (attr-spec :recommendation/id)
+         [:db.type/string :db.cardinality/one]))
+
   (is (= (attr-spec :recommendation/priority)
          [:db.type/long :db.cardinality/one]))
   (is (= (attr-spec :recommendation/necessary)
@@ -158,26 +166,39 @@
 (deftest test-kmg-schema-for-feedback
   (is (= (attr-spec :feedback/user)
          [:db.type/ref :db.cardinality/one]))
-  (is (= (attr-spec :feedback.recommendation/id)
+  (is (= (attr-spec :feedback/recommendation)
          [:db.type/ref :db.cardinality/one]))
-  (is (= (attr-spec :feedback.recommendation/tx)
-         [:db.type/long :db.cardinality/one]))
   (is (= (attr-spec :feedback/complete)
          [:db.type/boolean :db.cardinality/one]))
   (is (= (attr-spec :feedback.comment/text)
          [:db.type/string :db.cardinality/one]))
   (is (= (attr-spec :feedback.comment/show)
          [:db.type/boolean :db.cardinality/one]))
+  (is (= (attr-spec :feedback/relevant)
+         [:db.type/boolean :db.cardinality/one]))
   (is (= (attr-spec :feedback/complete)
          [:db.type/boolean :db.cardinality/one])))
+
+(defn recommendations [db spec]
+  (d/q '[:find  ?id ?media_id (max 7 ?priority)
+         :in $ ?spec
+         :where
+         [?id :recommendation/specialization ?spec]
+         [?id :recommendation/priority ?priority]
+         [?id :recommendation/media ?bid]
+         [?bid :media/id ?media_id]
+         ]
+       db [:specialization/id "spec1"]))
 
 (deftest test-kmg-test-data
   (is (= (d/q '[:find ?title
          :where
                 [?id :media/title ?title]]
        (db))
-         #{["book2_title"] ["book1_title"]}))
-
+         #{["book2_title"] ["book3_title"] ["book1_title"] ["book4_title"]}))
+  #_(is (= (recommendations (db) "spec1")
+         #{["book1"] ["book2"] ["book3"]}))
+  (print (recommendations (db) "spec1"))
   (print (d/touch (d/entity (db) [:specialization/id "spec1"])))
  (is (= (:specialization/title (d/touch (d/entity (db) [:specialization/id "spec1"]))) "spec1_title"))
   )
