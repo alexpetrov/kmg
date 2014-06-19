@@ -179,42 +179,62 @@
   (is (= (attr-spec :feedback/complete)
          [:db.type/boolean :db.cardinality/one])))
 
-(defn recommendations [db spec]
-  (d/q '[:find  ?id ?media_id (max 7 ?priority)
-         :in $ ?spec
-         :where
-         [?id :recommendation/specialization ?spec]
-         [?id :recommendation/priority ?priority]
-         [?id :recommendation/media ?bid]
-         [?bid :media/id ?media_id]
-         ]
-       db [:specialization/id spec]))
-
-(defn recommendations-for-user [db user]
-  (d/q '[:find (max ?priority) ?rid ?media_id ?comment
+(defn recommendations-comleted-by-user [db user]
+  (->> (d/q '[:find ?id
          :in $ ?uid
          :where
          [?uid :user/name ?user]
          [?uid :user/goal ?sid]
          [?id :recommendation/specialization ?sid]
          [?id :recommendation/priority ?priority]
-         [?id :recommendation/media ?mid]
+;;       [?id :recommendation/media ?mid]
          [?id :recommendation/id ?rid]
-         [?completed_rec_id :recommendation/id ?rid]
+;;         [?completed_rec_id :recommendation/id ?rid]
 
          [?fid :feedback/user ?uid]
-         [?fid :feedback/recommendation ?completed_rec_id]
+         [?fid :feedback/recommendation ?id]
          [?fid :feedback.comment/text ?comment]
          [?fid :feedback/complete true]
 
-         [?mid :media/id ?media_id]
+;;         [?mid :media/id ?media_id]
          ]
-       db [:user/name user]))
+       db [:user/name user])
+       (every-first)
+       set))
 
-;;(before #(recommendations-for-user (db) "user1"))
+;;(before #(recommendations-comleted-by-user (db) "user1"))
 ;;(before #(recommendations (db) "spec1"))
+(defn recommendations-for-user [db user]
+  (->> (d/q '[:find ?id (max ?priority)
+         :in $ ?uid
+         :where
+         [?uid :user/name ?user]
+         [?uid :user/goal ?sid]
+         [?id :recommendation/specialization ?sid]
+         [?id :recommendation/priority ?priority]
+;;         [?id :recommendation/media ?mid]
+;;         [?id :recommendation/id ?rid]
+;;         [?completed_rec_id :recommendation/id ?rid]
+
+;;         [?mid :media/id ?media_id]
+         ]
+       db [:user/name user])
+  (every-first)
+  set))
+;;(before #(recommendations-for-user (db) "user1"))
 
 
+(defn every-first [v]
+  (for [elem v] (first elem)))
+
+;; (every-first [[17592186045432 1000] [17592186045433 900] [17592186045434 800]])
+(use 'clojure.data)
+(defn recommendations [db user]
+  (let [recs (recommendations-for-user db user)
+        completed (recommendations-comleted-by-user db user)]
+    (first (diff recs completed))))
+
+;; (before #(recommendations (db) "user1"))
 
 (deftest test-kmg-test-data
   (is (= (d/q '[:find ?name
