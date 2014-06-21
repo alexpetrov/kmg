@@ -17,25 +17,33 @@
 
 (defn show-schema []
   (let [conn (fresh-conn)
-        db (d/db conn)]
+        db (d/db conn)
+        sample-data (read-string (slurp "test/kmg/sample_data.edn"))]
     (d/transact conn kmg-schema)
+    @(d/transact conn (:specializations sample-data))
+    @(d/transact conn (:media sample-data))
+    @(d/transact conn (:recommendations sample-data))
+    @(d/transact conn (:users sample-data))
+    @(d/transact conn (:feedback sample-data))
+
     #_(graph-datomic uri)
     (graph-datomic uri :save-as "kmg-schema.dot")
     ))
 
 ;; (show-schema)
 
-#_(def test-data (read-string (slurp "test/kmg/test_data.edn")))
+#_(def sample-data (read-string (slurp "test/kmg/sample_data.edn")))
 
 (defn before [f]
   (let [conn (fresh-conn)
-        test-data (read-string (slurp "test/kmg/test_data.edn"))]
+        sample-data (read-string (slurp "test/kmg/sample_data.edn"))]
     (d/transact conn kmg-schema)
-    @(d/transact conn (:specializations test-data))
-    @(d/transact conn (:media test-data))
-    @(d/transact conn (:recommendations test-data))
-    @(d/transact conn (:users test-data))
-    @(d/transact conn (:feedback test-data)))
+    @(d/transact conn (:specializations sample-data))
+    @(d/transact conn (:media sample-data))
+    @(d/transact conn (:recommendations sample-data))
+    @(d/transact conn (:users sample-data))
+    @(d/transact conn (:feedback sample-data))
+)
   (f))
 
 (use-fixtures :each before)
@@ -179,6 +187,10 @@
   (is (= (attr-spec :feedback/complete)
          [:db.type/boolean :db.cardinality/one])))
 
+(defn every-first [v]
+  (for [elem v] (first elem)))
+
+
 (defn recommendations-comleted-by-user [db user]
   (->> (d/q '[:find ?id
          :in $ ?uid
@@ -223,11 +235,8 @@
   set))
 ;;(before #(recommendations-for-user (db) "user1"))
 
-
-(defn every-first [v]
-  (for [elem v] (first elem)))
-
 ;; (every-first [[17592186045432 1000] [17592186045433 900] [17592186045434 800]])
+;; TODO: Here must be more elegant implementation than diff, or more speedy
 (use 'clojure.data)
 (defn recommendations [db user]
   (let [recs (recommendations-for-user db user)
@@ -236,7 +245,7 @@
 
 ;; (before #(recommendations (db) "user1"))
 
-(deftest test-kmg-test-data
+(deftest test-kmg-sample-data
   (is (= (d/q '[:find ?name
                 :where
                 [?id :user/name ?name]]
@@ -255,9 +264,8 @@
                (db))
          #{["book2_title"] ["book3_title"] ["book1_title"] ["book4_title"]}))
 
-  #_(is (= (recommendations (db) "spec1")
+  #_(is (= (recommendations (db) "user1")
          #{["book1"] ["book2"] ["book3"]}))
-  (print (recommendations (db) "spec2"))
   (print (d/touch (d/entity (db) [:specialization/id "spec1"])))
  (is (= (:specialization/title (d/touch (d/entity (db) [:specialization/id "spec1"]))) "spec1_title"))
 
