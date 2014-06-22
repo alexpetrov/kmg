@@ -6,12 +6,20 @@
         ring.middleware.edn
         carica.core))
 
+(defn response [data & [status]]
+  {:status (or status 200)
+   :headers {"Content-Type" "application/edn"}
+   :body (pr-str data)})
 
+(defn user-list []
+  (response ["user1" "user2"]))
+
+(defroutes user-routes
+  (GET "/list" [] (user-list)))
 
 (defroutes compojure-handler
   (GET "/" [] (slurp (io/resource "public/html/index.html")))
-  #_(context "/article" [] article-routes)
-  #_(context "/user" [] user-routes)
+  (context "/user" [] user-routes)
   (GET "/req" request (str request))
   (route/resources "/")
   #_(route/files "/" {:root (config :external-resources)})

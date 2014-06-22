@@ -1,96 +1,105 @@
 <!DOCTYPE HTML>
 <html>
-  <head lang="ru">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/css/site.min.css">
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800,700,400italic,600italic,700italic,800italic,300italic" rel="stylesheet" type="text/css">
-    <script type="text/javascript" src="/js/site.min.js"></script>
-  </head>
-  <body>
-    <div class="container">
+    <head lang="ru">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/css/site.min.css">
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800,700,400italic,600italic,700italic,800italic,300italic" rel="stylesheet" type="text/css">
+        <script type="text/javascript" src="/js/site.min.js"></script>
+    </head>
+    <body>
+        <div class="container">
 
-      <div class="kmg-header">
-        <h1 class="kmg-title">Knowledge Media Guide (Prototype)</h1>
-        <p class="lead kmg-description">Your Guide in professional Knowledge Media.</p>
-      </div>
+            <div class="kmg-header">
+                <h1 class="kmg-title">Knowledge Media Guide (Prototype)</h1>
+                <p class="lead kmg-description">Your Guide in professional Knowledge Media.</p>
+            </div>
 
-      <div class="row">
-        <div class="col-sm-8 blog-main"  id="content">
+            <div id="user-choose">
+                <form action="#" method="POST" name="user-choose">
+                    <h3 id="user-choose">Choose user:</h2>
+                    <select name="users" id="users-id" size="1">
+                        <option value="sample-user" class="user-option-id">SampleUser</option>
+                    </select>
+                </form>
+            </div>
 
-	  <div id="inner-content">
-          <div class="blog-post">
-            <h2 id="blog-post-title" class="blog-post-title">Another blog post</h2>
-	    <div id="blog-post-body">Blog post body</div><br/>
-	    <a href="#" id="article-view" class="btn btn-default btn-xs">View</a>
-	    <a href="#" id="article-edit" class="btn btn-info btn-xs">Edit</a>
-	    <a href="#" id="article-delete" class="btn btn-warning btn-xs">Delete</a>
-          </div><!-- /.blog-post -->
-	  </div>
+            <div class="row">
+                <div class="col-sm-8 blog-main"  id="content">
 
-	  <br/>
-	  <a id="new-post" href="#" class="btn btn-primary" onclick="client.core.show_create()">New post</a>
+                    <div id="inner-content">
+                        <div class="blog-post">
+                            <h2 id="blog-post-title" class="blog-post-title">Another blog post</h2>
+                            <div id="blog-post-body">Blog post body</div><br/>
+                            <a href="#" id="article-view" class="btn btn-default btn-xs">View</a>
+                            <a href="#" id="article-edit" class="btn btn-info btn-xs">Edit</a>
+                            <a href="#" id="article-delete" class="btn btn-warning btn-xs">Delete</a>
+                        </div><!-- /.blog-post -->
+	            </div>
 
-          <!-- ul class="pager"-->
-          <!-- li><a href="#">Previous</a></li-->
-          <!-- li><a href="#">Next</a></li-->
-          <!-- /ul-->
+	            <br/>
+	            <a id="new-post" href="#" class="btn btn-primary" onclick="client.core.show_create()">New post</a>
 
-        </div><!-- /.blog-main -->
+                    <!-- ul class="pager"-->
+                    <!-- li><a href="#">Previous</a></li-->
+                    <!-- li><a href="#">Next</a></li-->
+                    <!-- /ul-->
 
-        <div class="col-sm-3 col-sm-offset-1 blog-sidebar" id="sidebar">
-          <div class="sidebar-module sidebar-module-inset">
-            <h4>About</h4>
-            <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
-          </div>
-          <div class="sidebar-module">
-            <h4>Archives</h4>
-            <ol class="list-unstyled">
-              <li><a href="#">January 2014</a></li>
-              <li><a href="#">December 2013</a></li>
-              <li><a href="#">November 2013</a></li>
-              <li><a href="#">October 2013</a></li>
-              <li><a href="#">September 2013</a></li>
-              <li><a href="#">August 2013</a></li>
-              <li><a href="#">July 2013</a></li>
-              <li><a href="#">June 2013</a></li>
-              <li><a href="#">May 2013</a></li>
-              <li><a href="#">April 2013</a></li>
-              <li><a href="#">March 2013</a></li>
-              <li><a href="#">February 2013</a></li>
-            </ol>
-          </div>
-          <div class="sidebar-module">
-            <h4>Elsewhere</h4>
-            <ol class="list-unstyled">
-              <li><a href="#">GitHub</a></li>
-              <li><a href="#">Twitter</a></li>
-              <li><a href="#">Facebook</a></li>
-            </ol>
-          </div>
-        </div><!-- /.blog-sidebar -->
+                </div><!-- /.blog-main -->
 
-      </div><!-- /.row -->
+                <div class="col-sm-3 col-sm-offset-1 blog-sidebar" id="sidebar">
+                    <div class="sidebar-module sidebar-module-inset">
+                        <h4>About</h4>
+                        <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
+                    </div>
+                    <div class="sidebar-module">
+                        <h4>Archives</h4>
+                        <ol class="list-unstyled">
+                            <li><a href="#">January 2014</a></li>
+                            <li><a href="#">December 2013</a></li>
+                            <li><a href="#">November 2013</a></li>
+                            <li><a href="#">October 2013</a></li>
+                            <li><a href="#">September 2013</a></li>
+                            <li><a href="#">August 2013</a></li>
+                            <li><a href="#">July 2013</a></li>
+                            <li><a href="#">June 2013</a></li>
+                            <li><a href="#">May 2013</a></li>
+                            <li><a href="#">April 2013</a></li>
+                            <li><a href="#">March 2013</a></li>
+                            <li><a href="#">February 2013</a></li>
+                        </ol>
+                    </div>
+                    <div class="sidebar-module">
+                        <h4>Elsewhere</h4>
+                        <ol class="list-unstyled">
+                            <li><a href="#">GitHub</a></li>
+                            <li><a href="#">Twitter</a></li>
+                            <li><a href="#">Facebook</a></li>
+                        </ol>
+                    </div>
+                </div><!-- /.blog-sidebar -->
 
-      <div class="row">
-	<div id="article-form">
-	  Title:<br/>
-	  <input id="article-title" type="text"/ class="form-control"><br/>
-	  Text:<br/>
-	  <textarea id="article-body" class="form-control"></textarea><br/>
-	  <a id="save-btn" href="#" class="btn btn-primary" onclick="client.core.try_create_article()">Save</a>
-	  <a href="#" class="btn btn-default" onclick="client.core.close_form()">Cancel</a>
-	</div>
+            </div><!-- /.row -->
 
-	<div id="view-article">
-	  <h2 id="view-title"></h2>
-	  <span id="view-body"></span>
-	  <br/><br/>
-	  <a href="#" class="btn btn-default" onclick="client.core.close_form()">Close</a>
-	</div>
-      </div>
+            <div class="row">
+	        <div id="article-form">
+	            Title:<br/>
+	            <input id="article-title" type="text"/ class="form-control"><br/>
+	            Text:<br/>
+	            <textarea id="article-body" class="form-control"></textarea><br/>
+	            <a id="save-btn" href="#" class="btn btn-primary" onclick="client.core.try_create_article()">Save</a>
+	            <a href="#" class="btn btn-default" onclick="client.core.close_form()">Cancel</a>
+	        </div>
 
-    </div><!-- /.container -->
-  </body>
+	        <div id="view-article">
+	            <h2 id="view-title"></h2>
+	            <span id="view-body"></span>
+	            <br/><br/>
+	            <a href="#" class="btn btn-default" onclick="client.core.close_form()">Close</a>
+	        </div>
+            </div>
+
+        </div><!-- /.container -->
+    </body>
 </html>
