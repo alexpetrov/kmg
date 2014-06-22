@@ -40231,10 +40231,380 @@ enfocus.core.apply_transform["function"] = function() {
   };
   return G__28043;
 }();
+goog.provide("enfocus.events");
+goog.require("cljs.core");
+goog.require("goog.object");
+goog.require("goog.object");
+goog.require("enfocus.core");
+goog.require("enfocus.core");
+goog.require("goog.dom");
+goog.require("goog.dom");
+goog.require("goog.events");
+goog.require("goog.events");
+enfocus.events.view_port_monitor = cljs.core.atom.call(null, null);
+enfocus.events.get_vp_monitor = function get_vp_monitor() {
+  if (cljs.core.truth_(cljs.core.deref.call(null, enfocus.events.view_port_monitor))) {
+    return cljs.core.deref.call(null, enfocus.events.view_port_monitor);
+  } else {
+    cljs.core.swap_BANG_.call(null, enfocus.events.view_port_monitor, function() {
+      return new goog.dom.ViewportSizeMonitor;
+    });
+    return cljs.core.deref.call(null, enfocus.events.view_port_monitor);
+  }
+};
+enfocus.events.gen_enter_leave_wrapper = function gen_enter_leave_wrapper(event) {
+  var obj = new Object;
+  obj.listen = function(obj) {
+    return function(elm, func, opt_cap, opt_scope, opt_handler) {
+      var callback = enfocus.events.mouse_enter_leave.call(null, func);
+      callback.listen = func;
+      callback.scope = opt_scope;
+      if (cljs.core.truth_(opt_handler)) {
+        return opt_handler.listen(elm, cljs.core.name.call(null, event), callback);
+      } else {
+        return goog.events.listen(elm, cljs.core.name.call(null, event), callback);
+      }
+    };
+  }(obj);
+  obj.unlisten = function(obj) {
+    return function(elm, func, opt_cap, opt_scope, opt_handler) {
+      var listeners = goog.events.getListeners(elm, cljs.core.name.call(null, event), false);
+      var seq__5863_5867 = cljs.core.seq.call(null, listeners);
+      var chunk__5864_5868 = null;
+      var count__5865_5869 = 0;
+      var i__5866_5870 = 0;
+      while (true) {
+        if (i__5866_5870 < count__5865_5869) {
+          var obj_5871__$1 = cljs.core._nth.call(null, chunk__5864_5868, i__5866_5870);
+          var listener_5872 = obj_5871__$1.listener;
+          if ((cljs.core.not.call(null, func) || cljs.core._EQ_.call(null, listener_5872.listen, func)) && (cljs.core.not.call(null, opt_scope) || cljs.core._EQ_.call(null, listener_5872.scope, opt_scope))) {
+            if (cljs.core.truth_(opt_handler)) {
+              opt_handler.unlisten(elm, cljs.core.name.call(null, event), listener_5872);
+            } else {
+              goog.events.unlisten(elm, cljs.core.name.call(null, event), listener_5872);
+            }
+          } else {
+          }
+          var G__5873 = seq__5863_5867;
+          var G__5874 = chunk__5864_5868;
+          var G__5875 = count__5865_5869;
+          var G__5876 = i__5866_5870 + 1;
+          seq__5863_5867 = G__5873;
+          chunk__5864_5868 = G__5874;
+          count__5865_5869 = G__5875;
+          i__5866_5870 = G__5876;
+          continue;
+        } else {
+          var temp__4126__auto___5877 = cljs.core.seq.call(null, seq__5863_5867);
+          if (temp__4126__auto___5877) {
+            var seq__5863_5878__$1 = temp__4126__auto___5877;
+            if (cljs.core.chunked_seq_QMARK_.call(null, seq__5863_5878__$1)) {
+              var c__4294__auto___5879 = cljs.core.chunk_first.call(null, seq__5863_5878__$1);
+              var G__5880 = cljs.core.chunk_rest.call(null, seq__5863_5878__$1);
+              var G__5881 = c__4294__auto___5879;
+              var G__5882 = cljs.core.count.call(null, c__4294__auto___5879);
+              var G__5883 = 0;
+              seq__5863_5867 = G__5880;
+              chunk__5864_5868 = G__5881;
+              count__5865_5869 = G__5882;
+              i__5866_5870 = G__5883;
+              continue;
+            } else {
+              var obj_5884__$1 = cljs.core.first.call(null, seq__5863_5878__$1);
+              var listener_5885 = obj_5884__$1.listener;
+              if ((cljs.core.not.call(null, func) || cljs.core._EQ_.call(null, listener_5885.listen, func)) && (cljs.core.not.call(null, opt_scope) || cljs.core._EQ_.call(null, listener_5885.scope, opt_scope))) {
+                if (cljs.core.truth_(opt_handler)) {
+                  opt_handler.unlisten(elm, cljs.core.name.call(null, event), listener_5885);
+                } else {
+                  goog.events.unlisten(elm, cljs.core.name.call(null, event), listener_5885);
+                }
+              } else {
+              }
+              var G__5886 = cljs.core.next.call(null, seq__5863_5878__$1);
+              var G__5887 = null;
+              var G__5888 = 0;
+              var G__5889 = 0;
+              seq__5863_5867 = G__5886;
+              chunk__5864_5868 = G__5887;
+              count__5865_5869 = G__5888;
+              i__5866_5870 = G__5889;
+              continue;
+            }
+          } else {
+          }
+        }
+        break;
+      }
+      return listeners;
+    };
+  }(obj);
+  return obj;
+};
+enfocus.events.wrapper_register = new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null, "mouseenter", "mouseenter", 2027084997), enfocus.events.gen_enter_leave_wrapper.call(null, new cljs.core.Keyword(null, "mouseover", "mouseover", 1601081963)), new cljs.core.Keyword(null, "mouseleave", "mouseleave", 2033263780), enfocus.events.gen_enter_leave_wrapper.call(null, new cljs.core.Keyword(null, "mouseout", "mouseout", 894298107))], null);
+enfocus.events.listen = function listen(event, func) {
+  var wrapper = enfocus.events.wrapper_register.call(null, event);
+  return function(wrapper) {
+    return function(pnod) {
+      if (cljs.core._EQ_.call(null, new cljs.core.Keyword(null, "resize", "resize", 4374433830), event) && window === pnod) {
+        return goog.events.listen(enfocus.events.get_vp_monitor.call(null), "resize", func);
+      } else {
+        if (wrapper == null) {
+          return goog.events.listen(pnod, cljs.core.name.call(null, event), func);
+        } else {
+          return goog.events.listenWithWrapper(pnod, wrapper, func);
+        }
+      }
+    };
+  }(wrapper);
+};
+enfocus.events.remove_listeners = function() {
+  var remove_listeners__delegate = function(event_list) {
+    var get_name = function(p1__5890_SHARP_) {
+      return cljs.core.name.call(null, cljs.core._EQ_.call(null, p1__5890_SHARP_, new cljs.core.Keyword(null, "mouseenter", "mouseenter", 2027084997)) ? new cljs.core.Keyword(null, "mouseover", "mouseover", 1601081963) : cljs.core._EQ_.call(null, p1__5890_SHARP_, new cljs.core.Keyword(null, "mouseleave", "mouseleave", 2033263780)) ? new cljs.core.Keyword(null, "mouseout", "mouseout", 894298107) : new cljs.core.Keyword(null, "else", "else", 1017020587) ? p1__5890_SHARP_ : null);
+    };
+    return function(get_name) {
+      return function(pnod) {
+        var seq__5895 = cljs.core.seq.call(null, event_list);
+        var chunk__5896 = null;
+        var count__5897 = 0;
+        var i__5898 = 0;
+        while (true) {
+          if (i__5898 < count__5897) {
+            var ev = cljs.core._nth.call(null, chunk__5896, i__5898);
+            goog.events.removeAll(pnod, get_name.call(null, ev));
+            var G__5899 = seq__5895;
+            var G__5900 = chunk__5896;
+            var G__5901 = count__5897;
+            var G__5902 = i__5898 + 1;
+            seq__5895 = G__5899;
+            chunk__5896 = G__5900;
+            count__5897 = G__5901;
+            i__5898 = G__5902;
+            continue;
+          } else {
+            var temp__4126__auto__ = cljs.core.seq.call(null, seq__5895);
+            if (temp__4126__auto__) {
+              var seq__5895__$1 = temp__4126__auto__;
+              if (cljs.core.chunked_seq_QMARK_.call(null, seq__5895__$1)) {
+                var c__4294__auto__ = cljs.core.chunk_first.call(null, seq__5895__$1);
+                var G__5903 = cljs.core.chunk_rest.call(null, seq__5895__$1);
+                var G__5904 = c__4294__auto__;
+                var G__5905 = cljs.core.count.call(null, c__4294__auto__);
+                var G__5906 = 0;
+                seq__5895 = G__5903;
+                chunk__5896 = G__5904;
+                count__5897 = G__5905;
+                i__5898 = G__5906;
+                continue;
+              } else {
+                var ev = cljs.core.first.call(null, seq__5895__$1);
+                goog.events.removeAll(pnod, get_name.call(null, ev));
+                var G__5907 = cljs.core.next.call(null, seq__5895__$1);
+                var G__5908 = null;
+                var G__5909 = 0;
+                var G__5910 = 0;
+                seq__5895 = G__5907;
+                chunk__5896 = G__5908;
+                count__5897 = G__5909;
+                i__5898 = G__5910;
+                continue;
+              }
+            } else {
+              return null;
+            }
+          }
+          break;
+        }
+      };
+    }(get_name);
+  };
+  var remove_listeners = function(var_args) {
+    var event_list = null;
+    if (arguments.length > 0) {
+      event_list = cljs.core.array_seq(Array.prototype.slice.call(arguments, 0), 0);
+    }
+    return remove_listeners__delegate.call(this, event_list);
+  };
+  remove_listeners.cljs$lang$maxFixedArity = 0;
+  remove_listeners.cljs$lang$applyTo = function(arglist__5911) {
+    var event_list = cljs.core.seq(arglist__5911);
+    return remove_listeners__delegate(event_list);
+  };
+  remove_listeners.cljs$core$IFn$_invoke$arity$variadic = remove_listeners__delegate;
+  return remove_listeners;
+}();
+enfocus.events.unlisten = function() {
+  var unlisten = null;
+  var unlisten__1 = function(event) {
+    return enfocus.events.remove_listeners.call(null, event);
+  };
+  var unlisten__2 = function(event, func) {
+    var wrapper = enfocus.events.wrapper_register.call(null, event);
+    return function(wrapper) {
+      return function(pnod) {
+        if (wrapper == null) {
+          return goog.events.unlisten(pnod, cljs.core.name.call(null, event), func);
+        } else {
+          return goog.events.unlistenWithWrapper(pnod, wrapper, func);
+        }
+      };
+    }(wrapper);
+  };
+  unlisten = function(event, func) {
+    switch(arguments.length) {
+      case 1:
+        return unlisten__1.call(this, event);
+      case 2:
+        return unlisten__2.call(this, event, func);
+    }
+    throw new Error("Invalid arity: " + arguments.length);
+  };
+  unlisten.cljs$core$IFn$_invoke$arity$1 = unlisten__1;
+  unlisten.cljs$core$IFn$_invoke$arity$2 = unlisten__2;
+  return unlisten;
+}();
+enfocus.events.get_node_chain = function get_node_chain(top, node) {
+  if (node == null || cljs.core._EQ_.call(null, node, top)) {
+    return cljs.core.List.EMPTY;
+  } else {
+    return cljs.core.conj.call(null, get_node_chain.call(null, top, node.parentNode), node);
+  }
+};
+enfocus.events.create_event = function create_event(cur, cur_event) {
+  var event = goog.object.clone(cur_event);
+  event.currentTarget = cur;
+  return event;
+};
+enfocus.events.listen_live = function listen_live(event, selector, func) {
+  return function(node) {
+    return enfocus.core.at.call(null, node, enfocus.events.listen.call(null, event, function(p1__5912_SHARP_) {
+      var seq__5917 = cljs.core.seq.call(null, enfocus.events.get_node_chain.call(null, node, p1__5912_SHARP_.target));
+      var chunk__5918 = null;
+      var count__5919 = 0;
+      var i__5920 = 0;
+      while (true) {
+        if (i__5920 < count__5919) {
+          var el = cljs.core._nth.call(null, chunk__5918, i__5920);
+          enfocus.core.at.call(null, el, enfocus.core.filter.call(null, enfocus.core.match_QMARK_.call(null, selector), function(seq__5917, chunk__5918, count__5919, i__5920, el) {
+            return function(node__$1) {
+              var event_copy = enfocus.events.create_event.call(null, el, p1__5912_SHARP_);
+              func.call(null, event_copy);
+              if (cljs.core.truth_(event_copy.defaultPrevented)) {
+                p1__5912_SHARP_.preventDefault();
+              } else {
+              }
+              if (cljs.core.truth_(event_copy.propagationStopped)) {
+                return p1__5912_SHARP_.stopPropagation();
+              } else {
+                return null;
+              }
+            };
+          }(seq__5917, chunk__5918, count__5919, i__5920, el)));
+          var G__5921 = seq__5917;
+          var G__5922 = chunk__5918;
+          var G__5923 = count__5919;
+          var G__5924 = i__5920 + 1;
+          seq__5917 = G__5921;
+          chunk__5918 = G__5922;
+          count__5919 = G__5923;
+          i__5920 = G__5924;
+          continue;
+        } else {
+          var temp__4126__auto__ = cljs.core.seq.call(null, seq__5917);
+          if (temp__4126__auto__) {
+            var seq__5917__$1 = temp__4126__auto__;
+            if (cljs.core.chunked_seq_QMARK_.call(null, seq__5917__$1)) {
+              var c__4294__auto__ = cljs.core.chunk_first.call(null, seq__5917__$1);
+              var G__5925 = cljs.core.chunk_rest.call(null, seq__5917__$1);
+              var G__5926 = c__4294__auto__;
+              var G__5927 = cljs.core.count.call(null, c__4294__auto__);
+              var G__5928 = 0;
+              seq__5917 = G__5925;
+              chunk__5918 = G__5926;
+              count__5919 = G__5927;
+              i__5920 = G__5928;
+              continue;
+            } else {
+              var el = cljs.core.first.call(null, seq__5917__$1);
+              enfocus.core.at.call(null, el, enfocus.core.filter.call(null, enfocus.core.match_QMARK_.call(null, selector), function(seq__5917, chunk__5918, count__5919, i__5920, el, seq__5917__$1, temp__4126__auto__) {
+                return function(node__$1) {
+                  var event_copy = enfocus.events.create_event.call(null, el, p1__5912_SHARP_);
+                  func.call(null, event_copy);
+                  if (cljs.core.truth_(event_copy.defaultPrevented)) {
+                    p1__5912_SHARP_.preventDefault();
+                  } else {
+                  }
+                  if (cljs.core.truth_(event_copy.propagationStopped)) {
+                    return p1__5912_SHARP_.stopPropagation();
+                  } else {
+                    return null;
+                  }
+                };
+              }(seq__5917, chunk__5918, count__5919, i__5920, el, seq__5917__$1, temp__4126__auto__)));
+              var G__5929 = cljs.core.next.call(null, seq__5917__$1);
+              var G__5930 = null;
+              var G__5931 = 0;
+              var G__5932 = 0;
+              seq__5917 = G__5929;
+              chunk__5918 = G__5930;
+              count__5919 = G__5931;
+              i__5920 = G__5932;
+              continue;
+            }
+          } else {
+            return null;
+          }
+        }
+        break;
+      }
+    }));
+  };
+};
+enfocus.events.child_of_QMARK_ = function child_of_QMARK_(parent, child) {
+  while (true) {
+    if (cljs.core.not.call(null, child)) {
+      return false;
+    } else {
+      if (parent === child) {
+        return false;
+      } else {
+        if (child.parentNode === parent) {
+          return true;
+        } else {
+          if (new cljs.core.Keyword(null, "else", "else", 1017020587)) {
+            var G__5933 = parent;
+            var G__5934 = child.parentNode;
+            parent = G__5933;
+            child = G__5934;
+            continue;
+          } else {
+            return null;
+          }
+        }
+      }
+    }
+    break;
+  }
+};
+enfocus.events.mouse_enter_leave = function mouse_enter_leave(func) {
+  return function(e) {
+    var re = e.relatedTarget;
+    var this$ = e.currentTarget;
+    if (!(re === this$) && !enfocus.events.child_of_QMARK_.call(null, this$, re)) {
+      return func.call(null, e);
+    } else {
+      return null;
+    }
+  };
+};
 goog.provide("kmg.client");
 goog.require("cljs.core");
+goog.require("enfocus.events");
 goog.require("ajax.core");
+goog.require("enfocus.core");
 goog.require("ajax.core");
+goog.require("enfocus.events");
+goog.require("enfocus.events");
 goog.require("enfocus.core");
 goog.require("enfocus.core");
 kmg.client.user = cljs.core.atom.call(null, new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "username", "username", 748190792), "user1"], null));
@@ -40245,15 +40615,15 @@ if (cljs.core.deref.call(null, enfocus.core.tpl_cache).call(null, "remotetmpl") 
 } else {
 }
 kmg.client.kmg_header = function kmg_header() {
-  var vec__5760 = function() {
+  var vec__6470 = function() {
     return enfocus.core.get_cached_snippet.call(null, "remotetmpl", ".kmg-header");
   }.call(null);
-  var id_sym5757 = cljs.core.nth.call(null, vec__5760, 0, null);
-  var pnod5758 = cljs.core.nth.call(null, vec__5760, 1, null);
-  var pnod5758__$1 = enfocus.core.create_hidden_dom.call(null, pnod5758);
-  enfocus.core.i_at.call(null, id_sym5757, pnod5758__$1);
-  enfocus.core.reset_ids.call(null, id_sym5757, pnod5758__$1);
-  return enfocus.core.remove_node_return_child.call(null, pnod5758__$1);
+  var id_sym6467 = cljs.core.nth.call(null, vec__6470, 0, null);
+  var pnod6468 = cljs.core.nth.call(null, vec__6470, 1, null);
+  var pnod6468__$1 = enfocus.core.create_hidden_dom.call(null, pnod6468);
+  enfocus.core.i_at.call(null, id_sym6467, pnod6468__$1);
+  enfocus.core.reset_ids.call(null, id_sym6467, pnod6468__$1);
+  return enfocus.core.remove_node_return_child.call(null, pnod6468__$1);
 };
 enfocus.core.load_remote_dom.call(null, kmg.client.tmpl, "remotetmpl", "en5614_");
 if (cljs.core.deref.call(null, enfocus.core.tpl_cache).call(null, "remotetmpl") == null) {
@@ -40261,15 +40631,15 @@ if (cljs.core.deref.call(null, enfocus.core.tpl_cache).call(null, "remotetmpl") 
 } else {
 }
 kmg.client.kmg_content = function kmg_content() {
-  var vec__5764 = function() {
+  var vec__6474 = function() {
     return enfocus.core.get_cached_snippet.call(null, "remotetmpl", "#content");
   }.call(null);
-  var id_sym5761 = cljs.core.nth.call(null, vec__5764, 0, null);
-  var pnod5762 = cljs.core.nth.call(null, vec__5764, 1, null);
-  var pnod5762__$1 = enfocus.core.create_hidden_dom.call(null, pnod5762);
-  enfocus.core.i_at.call(null, id_sym5761, pnod5762__$1);
-  enfocus.core.reset_ids.call(null, id_sym5761, pnod5762__$1);
-  return enfocus.core.remove_node_return_child.call(null, pnod5762__$1);
+  var id_sym6471 = cljs.core.nth.call(null, vec__6474, 0, null);
+  var pnod6472 = cljs.core.nth.call(null, vec__6474, 1, null);
+  var pnod6472__$1 = enfocus.core.create_hidden_dom.call(null, pnod6472);
+  enfocus.core.i_at.call(null, id_sym6471, pnod6472__$1);
+  enfocus.core.reset_ids.call(null, id_sym6471, pnod6472__$1);
+  return enfocus.core.remove_node_return_child.call(null, pnod6472__$1);
 };
 enfocus.core.load_remote_dom.call(null, kmg.client.tmpl, "remotetmpl", "en5614_");
 if (cljs.core.deref.call(null, enfocus.core.tpl_cache).call(null, "remotetmpl") == null) {
@@ -40277,15 +40647,15 @@ if (cljs.core.deref.call(null, enfocus.core.tpl_cache).call(null, "remotetmpl") 
 } else {
 }
 kmg.client.kmg_sidebar = function kmg_sidebar() {
-  var vec__5768 = function() {
+  var vec__6478 = function() {
     return enfocus.core.get_cached_snippet.call(null, "remotetmpl", "#sidebar");
   }.call(null);
-  var id_sym5765 = cljs.core.nth.call(null, vec__5768, 0, null);
-  var pnod5766 = cljs.core.nth.call(null, vec__5768, 1, null);
-  var pnod5766__$1 = enfocus.core.create_hidden_dom.call(null, pnod5766);
-  enfocus.core.i_at.call(null, id_sym5765, pnod5766__$1);
-  enfocus.core.reset_ids.call(null, id_sym5765, pnod5766__$1);
-  return enfocus.core.remove_node_return_child.call(null, pnod5766__$1);
+  var id_sym6475 = cljs.core.nth.call(null, vec__6478, 0, null);
+  var pnod6476 = cljs.core.nth.call(null, vec__6478, 1, null);
+  var pnod6476__$1 = enfocus.core.create_hidden_dom.call(null, pnod6476);
+  enfocus.core.i_at.call(null, id_sym6475, pnod6476__$1);
+  enfocus.core.reset_ids.call(null, id_sym6475, pnod6476__$1);
+  return enfocus.core.remove_node_return_child.call(null, pnod6476__$1);
 };
 enfocus.core.load_remote_dom.call(null, kmg.client.tmpl, "remotetmpl", "en5614_");
 if (cljs.core.deref.call(null, enfocus.core.tpl_cache).call(null, "remotetmpl") == null) {
@@ -40293,21 +40663,21 @@ if (cljs.core.deref.call(null, enfocus.core.tpl_cache).call(null, "remotetmpl") 
 } else {
 }
 kmg.client.user_choose_elem = function user_choose_elem(user) {
-  var vec__5772 = function() {
+  var vec__6482 = function() {
     return enfocus.core.get_cached_snippet.call(null, "remotetmpl", ".user-option-id");
   }.call(null);
-  var id_sym5769 = cljs.core.nth.call(null, vec__5772, 0, null);
-  var pnod5770 = cljs.core.nth.call(null, vec__5772, 1, null);
-  var pnod5770__$1 = enfocus.core.create_hidden_dom.call(null, pnod5770);
-  enfocus.core.i_at.call(null, id_sym5769, pnod5770__$1, ".user-option-id", enfocus.core.do__GT_.call(null, enfocus.core.content.call(null, user), enfocus.core.set_attr.call(null, new cljs.core.Keyword(null, "value", "value", 1125876963), user)));
-  enfocus.core.reset_ids.call(null, id_sym5769, pnod5770__$1);
-  return enfocus.core.remove_node_return_child.call(null, pnod5770__$1);
+  var id_sym6479 = cljs.core.nth.call(null, vec__6482, 0, null);
+  var pnod6480 = cljs.core.nth.call(null, vec__6482, 1, null);
+  var pnod6480__$1 = enfocus.core.create_hidden_dom.call(null, pnod6480);
+  enfocus.core.i_at.call(null, id_sym6479, pnod6480__$1, ".user-option-id", enfocus.core.do__GT_.call(null, enfocus.core.content.call(null, user), enfocus.core.set_attr.call(null, new cljs.core.Keyword(null, "value", "value", 1125876963), user)));
+  enfocus.core.reset_ids.call(null, id_sym6479, pnod6480__$1);
+  return enfocus.core.remove_node_return_child.call(null, pnod6480__$1);
 };
-kmg.client.error_handler = function error_handler(p__5773) {
-  var map__5775 = p__5773;
-  var map__5775__$1 = cljs.core.seq_QMARK_.call(null, map__5775) ? cljs.core.apply.call(null, cljs.core.hash_map, map__5775) : map__5775;
-  var status_text = cljs.core.get.call(null, map__5775__$1, new cljs.core.Keyword(null, "status-text", "status-text", 4371493274));
-  var status = cljs.core.get.call(null, map__5775__$1, new cljs.core.Keyword(null, "status", "status", 4416389988));
+kmg.client.error_handler = function error_handler(p__6483) {
+  var map__6485 = p__6483;
+  var map__6485__$1 = cljs.core.seq_QMARK_.call(null, map__6485) ? cljs.core.apply.call(null, cljs.core.hash_map, map__6485) : map__6485;
+  var status_text = cljs.core.get.call(null, map__6485__$1, new cljs.core.Keyword(null, "status-text", "status-text", 4371493274));
+  var status = cljs.core.get.call(null, map__6485__$1, new cljs.core.Keyword(null, "status", "status", 4416389988));
   return console.log("somthing bad happened: " + cljs.core.str.cljs$core$IFn$_invoke$arity$1(status) + " " + cljs.core.str.cljs$core$IFn$_invoke$arity$1(status_text));
 };
 kmg.client.show_user_choose = function show_user_choose(users) {
@@ -40316,9 +40686,15 @@ kmg.client.show_user_choose = function show_user_choose(users) {
 kmg.client.try_get_users = function try_get_users() {
   return ajax.core.GET.call(null, "/user/list", new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null, "handler", "handler", 1706707644), kmg.client.show_user_choose, new cljs.core.Keyword(null, "error-handler", "error-handler", 1866823671), kmg.client.error_handler], null));
 };
+kmg.client.observe_change_user = function observe_change_user() {
+  return enfocus.core.at.call(null, document, new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, ["#users-id"], null), enfocus.events.listen.call(null, new cljs.core.Keyword(null, "change", "change", 3947235106), function() {
+    return cljs.core.reset_BANG_.call(null, kmg.client.user, new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "username", "username", 748190792), enfocus.core.from.call(null, "#users-id", enfocus.core.get_prop.call(null, new cljs.core.Keyword(null, "value", "value", 1125876963)))], null)).call(null);
+  }));
+};
 kmg.client.start = function start() {
   enfocus.core.at.call(null, ".container", enfocus.core.do__GT_.call(null, enfocus.core.content.call(null, kmg.client.kmg_header.call(null)), enfocus.core.append.call(null, kmg.client.kmg_content.call(null)), enfocus.core.append.call(null, kmg.client.kmg_sidebar.call(null))));
-  return kmg.client.try_get_users.call(null);
+  kmg.client.try_get_users.call(null);
+  return kmg.client.observe_change_user.call(null);
 };
 window.onload = function() {
   return enfocus.core.setTimeout.call(null, function check__4610__auto__() {
