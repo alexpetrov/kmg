@@ -40244,95 +40244,64 @@ if (cljs.core.deref.call(null, enfocus.core.tpl_cache).call(null, "remotetmpl") 
 } else {
 }
 kmg.client.kmg_header = function kmg_header() {
-  var vec__29160 = function() {
+  var vec__29863 = function() {
     return enfocus.core.get_cached_snippet.call(null, "remotetmpl", ".kmg-header");
   }.call(null);
-  var id_sym29157 = cljs.core.nth.call(null, vec__29160, 0, null);
-  var pnod29158 = cljs.core.nth.call(null, vec__29160, 1, null);
-  var pnod29158__$1 = enfocus.core.create_hidden_dom.call(null, pnod29158);
-  enfocus.core.i_at.call(null, id_sym29157, pnod29158__$1);
-  enfocus.core.reset_ids.call(null, id_sym29157, pnod29158__$1);
-  return enfocus.core.remove_node_return_child.call(null, pnod29158__$1);
+  var id_sym29860 = cljs.core.nth.call(null, vec__29863, 0, null);
+  var pnod29861 = cljs.core.nth.call(null, vec__29863, 1, null);
+  var pnod29861__$1 = enfocus.core.create_hidden_dom.call(null, pnod29861);
+  enfocus.core.i_at.call(null, id_sym29860, pnod29861__$1);
+  enfocus.core.reset_ids.call(null, id_sym29860, pnod29861__$1);
+  return enfocus.core.remove_node_return_child.call(null, pnod29861__$1);
 };
 enfocus.core.load_remote_dom.call(null, kmg.client.tmpl, "remotetmpl", "en5614_");
 if (cljs.core.deref.call(null, enfocus.core.tpl_cache).call(null, "remotetmpl") == null) {
   cljs.core.swap_BANG_.call(null, enfocus.core.tpl_cache, cljs.core.assoc, "remotetmpl", new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, ["", "NOT_LOADED"], null));
 } else {
 }
-kmg.client.user_choose = function user_choose(users) {
-  var vec__29168 = function() {
-    return enfocus.core.get_cached_snippet.call(null, "remotetmpl", "#user-choose");
+kmg.client.kmg_content = function kmg_content() {
+  var vec__29867 = function() {
+    return enfocus.core.get_cached_snippet.call(null, "remotetmpl", "#content");
   }.call(null);
-  var id_sym29161 = cljs.core.nth.call(null, vec__29168, 0, null);
-  var pnod29162 = cljs.core.nth.call(null, vec__29168, 1, null);
-  var pnod29162__$1 = enfocus.core.create_hidden_dom.call(null, pnod29162);
-  enfocus.core.i_at.call(null, id_sym29161, pnod29162__$1, ".user-option-id", function(vec__29168, id_sym29161, pnod29162, pnod29162__$1) {
-    return function(pnod__4616__auto__) {
-      var div__4617__auto__ = enfocus.core.create_hidden_dom.call(null, document.createDocumentFragment());
-      var seq__29169_29173 = cljs.core.seq.call(null, users);
-      var chunk__29170_29174 = null;
-      var count__29171_29175 = 0;
-      var i__29172_29176 = 0;
-      while (true) {
-        if (i__29172_29176 < count__29171_29175) {
-          var user_29177 = cljs.core._nth.call(null, chunk__29170_29174, i__29172_29176);
-          enfocus.core.at.call(null, div__4617__auto__, enfocus.core.append.call(null, pnod__4616__auto__.cloneNode(true)));
-          enfocus.core.at.call(null, enfocus.core.last_element_child.call(null, div__4617__auto__), enfocus.core.do__GT_.call(null, enfocus.core.content.call(null, user_29177), enfocus.core.set_attr.call(null, new cljs.core.Keyword(null, "value", "value", 1125876963), user_29177)));
-          var G__29178 = seq__29169_29173;
-          var G__29179 = chunk__29170_29174;
-          var G__29180 = count__29171_29175;
-          var G__29181 = i__29172_29176 + 1;
-          seq__29169_29173 = G__29178;
-          chunk__29170_29174 = G__29179;
-          count__29171_29175 = G__29180;
-          i__29172_29176 = G__29181;
-          continue;
-        } else {
-          var temp__4126__auto___29182 = cljs.core.seq.call(null, seq__29169_29173);
-          if (temp__4126__auto___29182) {
-            var seq__29169_29183__$1 = temp__4126__auto___29182;
-            if (cljs.core.chunked_seq_QMARK_.call(null, seq__29169_29183__$1)) {
-              var c__4294__auto___29184 = cljs.core.chunk_first.call(null, seq__29169_29183__$1);
-              var G__29185 = cljs.core.chunk_rest.call(null, seq__29169_29183__$1);
-              var G__29186 = c__4294__auto___29184;
-              var G__29187 = cljs.core.count.call(null, c__4294__auto___29184);
-              var G__29188 = 0;
-              seq__29169_29173 = G__29185;
-              chunk__29170_29174 = G__29186;
-              count__29171_29175 = G__29187;
-              i__29172_29176 = G__29188;
-              continue;
-            } else {
-              var user_29189 = cljs.core.first.call(null, seq__29169_29183__$1);
-              enfocus.core.at.call(null, div__4617__auto__, enfocus.core.append.call(null, pnod__4616__auto__.cloneNode(true)));
-              enfocus.core.at.call(null, enfocus.core.last_element_child.call(null, div__4617__auto__), enfocus.core.do__GT_.call(null, enfocus.core.content.call(null, user_29189), enfocus.core.set_attr.call(null, new cljs.core.Keyword(null, "value", "value", 1125876963), user_29189)));
-              var G__29190 = cljs.core.next.call(null, seq__29169_29183__$1);
-              var G__29191 = null;
-              var G__29192 = 0;
-              var G__29193 = 0;
-              seq__29169_29173 = G__29190;
-              chunk__29170_29174 = G__29191;
-              count__29171_29175 = G__29192;
-              i__29172_29176 = G__29193;
-              continue;
-            }
-          } else {
-          }
-        }
-        break;
-      }
-      enfocus.core.log_debug.call(null, div__4617__auto__);
-      return enfocus.core.at.call(null, pnod__4616__auto__, enfocus.core.do__GT_.call(null, enfocus.core.after.call(null, enfocus.core.remove_node_return_child.call(null, div__4617__auto__)), enfocus.core.remove_node.call(null)));
-    };
-  }(vec__29168, id_sym29161, pnod29162, pnod29162__$1));
-  enfocus.core.reset_ids.call(null, id_sym29161, pnod29162__$1);
-  return enfocus.core.remove_node_return_child.call(null, pnod29162__$1);
+  var id_sym29864 = cljs.core.nth.call(null, vec__29867, 0, null);
+  var pnod29865 = cljs.core.nth.call(null, vec__29867, 1, null);
+  var pnod29865__$1 = enfocus.core.create_hidden_dom.call(null, pnod29865);
+  enfocus.core.i_at.call(null, id_sym29864, pnod29865__$1);
+  enfocus.core.reset_ids.call(null, id_sym29864, pnod29865__$1);
+  return enfocus.core.remove_node_return_child.call(null, pnod29865__$1);
+};
+enfocus.core.load_remote_dom.call(null, kmg.client.tmpl, "remotetmpl", "en5614_");
+if (cljs.core.deref.call(null, enfocus.core.tpl_cache).call(null, "remotetmpl") == null) {
+  cljs.core.swap_BANG_.call(null, enfocus.core.tpl_cache, cljs.core.assoc, "remotetmpl", new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, ["", "NOT_LOADED"], null));
+} else {
+}
+kmg.client.user_choose_elem = function user_choose_elem(user) {
+  var vec__29871 = function() {
+    return enfocus.core.get_cached_snippet.call(null, "remotetmpl", ".user-option-id");
+  }.call(null);
+  var id_sym29868 = cljs.core.nth.call(null, vec__29871, 0, null);
+  var pnod29869 = cljs.core.nth.call(null, vec__29871, 1, null);
+  var pnod29869__$1 = enfocus.core.create_hidden_dom.call(null, pnod29869);
+  enfocus.core.i_at.call(null, id_sym29868, pnod29869__$1, ".user-option-id", enfocus.core.do__GT_.call(null, enfocus.core.content.call(null, user), enfocus.core.set_attr.call(null, new cljs.core.Keyword(null, "value", "value", 1125876963), user)));
+  enfocus.core.reset_ids.call(null, id_sym29868, pnod29869__$1);
+  return enfocus.core.remove_node_return_child.call(null, pnod29869__$1);
+};
+kmg.client.error_handler = function error_handler(p__29872) {
+  var map__29874 = p__29872;
+  var map__29874__$1 = cljs.core.seq_QMARK_.call(null, map__29874) ? cljs.core.apply.call(null, cljs.core.hash_map, map__29874) : map__29874;
+  var status_text = cljs.core.get.call(null, map__29874__$1, new cljs.core.Keyword(null, "status-text", "status-text", 4371493274));
+  var status = cljs.core.get.call(null, map__29874__$1, new cljs.core.Keyword(null, "status", "status", 4416389988));
+  return console.log("somthing bad happened: " + cljs.core.str.cljs$core$IFn$_invoke$arity$1(status) + " " + cljs.core.str.cljs$core$IFn$_invoke$arity$1(status_text));
+};
+kmg.client.show_user_choose = function show_user_choose(users) {
+  return enfocus.core.at.call(null, "#users-id", enfocus.core.content.call(null, cljs.core.map.call(null, kmg.client.user_choose_elem, users)));
 };
 kmg.client.try_get_users = function try_get_users() {
-  return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, ["user1", "user2"], null);
+  return ajax.core.GET.call(null, "/user/list", new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null, "handler", "handler", 1706707644), kmg.client.show_user_choose, new cljs.core.Keyword(null, "error-handler", "error-handler", 1866823671), kmg.client.error_handler], null));
 };
 kmg.client.start = function start() {
-  return enfocus.core.at.call(null, ".container", enfocus.core.do__GT_.call(null, enfocus.core.content.call(null, kmg.client.kmg_header.call(null)), enfocus.core.append.call(null, kmg.client.user_choose.call(null, kmg.client.try_get_users.call(null)))));
+  enfocus.core.at.call(null, ".container", enfocus.core.do__GT_.call(null, enfocus.core.content.call(null, kmg.client.kmg_header.call(null)), enfocus.core.append.call(null, kmg.client.kmg_content.call(null))));
+  return kmg.client.try_get_users.call(null);
 };
 window.onload = function() {
   return enfocus.core.setTimeout.call(null, function check__4610__auto__() {

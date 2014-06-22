@@ -7,18 +7,28 @@
 (def tmpl "/html/kmg.html")
 
 (em/defsnippet kmg-header tmpl ".kmg-header" [])
-(em/defsnippet user-choose tmpl "#user-choose" [users]
-  ".user-option-id" (em/clone-for [user users]
-                        (ef/do-> (ef/content user)
-                                 (ef/set-attr :value user))))
+(em/defsnippet kmg-content tmpl "#content" [])
+
+(em/defsnippet user-choose-elem tmpl [user]
+  ".user-option-id" (ef/do-> (ef/content user)
+                                 (ef/set-attr :value user)))
+
+(defn error-handler [{:keys [status status-text]}]
+  (.log js/console (str "somthing bad happened: " status " " status-text)))
+
+;; TODO: How to avoid blinking of sample value for select?
+(defn show-user-choose [users]
+  (ef/at "#users-id" (ef/content (map user-choose-elem users))))
 
 (defn try-get-users []
-  ["user1" "user2"])
+  (GET "/user/list" {:handler show-user-choose
+                     :error-handler error-handler}))
 
 (defn start []
   (ef/at ".container"
          (ef/do-> (ef/content (kmg-header))
-                  (ef/append (user-choose (try-get-users))))))
+                  (ef/append (kmg-content))))
+  (try-get-users))
 
 (set! (.-onload js/window) #(em/wait-for-load (start)))
 
