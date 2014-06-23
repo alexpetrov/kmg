@@ -1,6 +1,7 @@
 (ns kmg.core
   (:require [compojure.route :as route]
-            [clojure.java.io :as io])
+            [clojure.java.io :as io]
+            [kmg.domain :as model])
   (:use compojure.core
         compojure.handler
         ring.middleware.edn
@@ -12,7 +13,7 @@
    :body (pr-str data)})
 
 (defn user-list []
-  (response ["user1" "user2"]))
+  (response (model/users)))
 
 (defroutes user-routes
   (GET "/list" [] (user-list)))
