@@ -12,20 +12,31 @@
    :headers {"Content-Type" "application/edn"}
    :body (pr-str data)})
 
+(defn recommendations-stub [user]
+  [{:media/id "book1" :media/title (str "book1 for " user)}
+    {:media/id "book2" :media/title (str "book2 for " user)}])
+
+(defn recommendations [user]
+  (response (recommendations-stub user)))
+
 (defn user-list []
   (response (model/users)))
+
+(defroutes recommendation-routes
+  (GET "/list/:user" [user] (recommendations user)))
 
 (defroutes user-routes
   (GET "/list" [] (user-list)))
 
 (defroutes compojure-handler
   (GET "/" [] (slurp (io/resource "public/html/index.html")))
+
+  (context "/recommendation" [] recommendation-routes)
+
   (context "/user" [] user-routes)
   (GET "/req" request (str request))
   (route/resources "/")
-  #_(route/files "/" {:root (config :external-resources)})
   (route/not-found "Not found!"))
-
 
 (def app
   (-> compojure-handler
