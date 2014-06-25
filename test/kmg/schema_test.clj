@@ -8,7 +8,6 @@
    kmg.schema
    clojure.test))
 
-
 (def uri "datomic:mem://test")
 (defn fresh-conn []
   (d/delete-database uri)
@@ -187,64 +186,6 @@
   (is (= (attr-spec :feedback/complete)
          [:db.type/boolean :db.cardinality/one])))
 
-(defn every-first [v]
-  (for [elem v] (first elem)))
-
-
-(defn recommendations-comleted-by-user [db user]
-  (->> (d/q '[:find ?id
-         :in $ ?uid
-         :where
-         [?uid :user/name ?user]
-         [?uid :user/goal ?sid]
-         [?id :recommendation/specialization ?sid]
-         [?id :recommendation/priority ?priority]
-;;       [?id :recommendation/media ?mid]
-         [?id :recommendation/id ?rid]
-;;         [?completed_rec_id :recommendation/id ?rid]
-
-         [?fid :feedback/user ?uid]
-         [?fid :feedback/recommendation ?id]
-         [?fid :feedback.comment/text ?comment]
-         [?fid :feedback/complete true]
-
-;;         [?mid :media/id ?media_id]
-         ]
-       db [:user/name user])
-       (every-first)
-       set))
-
-;;(before #(recommendations-comleted-by-user (db) "user1"))
-;;(before #(recommendations (db) "spec1"))
-(defn recommendations-for-user [db user]
-  (->> (d/q '[:find ?id (max ?priority)
-         :in $ ?uid
-         :where
-         [?uid :user/name ?user]
-         [?uid :user/goal ?sid]
-         [?id :recommendation/specialization ?sid]
-         [?id :recommendation/priority ?priority]
-;;         [?id :recommendation/media ?mid]
-;;         [?id :recommendation/id ?rid]
-;;         [?completed_rec_id :recommendation/id ?rid]
-
-;;         [?mid :media/id ?media_id]
-         ]
-       db [:user/name user])
-  (every-first)
-  set))
-;;(before #(recommendations-for-user (db) "user1"))
-
-;; (every-first [[17592186045432 1000] [17592186045433 900] [17592186045434 800]])
-;; TODO: Here must be more elegant implementation than diff, or more speedy
-(use 'clojure.data)
-(defn recommendations [db user]
-  (let [recs (recommendations-for-user db user)
-        completed (recommendations-comleted-by-user db user)]
-    (first (diff recs completed))))
-
-;; (before #(recommendations (db) "user1"))
-
 (deftest test-kmg-sample-data
   (is (= (d/q '[:find ?name
                 :where
@@ -264,8 +205,6 @@
                (db))
          #{["book2_title"] ["book3_title"] ["book1_title"] ["book4_title"]}))
 
-  #_(is (= (recommendations (db) "user1")
-         #{["book1"] ["book2"] ["book3"]}))
   (print (d/touch (d/entity (db) [:specialization/id "spec1"])))
  (is (= (:specialization/title (d/touch (d/entity (db) [:specialization/id "spec1"]))) "spec1_title"))
 
