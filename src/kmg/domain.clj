@@ -61,17 +61,40 @@
 ;;         [?id :recommendation/id ?rid]
 ;;         [?completed_rec_id :recommendation/id ?rid]
 
-;;         [?mid :media/id ?media_id]
+         [?mid :media/id ?media_id]
          ]
        db [:user/name user])
   (every-first)
   set))
 ;;(before #(recommendations-for-user (db) "user1"))
 
-(defn recommendations [db user]
+(defn recommendation-ids [db user]
   (let [recs (recommendations-for-user db user)
         completed (recommendations-comleted-by-user db user)]
     (first (diff recs completed))))
 
-;; (recommendations (db) "user1")
+;; (recommendation-ids (db) "user2")
 ;; (before #(recommendations (db) "user1"))
+
+(defn media-id-by-recommendation-id [db recommend-id]
+  (ffirst (d/q '[:find ?mid
+              :in $ ?rid
+              :where
+              [?rid :recommendation/media ?mid]]
+            db recommend-id)))
+
+;;(media-id-by-recommendation-id (db) 17592186045434)
+
+(defn entity [db id]
+  (d/touch (d/entity db id)))
+;; (entity (db) 17592186045434)
+;; (entity (db) 17592186045429)
+
+
+(defn recommendations [user]
+  (let [db (db)
+        recommend-ids (recommendation-ids db user)]
+    (for [rid recommend-ids]
+       {:recommendation (entity db rid) :media (entity db (media-id-by-recommendation-id db rid))})))
+
+;;(recommendations "user2")

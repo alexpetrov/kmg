@@ -17,9 +17,9 @@
   ".user-option-id" (ef/do-> (ef/content user)
                              (ef/set-attr :value user)))
 
-(em/defsnippet recommendation tmpl ".recommendation" [recommendation]
-  "#recommendation-title" (ef/content (:media/title recommendation))
-  "#recommendation-description" (ef/content (:media/id recommendation)))
+(em/defsnippet recommendation tmpl ".recommendation" [{:keys [recommendation media]}]
+  "#recommendation-title" (ef/content (:media/title media))
+  "#recommendation-description" (ef/content (:recommendation/description recommendation)))
 
 (defn error-handler [{:keys [status status-text]}]
   (.log js/console (str "somthing bad happened: " status " " status-text)))

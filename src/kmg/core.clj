@@ -17,7 +17,7 @@
     {:media/id "book2" :media/title (str "book2 for " user)}])
 
 (defn recommendations [user]
-  (response (recommendations-stub user)))
+  (response (model/recommendations user)))
 
 (defn user-list []
   (response (model/users)))
