@@ -7,8 +7,8 @@
 
 (def db-url (config :db :url))
 
-(def conn (d/connect db-url))
-(defn db [] (d/db conn))
+(defn conn [] (d/connect db-url))
+(defn db [] (d/db (conn)))
 
 (defn every-first [v]
   (for [elem v] (first elem)))
@@ -47,8 +47,6 @@
        (every-first)
        set))
 
-;;(before #(recommendations-comleted-by-user (db) "user1"))
-;;(before #(recommendations (db) "spec1"))
 (defn recommendations-for-user [db user]
   (->> (d/q '[:find ?id (max ?priority)
          :in $ ?uid
@@ -94,7 +92,10 @@
 (defn recommendations [user]
   (let [db (db)
         recommend-ids (recommendation-ids db user)]
-    (for [rid recommend-ids]
+    (into [] (for [rid recommend-ids]
+       {:user user :recommendation (entity db rid) :media (entity db (media-id-by-recommendation-id db rid))}))
+    #_(for [rid recommend-ids]
        {:recommendation (entity db rid) :media (entity db (media-id-by-recommendation-id db rid))})))
 
+;;(recommendations "user1")
 ;;(recommendations "user2")

@@ -5,7 +5,7 @@
             [ajax.core :refer [GET POST]])
   (:require-macros [enfocus.macros :as em]))
 
-(def user (atom {:username "default"}))
+(def user (atom {:username "user2"}))
 
 (def tmpl "/html/kmg.html")
 
@@ -17,9 +17,11 @@
   ".user-option-id" (ef/do-> (ef/content user)
                              (ef/set-attr :value user)))
 
-(em/defsnippet recommendation tmpl ".recommendation" [{:keys [recommendation media]}]
+(em/defsnippet recommendation tmpl ".recommendation" [{:keys [recommendation media user]}]
   "#recommendation-title" (ef/content (:media/title media))
-  "#recommendation-description" (ef/content (:recommendation/description recommendation)))
+  "#recommendation-description" (ef/content
+     (str (:recommendation/description recommendation)
+          " Necessary: " (:recommendation/necessary recommendation) " " user)))
 
 (defn error-handler [{:keys [status status-text]}]
   (.log js/console (str "somthing bad happened: " status " " status-text)))
@@ -44,6 +46,7 @@
   ["#users-id"]
   (events/listen :change
                  #((do (reset! user {:username (ef/from "#users-id" (get-prop :value))})
+                       #_(js/alert (str "Before try load recommendations for user: " @user))
                        (try-load-recommendations)
                        #_(js/alert (str "User changed. Current user: " @user))))))
 

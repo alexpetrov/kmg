@@ -10,14 +10,15 @@
 
 (d/create-database db-url)
 
-(def conn (d/connect db-url))
-(defn db [] (d/db conn))
+(defn conn [] (d/connect db-url))
+(defn db [] (d/db (conn)))
 
 (defn reset []
   (d/release conn)
   (d/delete-database db-url)
   (d/create-database db-url)
-  (alter-var-root #'conn (constantly (d/connect db-url)))
+
+  #_(alter-var-root #'conn (constantly (d/connect db-url)))
   @(d/transact conn kmg-schema))
 
 (defn import-knowledge-base-data [data-path]
