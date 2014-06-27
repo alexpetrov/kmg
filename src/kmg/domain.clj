@@ -24,55 +24,51 @@
 
 ;; (every-first #{["user2"] ["user1"]})
 
+(defn sort-by-second [coll]
+  (sort #(- (compare (last %1) (last %2))) coll))
+;; (sort-by-second [[1 200] [3 400] [2 300]])
+
 (defn recommendations-comleted-by-user [db user]
-  (->> (d/q '[:find ?id
+  (->> (d/q '[:find ?id ?priority
          :in $ ?uid
          :where
          [?uid :user/name ?user]
          [?uid :user/goal ?sid]
          [?id :recommendation/specialization ?sid]
          [?id :recommendation/priority ?priority]
-;;       [?id :recommendation/media ?mid]
          [?id :recommendation/id ?rid]
-;;         [?completed_rec_id :recommendation/id ?rid]
-
          [?fid :feedback/user ?uid]
          [?fid :feedback/recommendation ?id]
          [?fid :feedback.comment/text ?comment]
-         [?fid :feedback/complete true]
-
-;;         [?mid :media/id ?media_id]
-         ]
+         [?fid :feedback/complete true]]
        db [:user/name user])
+       (sort-by-second)
        (every-first)
-       set))
+       ))
 
 (defn recommendations-for-user [db user]
-  (->> (d/q '[:find ?id (max ?priority)
+  (->> (d/q '[:find ?id ?priority
          :in $ ?uid
          :where
          [?uid :user/name ?user]
          [?uid :user/goal ?sid]
          [?id :recommendation/specialization ?sid]
          [?id :recommendation/priority ?priority]
-;;         [?id :recommendation/media ?mid]
-;;         [?id :recommendation/id ?rid]
-;;         [?completed_rec_id :recommendation/id ?rid]
-
-         [?mid :media/id ?media_id]
-         ]
+         [?mid :media/id ?media_id]]
        db [:user/name user])
+  (sort-by-second)
   (every-first)
-  set))
-;;(before #(recommendations-for-user (db) "user1"))
+  ))
 
 (defn recommendation-ids [db user]
   (let [recs (recommendations-for-user db user)
         completed (recommendations-comleted-by-user db user)]
-    (first (diff recs completed))))
+    (->> (diff recs completed)
+         (first)
+         (filter identity))))
 
+;; (recommendation-ids (db) "user1")
 ;; (recommendation-ids (db) "user2")
-;; (before #(recommendations (db) "user1"))
 
 (defn media-id-by-recommendation-id [db recommend-id]
   (ffirst (d/q '[:find ?mid
@@ -92,10 +88,8 @@
 (defn recommendations [user]
   (let [db (db)
         recommend-ids (recommendation-ids db user)]
-    (into [] (for [rid recommend-ids]
-       {:user user :recommendation (entity db rid) :media (entity db (media-id-by-recommendation-id db rid))}))
-    #_(for [rid recommend-ids]
-       {:recommendation (entity db rid) :media (entity db (media-id-by-recommendation-id db rid))})))
+    (map (fn [rid] {:user user :recommendation (entity db rid) :media (entity db (media-id-by-recommendation-id db rid))}) recommend-ids)))
+
 
 ;;(recommendations "user1")
 ;;(recommendations "user2")
