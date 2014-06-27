@@ -21,7 +21,8 @@
   "#recommendation-title" (ef/content (:media/title media))
   "#recommendation-description" (ef/content
      (str (:recommendation/description recommendation)
-          " Necessary: " (:recommendation/necessary recommendation) " " user)))
+          " Necessary: " (:recommendation/necessary recommendation) " " user " Priority: " (:recommendation/priority recommendation))
+     ))
 
 (defn error-handler [{:keys [status status-text]}]
   (.log js/console (str "somthing bad happened: " status " " status-text)))

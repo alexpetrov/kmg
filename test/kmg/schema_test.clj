@@ -203,7 +203,7 @@
                 :where
                 [?id :media/title ?title]]
                (db))
-         #{["book2_title"] ["book3_title"] ["book1_title"] ["book4_title"]}))
+         #{["book2_title"] ["book3_title"] ["book1_title"] ["book4_title"] ["book5_title"]}))
 
   (print (d/touch (d/entity (db) [:specialization/id "spec1"])))
  (is (= (:specialization/title (d/touch (d/entity (db) [:specialization/id "spec1"]))) "spec1_title"))
