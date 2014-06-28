@@ -14,23 +14,23 @@
 (defn db [] (d/db (conn)))
 
 (defn reset []
-  (d/release conn)
+  (d/release (conn))
   (d/delete-database db-url)
   (d/create-database db-url)
 
   #_(alter-var-root #'conn (constantly (d/connect db-url)))
-  @(d/transact conn kmg-schema))
+  @(d/transact (conn) kmg-schema))
 
 (defn import-knowledge-base-data [data-path]
   (let [sample-data (read-string (slurp data-path))]
-    @(d/transact conn (:specializations sample-data))
-    @(d/transact conn (:media sample-data))
-    @(d/transact conn (:recommendations sample-data))))
+    @(d/transact (conn) (:specializations sample-data))
+    @(d/transact (conn) (:media sample-data))
+    @(d/transact (conn) (:recommendations sample-data))))
 
 (defn import-sample-users-data [data-path]
   (let [sample-data (read-string (slurp data-path))]
-    @(d/transact conn (:users sample-data))
-    @(d/transact conn (:feedback sample-data))))
+    @(d/transact (conn) (:users sample-data))
+    @(d/transact (conn) (:feedback sample-data))))
 
 ;;(config :sample-data-path)
 

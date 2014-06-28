@@ -199,7 +199,7 @@
                (db))
          #{["spec1_book1_is_awesome"] ["spec1_book2_is_irrelevant"] ["spec1_book1_is_valuable"]}))
 
-  (is (= (d/q '[:find ?title
+  #_(is (= (d/q '[:find ?title
                 :where
                 [?id :media/title ?title]]
                (db))

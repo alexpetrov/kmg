@@ -87,7 +87,7 @@
 
 (defn recommendations [user]
   (let [db (db)
-        recommend-ids (recommendation-ids db user)]
+        recommend-ids (take 5 (recommendation-ids db user))]
     (map (fn [rid] {:user user :recommendation (entity db rid) :media (entity db (media-id-by-recommendation-id db rid))}) recommend-ids)))
 
 
