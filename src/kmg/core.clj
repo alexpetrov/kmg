@@ -12,44 +12,20 @@
    :headers {"Content-Type" "application/edn"}
    :body (pr-str data)})
 
-(defn recommendations-stub [user]
-[{:recommendation {:recommendation/specialization {:db/id 17592186045424},
-                   :recommendation/media {:db/id 17592186045429},
-                   :recommendation/id "spec1_book3",
-                   :recommendation/priority 800,
-                   :recommendation/necessary false,
-                   :recommendation/description (str "spec1 book3" user),
-                   :db/id 17592186045434},
-   :media {:media/id "book3",
-           :media/type :media.type/book,
-           :media/title "book3_title",
-           :media/experience 2,
-           :media/essential true,
-           :db/id 17592186045429}}
- {:recommendation {:recommendation/specialization {:db/id 17592186045424},
-                   :recommendation/media {:db/id 17592186045428},
-                   :recommendation/id "spec1_book2",
-                   :recommendation/priority 900,
-                   :recommendation/necessary false,
-                   :recommendation/description (str "spec1 book2" user),
-                   :db/id 17592186045433},
-  :media {:media/id "book2",
-          :media/type :media.type/book,
-          :media/title "book2_title",
-          :media/experience 1,
-          :media/essential true,
-          :db/id 17592186045428}}]
-  )
-
 (defn recommendations [user]
-  (response (model/recommendations user))
-  #_(response (recommendations-stub user)))
+  (response (model/recommendations user)))
 
 (defn user-list []
   (response (model/users)))
 
+(defn mark-as-completed [user recommendation]
+  (println "user: " user "recommendation:" recommendation)
+  (model/mark-as-completed user recommendation)
+  (response nil))
+
 (defroutes recommendation-routes
-  (GET "/list/:user" [user] (recommendations user)))
+  (GET "/list/:user" [user] (recommendations user))
+  (POST "/mark-as-completed/:user/:recommendation" [user recommendation] (mark-as-completed user recommendation)))
 
 (defroutes user-routes
   (GET "/list" [] (user-list)))
