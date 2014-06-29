@@ -5,7 +5,7 @@
             [ajax.core :refer [GET POST]])
   (:require-macros [enfocus.macros :as em]))
 
-(declare try-mark-as-completed)
+(declare try-mark-as-completed try-load-recommendations-completed start)
 
 
 (def user (atom {:username "user2"}))
@@ -28,20 +28,35 @@
      )
   "#complete" (events/listen :click #(try-mark-as-completed recommendation)))
 
+(em/defsnippet recommendation-completed tmpl ".recommendation-completed" [{:keys [media]}]
+  ".recommendation-completed-title" (ef/content (:media/title media)))
+
 (defn error-handler [{:keys [status status-text]}]
   (.log js/console (str "somthing bad happened: " status " " status-text)))
 
 (defn recommendation-list [data]
   (ef/at "#inner-content" (ef/content (map recommendation data))))
 
+(defn recommendation-completed-list [data]
+  (ef/at "#recommenations-completed" (ef/content (map recommendation-completed data))))
+
 (defn try-load-recommendations []
   (GET (str "/recommendation/list/" (:username @user))
        {:handler recommendation-list
         :error-handler error-handler}))
 
+(defn try-load-recommendations-completed []
+  (GET (str "/recommendation/completed/" (:username @user))
+       {:handler recommendation-completed-list
+        :error-handler error-handler}))
+
+(defn refresh []
+  (try-load-recommendations)
+  (try-load-recommendations-completed))
+
 (defn try-mark-as-completed [recommendation]
   (POST (str "/recommendation/mark-as-completed/" (:username @user) "/" (:recommendation/id recommendation))
-        {:handler try-load-recommendations
+        {:handler refresh
          :error-handler error-handler}))
 
 ;; TODO: How to avoid blinking of sample value for select?
@@ -59,7 +74,8 @@
   (events/listen :change
                  #((do (reset! user {:username (ef/from "#users-id" (get-prop :value))})
                        #_(js/alert (str "Before try load recommendations for user: " @user))
-                       (try-load-recommendations)
+                       (refresh)
+
                        #_(js/alert (str "User changed. Current user: " @user))))))
 
 (defn start []
@@ -68,6 +84,7 @@
                   (ef/append (kmg-content))
                   (ef/append (kmg-sidebar))))
   (try-load-recommendations)
+  (try-load-recommendations-completed)
   (try-get-users)
   (observe-change-user))
 

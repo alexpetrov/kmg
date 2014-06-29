@@ -46,7 +46,7 @@
 
 (defn recommendations-completed-by-user [db user]
   (->> (recommendations-completed-by-user-dataset db user)
-       (sort-by-second +)
+       (sort-by-second -)
        (every-first)))
 
 ;; (recommendations-completed-by-user-dataset (db) "user2")
@@ -90,12 +90,12 @@
 
 (defn recommendations [user]
   (let [db (db)
-        recommend-ids (take 3 (recommendation-ids db user))]
+        recommend-ids (take 4 (recommendation-ids db user))]
     (map #(recommendation-data db %) recommend-ids)))
 
 (defn recommendations-completed [user]
   (let [db (db)
-        recommend-ids (take 5 (recommendations-completed-by-user db user))]
+        recommend-ids (take 10 (recommendations-completed-by-user db user))]
     (map #(recommendation-data db %) recommend-ids)))
 
 ;;(recommendations "user1")
