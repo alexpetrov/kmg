@@ -25,9 +25,9 @@
 ;; (every-first #{["user2"] ["user1"]})
 
 (defn sort-by-second
-  ([coll] (sort #(- (compare (last %1) (last %2))) coll))
+  ([coll] (sort-by-second - coll))
   ([order coll] (sort #(order (compare (last %1) (last %2))) coll)))
-;; (sort-by-second - [[1 200] [3 400] [2 300]])
+;; (sort-by-second + [[1 200] [3 400] [2 300]])
 
 (defn recommendations-completed-by-user-dataset [db user]
   (d/q '[:find ?id ?timestamp
