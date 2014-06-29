@@ -6,6 +6,6 @@ Systematization and recommendation service on professional knowledge media
 
 ## License
 
-Copyright © 2014 FIXME
+Copyright © 2014 Alexander Petrov (a.k.a. Lysenko by passport)
 
 Distributed under the Eclipse Public License version 1.0.
