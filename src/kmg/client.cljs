@@ -24,7 +24,7 @@
   "#recommendation-title" (ef/content (:media/title media))
   "#recommendation-description" (ef/content
      (str (:recommendation/description recommendation)
-          " Necessary: " (:recommendation/necessary recommendation) " " user " Priority: " (:recommendation/priority recommendation))
+          " Necessary: " (:recommendation/necessary recommendation) " Priority: " (:recommendation/priority recommendation))
      )
   "#complete" (events/listen :click #(try-mark-as-completed recommendation)))
 

@@ -24,12 +24,13 @@
 
 ;; (every-first #{["user2"] ["user1"]})
 
-(defn sort-by-second [coll]
-  (sort #(- (compare (last %1) (last %2))) coll))
-;; (sort-by-second [[1 200] [3 400] [2 300]])
+(defn sort-by-second
+  ([coll] (sort #(- (compare (last %1) (last %2))) coll))
+  ([order coll] (sort #(order (compare (last %1) (last %2))) coll)))
+;; (sort-by-second - [[1 200] [3 400] [2 300]])
 
-(defn recommendations-comleted-by-user [db user]
-  (->> (d/q '[:find ?id ?priority
+(defn recommendations-completed-by-user-dataset [db user]
+  (d/q '[:find ?id ?timestamp
          :in $ ?uid
          :where
          ;;[?uid :user/name ?user]
@@ -39,12 +40,16 @@
          [?id :recommendation/id ?rid]
          [?fid :feedback/user ?uid]
          [?fid :feedback/recommendation ?id]
-         [?fid :feedback/complete true]]
-       db [:user/name user])
-       (sort-by-second)
+         [?fid :feedback/complete true ?tx]
+         [?tx :db/txInstant ?timestamp]]
+       db [:user/name user]))
+
+(defn recommendations-completed-by-user [db user]
+  (->> (recommendations-completed-by-user-dataset db user)
+       (sort-by-second +)
        (every-first)))
 
-;; (recommendations-comleted-by-user (db) "user2")
+;; (recommendations-completed-by-user-dataset (db) "user2")
 (defn recommendations-for-user [db user]
   (->> (d/q '[:find ?id ?priority
          :in $ ?uid
@@ -60,7 +65,7 @@
 
 (defn recommendation-ids [db user]
   (let [recs (recommendations-for-user db user)
-        completed (set (recommendations-comleted-by-user db user))]
+        completed (set (recommendations-completed-by-user db user))]
     (filter #(not (contains? completed %)) recs)))
 
 ;; (recommendation-ids (db) "user1")
@@ -80,12 +85,18 @@
 ;; (entity (db) 17592186045434)
 ;; (entity (db) 17592186045429)
 
+(defn recommendation-data [db rid]
+  {:recommendation (entity db rid) :media (entity db (media-id-by-recommendation-id db rid))})
 
 (defn recommendations [user]
   (let [db (db)
         recommend-ids (take 3 (recommendation-ids db user))]
-    (map (fn [rid] {:user user :recommendation (entity db rid) :media (entity db (media-id-by-recommendation-id db rid))}) recommend-ids)))
+    (map #(recommendation-data db %) recommend-ids)))
 
+(defn recommendations-completed [user]
+  (let [db (db)
+        recommend-ids (take 5 (recommendations-completed-by-user db user))]
+    (map #(recommendation-data db %) recommend-ids)))
 
 ;;(recommendations "user1")
 ;;(recommendations "user2")

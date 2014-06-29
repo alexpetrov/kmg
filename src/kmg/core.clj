@@ -23,8 +23,12 @@
   (model/mark-as-completed user recommendation)
   (response nil))
 
+(defn recommendations-completed [user]
+  (response (model/recommendations-completed user)))
+
 (defroutes recommendation-routes
   (GET "/list/:user" [user] (recommendations user))
+  (GET "/completed/:user" [user] (recommendations-completed user))
   (POST "/mark-as-completed/:user/:recommendation" [user recommendation] (mark-as-completed user recommendation)))
 
 (defroutes user-routes
