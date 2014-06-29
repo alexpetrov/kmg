@@ -5,6 +5,9 @@
             [ajax.core :refer [GET POST]])
   (:require-macros [enfocus.macros :as em]))
 
+(declare try-mark-as-completed)
+
+
 (def user (atom {:username "user2"}))
 
 (def tmpl "/html/kmg.html")
@@ -22,7 +25,8 @@
   "#recommendation-description" (ef/content
      (str (:recommendation/description recommendation)
           " Necessary: " (:recommendation/necessary recommendation) " " user " Priority: " (:recommendation/priority recommendation))
-     ))
+     )
+  "#complete" (events/listen :click #(try-mark-as-completed recommendation)))
 
 (defn error-handler [{:keys [status status-text]}]
   (.log js/console (str "somthing bad happened: " status " " status-text)))
@@ -34,6 +38,12 @@
   (GET (str "/recommendation/list/" (:username @user))
        {:handler recommendation-list
         :error-handler error-handler}))
+
+(defn try-mark-as-completed [recommendation]
+  (POST (str "/recommendation/mark-as-completed/" (:username @user) "/" (:recommendation/id recommendation))
+        {:handler try-load-recommendations
+         :error-handler error-handler}))
+
 ;; TODO: How to avoid blinking of sample value for select?
 ;; May be make it hide by-default and make it shown after transformation
 (defn show-user-choose [users]
@@ -42,6 +52,7 @@
 (defn try-get-users []
   (GET "/user/list" {:handler show-user-choose
                      :error-handler error-handler}))
+
 
 (em/defaction observe-change-user []
   ["#users-id"]

@@ -32,7 +32,7 @@
   (->> (d/q '[:find ?id ?priority
          :in $ ?uid
          :where
-         [?uid :user/name ?user]
+         ;;[?uid :user/name ?user]
          [?uid :user/goal ?sid]
          [?id :recommendation/specialization ?sid]
          [?id :recommendation/priority ?priority]
@@ -42,8 +42,7 @@
          [?fid :feedback/complete true]]
        db [:user/name user])
        (sort-by-second)
-       (every-first)
-       ))
+       (every-first)))
 
 ;; (recommendations-comleted-by-user (db) "user2")
 (defn recommendations-for-user [db user]
@@ -56,16 +55,13 @@
          [?id :recommendation/priority ?priority]
          [?mid :media/id ?media_id]]
        db [:user/name user])
-  (sort-by-second)
-  (every-first)
-  ))
+       (sort-by-second)
+       (every-first)))
 
 (defn recommendation-ids [db user]
   (let [recs (recommendations-for-user db user)
-        completed (recommendations-comleted-by-user db user)]
-    (->> (diff recs completed)
-         (first)
-         (filter identity))))
+        completed (set (recommendations-comleted-by-user db user))]
+    (filter #(not (contains? completed %)) recs)))
 
 ;; (recommendation-ids (db) "user1")
 ;; (recommendation-ids (db) "user2")
@@ -87,7 +83,7 @@
 
 (defn recommendations [user]
   (let [db (db)
-        recommend-ids (take 6 (recommendation-ids db user))]
+        recommend-ids (take 3 (recommendation-ids db user))]
     (map (fn [rid] {:user user :recommendation (entity db rid) :media (entity db (media-id-by-recommendation-id db rid))}) recommend-ids)))
 
 
@@ -107,7 +103,7 @@
        ffirst
        (entity (db))))
 
-;; (get-feedback "user2" "spec1_book6")
+;; (get-feedback "user1" "spec1_book4")
 
 (defn create-feedback
   [user recommendation]
@@ -123,4 +119,4 @@
         feedback (create-feedback user recommendation)]
     @(d/transact (conn) feedback)))
 
-;; (mark-as-completed "user2" "spec1_book5")
+;; (mark-as-completed "user1" "spec1_book4")
