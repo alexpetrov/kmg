@@ -39,13 +39,13 @@
          [?id :recommendation/id ?rid]
          [?fid :feedback/user ?uid]
          [?fid :feedback/recommendation ?id]
-         [?fid :feedback.comment/text ?comment]
          [?fid :feedback/complete true]]
        db [:user/name user])
        (sort-by-second)
        (every-first)
        ))
 
+;; (recommendations-comleted-by-user (db) "user2")
 (defn recommendations-for-user [db user]
   (->> (d/q '[:find ?id ?priority
          :in $ ?uid
@@ -87,9 +87,40 @@
 
 (defn recommendations [user]
   (let [db (db)
-        recommend-ids (take 5 (recommendation-ids db user))]
+        recommend-ids (take 6 (recommendation-ids db user))]
     (map (fn [rid] {:user user :recommendation (entity db rid) :media (entity db (media-id-by-recommendation-id db rid))}) recommend-ids)))
 
 
 ;;(recommendations "user1")
 ;;(recommendations "user2")
+
+(defn- get-feedback
+  [user recommendation]
+  (->> (d/q '[:find ?fid
+              :in $ ?user ?recommend
+              :where
+              [?uid :user/name ?user]
+              [?rid :recommendation/id ?recommend]
+              [?fid :feedback/user ?uid]
+              [?fid :feedback/recommendation ?rid]]
+            (db) user recommendation)
+       ffirst
+       (entity (db))))
+
+;; (get-feedback "user2" "spec1_book6")
+
+(defn create-feedback
+  [user recommendation]
+  [{:feedback/user [:user/name user]
+   :feedback/recommendation [:recommendation/id recommendation]
+   :feedback/complete true
+   :db/id (d/tempid :db.part/user)}])
+
+;; (create-feedback "user1" "spec1_book2")
+
+(defn mark-as-completed [user recommendation]
+  (let [db (db)
+        feedback (create-feedback user recommendation)]
+    @(d/transact (conn) feedback)))
+
+;; (mark-as-completed "user2" "spec1_book5")
