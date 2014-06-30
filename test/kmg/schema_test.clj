@@ -37,12 +37,8 @@
   (let [conn (fresh-conn)
         sample-data (read-string (slurp "test/kmg/sample_data.edn"))]
     (d/transact conn kmg-schema)
-    @(d/transact conn (:specializations sample-data))
-    @(d/transact conn (:media sample-data))
-    @(d/transact conn (:recommendations sample-data))
-    @(d/transact conn (:users sample-data))
-    @(d/transact conn (:feedback sample-data))
-)
+    (doseq [data sample-data]
+      @(d/transact conn (val data))))
   (f))
 
 (use-fixtures :each before)

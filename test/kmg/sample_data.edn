@@ -6,7 +6,7 @@
                     {:specialization/id "spec2"
                      :specialization/title "spec2_title"
                      :specialization/annotation "spec2_annotation"
-                     ;; :specialization/prerequisite [:specialization/id "spec1"]
+;;                     :specialization/prerequisite [:specialization/id "spec1"]
                      :specialization/prerequisite #db/id[:db.part/user -1000001]
                      :db/id #db/id[:db.part/user -1000002]}
                     ]
@@ -171,4 +171,5 @@
               :feedback.comment/text "spec1_book2_is_irrelevant"
               :feedback.comment/show true
               :db/id #db/id[:db.part/user -1000003]}]
+
 }

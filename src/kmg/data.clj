@@ -23,16 +23,8 @@
 
 (defn import-knowledge-base-data [data-path]
   (let [sample-data (read-string (slurp data-path))]
-    @(d/transact (conn) (:specializations sample-data))
-    @(d/transact (conn) (:media sample-data))
-    @(d/transact (conn) (:recommendations sample-data))))
-
-(defn import-sample-users-data [data-path]
-  (let [sample-data (read-string (slurp data-path))]
-    @(d/transact (conn) (:users sample-data))
-    @(d/transact (conn) (:feedback sample-data))))
-
-;;(config :sample-data-path)
+    (doseq [data sample-data]
+      @(d/transact (conn) (val data)))))
 
 (defn create-db-and-import-sample-data-for-prototype
   "This function creates schema and imports knowledge base data and users sample data
@@ -40,8 +32,7 @@ It needs only for prototype"
   []
   (let [data-path (config :sample-data-path)]
     (reset)
-    (import-knowledge-base-data data-path)
-    (import-sample-users-data data-path)))
+    (import-knowledge-base-data data-path)))
 
 ;; (reset)
 ;; (create-db-and-import-sample-data-for-prototype)
