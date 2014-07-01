@@ -14,13 +14,22 @@
   (d/create-database uri)
   (d/connect uri))
 
+(defn prepare-entity [data]
+  (if (contains? data :db/id)
+    data
+    (merge data {:db/id (d/tempid :db.part/user)})))
+
+(defn prepare-entities [data]
+  (map prepare-entity data))
+
+
 (defn show-schema []
   (let [conn (fresh-conn)
         db (d/db conn)
         sample-data (read-string (slurp "test/kmg/sample_data.edn"))]
     (d/transact conn kmg-schema)
     (doseq [data sample-data]
-      @(d/transact conn (val data)))
+      @(d/transact conn (prepare-entities (val data))))
 
     #_(graph-datomic uri)
     (graph-datomic uri :save-as "kmg-schema.dot")
@@ -30,12 +39,15 @@
 
 #_(def sample-data (read-string (slurp "test/kmg/sample_data.edn")))
 
+
+;; (prepare-entities [{:a 1} {:b 1}])
+
 (defn before [f]
   (let [conn (fresh-conn)
         sample-data (read-string (slurp "test/kmg/sample_data.edn"))]
     (d/transact conn kmg-schema)
     (doseq [data sample-data]
-      @(d/transact conn (val data))))
+      @(d/transact conn (prepare-entities (val data)))))
   (f))
 
 (use-fixtures :each before)

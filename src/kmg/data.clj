@@ -21,10 +21,18 @@
   #_(alter-var-root #'conn (constantly (d/connect db-url)))
   @(d/transact (conn) kmg-schema))
 
+(defn prepare-entity [data]
+  (if (contains? data :db/id)
+    data
+    (merge data {:db/id (d/tempid :db.part/user)})))
+
+(defn prepare-entities [data]
+  (map prepare-entity data))
+
 (defn import-knowledge-base-data [data-path]
   (let [sample-data (read-string (slurp data-path))]
     (doseq [data sample-data]
-      @(d/transact (conn) (val data)))))
+      @(d/transact (conn) (prepare-entities (val data))))))
 
 (defn create-db-and-import-sample-data-for-prototype
   "This function creates schema and imports knowledge base data and users sample data
