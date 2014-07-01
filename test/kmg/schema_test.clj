@@ -19,11 +19,8 @@
         db (d/db conn)
         sample-data (read-string (slurp "test/kmg/sample_data.edn"))]
     (d/transact conn kmg-schema)
-    @(d/transact conn (:specializations sample-data))
-    @(d/transact conn (:media sample-data))
-    @(d/transact conn (:recommendations sample-data))
-    @(d/transact conn (:users sample-data))
-    @(d/transact conn (:feedback sample-data))
+    (doseq [data sample-data]
+      @(d/transact conn (val data)))
 
     #_(graph-datomic uri)
     (graph-datomic uri :save-as "kmg-schema.dot")
@@ -139,9 +136,16 @@
   (is (= (attr-spec :specialization/title)
          [:db.type/string :db.cardinality/one]))
   (is (= (attr-spec :specialization/annotation)
+         [:db.type/string :db.cardinality/one])))
+
+(deftest test-kmg-schema-for-specialization-relationship
+  (is (= (attr-spec :specialization.relationship/from)
+         [:db.type/ref :db.cardinality/one]))
+  (is (= (attr-spec :specialization.relationship/to)
+         [:db.type/ref :db.cardinality/one]))
+  (is (= (attr-spec :specialization.relationship/description)
          [:db.type/string :db.cardinality/one]))
-  (is (= (attr-spec :specialization/prerequisite)
-         [:db.type/ref :db.cardinality/many])))
+)
 
 (deftest test-kmg-schema-for-recommendation
   (is (= (attr-spec :recommendation/specialization)

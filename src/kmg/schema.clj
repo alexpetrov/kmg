@@ -190,15 +190,31 @@
    :db/id (d/tempid :db.part/db)
    :db.install/_attribute :db.part/db}
 
-  {:db/ident :specialization/prerequisite
+;; End of Specialization type
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Specialization Relationship type
+  {:db/ident :specialization.relationship/from
    :db/valueType :db.type/ref
-   :db/cardinality :db.cardinality/many
-   :db/doc "Prerequisite Specializations for this one. Self reference."
+   :db/cardinality :db.cardinality/one
+   :db/doc "'From' end of Relationship between specialization."
    :db/id (d/tempid :db.part/db)
    :db.install/_attribute :db.part/db}
 
-;; End of Specialization type
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  {:db/ident :specialization.relationship/to
+   :db/valueType :db.type/ref
+   :db/cardinality :db.cardinality/one
+   :db/doc "'To' end of Relationship between specialization."
+   :db/id (d/tempid :db.part/db)
+   :db.install/_attribute :db.part/db}
+
+  {:db/ident :specialization.relationship/description
+   :db/valueType :db.type/string
+   :db/cardinality :db.cardinality/one
+   :db/doc "Description of Relationship between specializations."
+   :db/id (d/tempid :db.part/db)
+   :db.install/_attribute :db.part/db}
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Recommendation type
