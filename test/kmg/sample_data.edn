@@ -45,7 +45,22 @@
           :media/type :media.type/book
           :media/title "book7_title"
           :media/essential false
-          :media/experience 0}]
+          :media/experience 0}
+         {:media/id "book8"
+          :media/type :media.type/book
+          :media/title "book8_title"
+          :media/essential false
+          :media/experience 3}
+         {:media/id "book9"
+          :media/type :media.type/book
+          :media/title "book9_title"
+          :media/essential false
+          :media/experience 2}
+         {:media/id "book10"
+          :media/type :media.type/book
+          :media/title "book10_title"
+          :media/essential false
+          :media/experience 1}]
   :recommendations [{:recommendation/specialization [:specialization/id "spec1"]
                      :recommendation/media [:media/id "book1"]
                      :recommendation/id "spec1_book1"
@@ -96,6 +111,23 @@
                      :recommendation/necessary false
                      :recommendation/description "spec1 book7"
                      }
+                    {:recommendation/specialization [:specialization/id "spec1"]
+                     :recommendation/media [:media/id "book8"]
+                     :recommendation/id "spec1_book8"
+
+                     :recommendation/priority 400
+                     :recommendation/necessary false
+                     :recommendation/description "spec1 book8"
+                     }
+                    {:recommendation/specialization [:specialization/id "spec1"]
+                     :recommendation/media [:media/id "book9"]
+                     :recommendation/id "spec1_book9"
+
+                     :recommendation/priority 300
+                     :recommendation/necessary false
+                     :recommendation/description "spec1 book9"
+                     }
+
                     {:recommendation/specialization [:specialization/id "spec2"]
                      :recommendation/media [:media/id "book3"]
                      :recommendation/id "spec2_book3"
