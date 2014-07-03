@@ -1,7 +1,9 @@
 (ns kmg.core
   (:require [compojure.route :as route]
             [clojure.java.io :as io]
-            [kmg.domain :as model])
+            [kmg.domain :as model]
+            [taoensso.timbre :as log]
+            [taoensso.timbre.profiling :as p])
   (:use compojure.core
         compojure.handler
         ring.middleware.edn
@@ -19,8 +21,13 @@
   (response (model/users)))
 
 (defn mark-as-completed [user recommendation]
-  (println "user: " user "recommendation:" recommendation)
-  (model/mark-as-completed user recommendation)
+  (p/p :bench/mark-as-completed
+       (do
+         (log/info "user: " user "recommendation:" recommendation)
+         (model/mark-as-completed user recommendation)
+
+         )
+       )
   (response nil))
 
 (defn recommendations-completed [user]

@@ -12,6 +12,7 @@
                  [sonian/carica "1.1.0" :exclusions [[cheshire]]]
                  [fogus/ring-edn "0.2.0"]
                  [cljs-ajax "0.2.3"]
+                 [com.taoensso/timbre "2.7.1"]
                  ]
   :profiles {:dev {:plugins [[lein-cljsbuild "1.0.3"]]}}
   :plugins [[datomic-schema-grapher "0.0.1"]]
