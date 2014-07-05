@@ -88,15 +88,21 @@
 (defn recommendation-data [db rid]
   {:recommendation (entity db rid) :media (entity db (media-id-by-recommendation-id db rid))})
 
+(defn with-syncronized-db-do [f]
+  @(d/sync (conn))
+  (f))
+
 (defn recommendations [user]
-  (let [db (db)
-        recommend-ids (take 4 (recommendation-ids db user))]
-    (map #(recommendation-data db %) recommend-ids)))
+  (with-syncronized-db-do
+    (fn [] (let [db (db)
+                 recommend-ids (take 4 (recommendation-ids db user))]
+    (map #(recommendation-data db %) recommend-ids)))))
 
 (defn recommendations-completed [user]
-  (let [db (db)
-        recommend-ids (take 10 (recommendations-completed-by-user db user))]
-    (map #(recommendation-data db %) recommend-ids)))
+  (with-syncronized-db-do
+    (fn [] (let [db (db)
+                 recommend-ids (take 10 (recommendations-completed-by-user db user))]
+    (map #(recommendation-data db %) recommend-ids)))))
 
 ;;(recommendations "user1")
 ;;(recommendations "user2")
