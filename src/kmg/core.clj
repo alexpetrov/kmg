@@ -21,11 +21,10 @@
   (response (model/users)))
 
 (defn mark-as-completed [user recommendation]
-  (p/p :bench/mark-as-completed
+  (p/profile :info :Arithmetic
        (do
          (log/info "user: " user "recommendation:" recommendation)
          (model/mark-as-completed user recommendation)
-
          )
        )
   (response nil))

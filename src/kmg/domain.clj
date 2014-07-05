@@ -1,6 +1,7 @@
 (ns kmg.domain
   (:require
     [datomic.api :as d]
+    [taoensso.timbre.profiling :as p]
     )
   (:use carica.core
         clojure.data))
@@ -8,7 +9,7 @@
 (def db-url (config :db :url))
 
 (defn conn [] (d/connect db-url))
-(defn db [] (d/db (conn)))
+(defn db [] (p/p :get-db (d/db (conn))))
 
 (defn every-first [v]
   (for [elem v] (first elem)))
@@ -134,6 +135,7 @@
 (defn mark-as-completed [user recommendation]
   (let [db (db)
         feedback (create-feedback user recommendation)]
-    @(d/transact (conn) feedback)))
+    (p/p :transact/feedback @(d/transact (conn) feedback))
+    ))
 
 ;; (mark-as-completed "user1" "spec1_book4")
