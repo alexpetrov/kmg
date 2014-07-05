@@ -32,7 +32,8 @@
   ".recommendation-completed-title" (ef/content (:media/title media)))
 
 (defn error-handler [{:keys [status status-text]}]
-  (.log js/console (str "somthing bad happened: " status " " status-text)))
+  (js/alert (str "somthing bad happened: " status " " status-text))
+  #_(.log js/console (str "somthing bad happened: " status " " status-text)))
 
 (defn recommendation-list [data]
   (ef/at "#inner-content" (ef/content (map recommendation data))))
