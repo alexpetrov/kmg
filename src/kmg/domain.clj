@@ -90,8 +90,8 @@
   {:recommendation (entity db rid) :media (entity db (media-id-by-recommendation-id db rid))})
 
 (defn with-syncronized-db-do [f]
-  @(d/sync (conn))
-  (f))
+  (p/p :sync @(d/sync (conn)))
+  (p/p :call-domain-function (f)))
 
 (defn recommendations [user]
   (with-syncronized-db-do
@@ -135,7 +135,6 @@
 (defn mark-as-completed [user recommendation]
   (let [db (db)
         feedback (create-feedback user recommendation)]
-    (p/p :transact/feedback @(d/transact (conn) feedback))
-    ))
+    (p/p :transact/feedback @(d/transact (conn) feedback))))
 
 ;; (mark-as-completed "user1" "spec1_book4")

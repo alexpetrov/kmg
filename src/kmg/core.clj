@@ -15,22 +15,25 @@
    :body (pr-str data)})
 
 (defn recommendations [user]
-  (response (model/recommendations user)))
+  (log/info "recommendations for user: " user)
+  (response (p/profile :info :recommendations
+                       (model/recommendations user))))
+
+(defn recommendations-completed [user]
+  (log/info "recommendations-completed for user: " user)
+  (response (p/profile :info :recommendations-completed
+                       (model/recommendations-completed user))))
 
 (defn user-list []
   (response (model/users)))
 
 (defn mark-as-completed [user recommendation]
-  (p/profile :info :Arithmetic
-       (do
-         (log/info "user: " user "recommendation:" recommendation)
-         (model/mark-as-completed user recommendation)
-         )
-       )
+  (p/profile :info :mark-as-completed
+             (do
+               (log/info "user: " user "recommendation:" recommendation)
+               (model/mark-as-completed user recommendation)))
   (response nil))
 
-(defn recommendations-completed [user]
-  (response (model/recommendations-completed user)))
 
 (defroutes recommendation-routes
   (GET "/list/:user" [user] (recommendations user))
