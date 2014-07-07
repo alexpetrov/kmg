@@ -1,13 +1,6 @@
 (ns kmg.schema
   (:require
-    [datomic.api :as d]
-    [clojure.edn :as edn]
-    [clojure.java.io :as io]))
-
-#_(def db-url "datomic:free://localhost:4334/kmg")
-
-#_(def conn (d/connect db-url))
-#_(defn db [] (d/db conn))
+    [datomic.api :as d]))
 
 (def kmg-schema [
 
@@ -341,10 +334,3 @@
    :db.install/_attribute :db.part/db}
 
 ])
-
-#_(defn reset []
-  (d/release conn)
-  (d/delete-database db-url)
-  (d/create-database db-url)
-  (alter-var-root #'conn (constantly (d/connect db-url)))
-  @(d/transact conn schema))

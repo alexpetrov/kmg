@@ -6,19 +6,27 @@
   (:use carica.core
         kmg.schema))
 
-(def db-url (config :db :url))
+(defn db-url [] (config :db :url))
 
-(d/create-database db-url)
+(d/create-database (db-url))
 
-(defn conn [] (d/connect db-url))
+(defn conn [] (d/connect (db-url)))
 (defn db [] (d/db (conn)))
 
-(defn reset []
-  (d/release (conn))
-  (d/delete-database db-url)
-  (d/create-database db-url)
+(defn every-first [v]
+  (for [elem v] (first elem)))
 
-  #_(alter-var-root #'conn (constantly (d/connect db-url)))
+(defn entity [db id]
+  (d/touch (d/entity db id)))
+;; (entity (db) 17592186045434)
+;; (entity (db) 17592186045429)
+
+(defn- reset []
+  (d/release (conn))
+  (d/delete-database (db-url))
+  (d/create-database (db-url))
+
+  #_(alter-var-root #'conn (constantly (d/connect (db-url))))
   @(d/transact (conn) kmg-schema))
 
 (defn prepare-entity [data]
@@ -41,6 +49,5 @@ It needs only for prototype"
   (let [data-path (config :sample-data-path)]
     (reset)
     (import-knowledge-base-data data-path)))
-
 ;; (reset)
 ;; (create-db-and-import-sample-data-for-prototype)

@@ -5,14 +5,16 @@
    [datomic-schema-grapher.core :refer (graph-datomic)]
    [clojure.test :refer :all])
   (:use
+   carica.core
    kmg.schema
    clojure.test))
 
-(def uri "datomic:mem://test")
+(defn uri [] (config :db :url))
+
 (defn fresh-conn []
-  (d/delete-database uri)
-  (d/create-database uri)
-  (d/connect uri))
+  (d/delete-database (uri))
+  (d/create-database (uri))
+  (d/connect (uri)))
 
 (defn prepare-entity [data]
   (if (contains? data :db/id)
@@ -23,37 +25,36 @@
   (map prepare-entity data))
 
 
-(defn show-schema []
-  (let [conn (fresh-conn)
-        db (d/db conn)
-        sample-data (read-string (slurp "test/kmg/sample_data.edn"))]
-    (d/transact conn kmg-schema)
-    (doseq [data sample-data]
-      @(d/transact conn (prepare-entities (val data))))
-
-    #_(graph-datomic uri)
-    (graph-datomic uri :save-as "kmg-schema.dot")
-    ))
-
-;; (show-schema)
-
 #_(def sample-data (read-string (slurp "test/kmg/sample_data.edn")))
 
 
 ;; (prepare-entities [{:a 1} {:b 1}])
 
 (defn before [f]
-  (let [conn (fresh-conn)
-        sample-data (read-string (slurp "test/kmg/sample_data.edn"))]
-    (d/transact conn kmg-schema)
-    (doseq [data sample-data]
-      @(d/transact conn (prepare-entities (val data)))))
-  (f))
+  (with-redefs [config (override-config :db {:url "datomic:mem://test"})]
+    (let [conn (fresh-conn)
+          sample-data (read-string (slurp (config :sample-data-path)))]
+      (d/transact conn kmg-schema)
+      (doseq [data sample-data]
+        @(d/transact conn (prepare-entities (val data)))))
+    (f)))
 
 (use-fixtures :each before)
 
+(defn show-schema []
+  (before
+   (fn []
+     (let [conn (fresh-conn)
+           db (d/db conn)
+           sample-data (read-string (slurp (config :sample-data-path)))]
+       (d/transact conn kmg-schema)
+       (doseq [data sample-data]
+         @(d/transact conn (prepare-entities (val data))))
+       (graph-datomic (uri) :save-as "kmg-schema.dot")))))
+;; (show-schema)
+
 (defn db []
-  (d/db (d/connect uri)))
+  (d/db (d/connect (uri))))
 
 (defn attr-spec [field-name]
   (first (d/q '[:find ?type ?cardinality
@@ -157,7 +158,7 @@
          [:db.type/ref :db.cardinality/one]))
   (is (= (attr-spec :specialization.relationship/description)
          [:db.type/string :db.cardinality/one]))
-)
+  )
 
 (deftest test-kmg-schema-for-recommendation
   (is (= (attr-spec :recommendation/specialization)
@@ -202,22 +203,22 @@
   (is (= (d/q '[:find ?name
                 :where
                 [?id :user/name ?name]]
-               (db))
+              (db))
          #{["user1"] ["user2"]}))
 
   (is (= (d/q '[:find ?text
                 :where
                 [?id :feedback.comment/text ?text]]
-               (db))
+              (db))
          #{["spec1_book1_is_awesome"] ["spec1_book2_is_irrelevant"] ["spec1_book1_is_valuable"]}))
 
   #_(is (= (d/q '[:find ?title
-                :where
-                [?id :media/title ?title]]
-               (db))
-         #{["book2_title"] ["book3_title"] ["book1_title"] ["book4_title"] ["book5_title"]}))
+                  :where
+                  [?id :media/title ?title]]
+                (db))
+           #{["book2_title"] ["book3_title"] ["book1_title"] ["book4_title"] ["book5_title"]}))
 
   (print (d/touch (d/entity (db) [:specialization/id "spec1"])))
- (is (= (:specialization/title (d/touch (d/entity (db) [:specialization/id "spec1"]))) "spec1_title"))
+  (is (= (:specialization/title (d/touch (d/entity (db) [:specialization/id "spec1"]))) "spec1_title"))
 
   )

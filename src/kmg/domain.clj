@@ -4,15 +4,8 @@
     [taoensso.timbre.profiling :as p]
     )
   (:use carica.core
-        clojure.data))
-
-(def db-url (config :db :url))
-
-(defn conn [] (d/connect db-url))
-(defn db [] (p/p :get-db (d/db (conn))))
-
-(defn every-first [v]
-  (for [elem v] (first elem)))
+        clojure.data
+        kmg.data))
 
 (defn users []
   (->> (d/q '[:find ?username
@@ -80,11 +73,6 @@
             db recommend-id)))
 
 ;;(media-id-by-recommendation-id (db) 17592186045434)
-
-(defn entity [db id]
-  (d/touch (d/entity db id)))
-;; (entity (db) 17592186045434)
-;; (entity (db) 17592186045429)
 
 (defn recommendation-data [db rid]
   {:recommendation (entity db rid) :media (entity db (media-id-by-recommendation-id db rid))})
