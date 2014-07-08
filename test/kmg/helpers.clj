@@ -19,5 +19,9 @@
    #(graph-datomic (dh/db-url) :save-as "kmg-schema.dot")))
 ;; (show-schema)
 
+(defn reset-database []
+  (before #(dh/reset)))
+;; (reset-database)
+
 (defn db []
   (d/db (d/connect (dh/db-url))))

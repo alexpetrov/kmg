@@ -40,7 +40,7 @@
     (doseq [data sample-data]
       @(d/transact conn (prepare-entities (val data))))))
 
-(defn- reset []
+(defn reset []
   (d/release (conn))
   (d/delete-database (db-url))
   (d/create-database (db-url)))

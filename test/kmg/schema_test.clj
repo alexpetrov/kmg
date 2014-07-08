@@ -5,8 +5,7 @@
   (:use
    kmg.helpers))
 
-;; Try to check that it must broke CI build, because somehow it works locally without this statement
-;;(use-fixtures :each before)
+(use-fixtures :each before)
 
 (defn attr-spec [field-name]
   (first (d/q '[:find ?type ?cardinality
