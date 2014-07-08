@@ -1,60 +1,12 @@
 (ns kmg.schema-test
   (:require
    [datomic.api :as d]
-   [datomic-schema-grapher.dot :as dot]
-   [datomic-schema-grapher.core :refer (graph-datomic)]
    [clojure.test :refer :all])
   (:use
-   carica.core
-   kmg.schema
-   clojure.test))
+   kmg.helpers))
 
-(defn uri [] (config :db :url))
-
-(defn fresh-conn []
-  (d/delete-database (uri))
-  (d/create-database (uri))
-  (d/connect (uri)))
-
-(defn prepare-entity [data]
-  (if (contains? data :db/id)
-    data
-    (merge data {:db/id (d/tempid :db.part/user)})))
-
-(defn prepare-entities [data]
-  (map prepare-entity data))
-
-
-#_(def sample-data (read-string (slurp "test/kmg/sample_data.edn")))
-
-
-;; (prepare-entities [{:a 1} {:b 1}])
-
-(defn before [f]
-  (with-redefs [config (override-config :db {:url "datomic:mem://test"})]
-    (let [conn (fresh-conn)
-          sample-data (read-string (slurp (config :sample-data-path)))]
-      (d/transact conn kmg-schema)
-      (doseq [data sample-data]
-        @(d/transact conn (prepare-entities (val data)))))
-    (f)))
-
-(use-fixtures :each before)
-
-(defn show-schema []
-  (before
-   (fn []
-     (let [conn (fresh-conn)
-           db (d/db conn)
-           sample-data (read-string (slurp (config :sample-data-path)))]
-       (d/transact conn kmg-schema)
-       (doseq [data sample-data]
-         @(d/transact conn (prepare-entities (val data))))
-       (graph-datomic (uri) :save-as "kmg-schema.dot")))))
-;; (show-schema)
-
-(defn db []
-  (d/db (d/connect (uri))))
+;; Try to check that it must broke CI build, because somehow it works locally without this statement
+;;(use-fixtures :each before)
 
 (defn attr-spec [field-name]
   (first (d/q '[:find ?type ?cardinality

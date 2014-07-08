@@ -5,7 +5,7 @@
     )
   (:use carica.core
         clojure.data
-        kmg.data))
+        kmg.datomic-helpers))
 
 (defn users []
   (->> (d/q '[:find ?username
@@ -13,10 +13,6 @@
          [_ :user/name ?username]]
        (db))
       every-first))
-;;#((for [user %] (first user)))
-;; (users)
-
-;; (every-first #{["user2"] ["user1"]})
 
 (defn sort-by-second
   ([coll] (sort-by-second - coll))
