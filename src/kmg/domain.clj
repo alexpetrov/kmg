@@ -23,11 +23,6 @@
   (d/q '[:find ?id ?timestamp
          :in $ ?uid
          :where
-         ;;[?uid :user/name ?user]
-         [?uid :user/goal ?sid]
-         [?id :recommendation/specialization ?sid]
-         [?id :recommendation/priority ?priority]
-         [?id :recommendation/id ?rid]
          [?fid :feedback/user ?uid]
          [?fid :feedback/recommendation ?id]
          [?fid :feedback/complete true ?tx]

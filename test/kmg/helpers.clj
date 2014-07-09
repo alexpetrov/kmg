@@ -26,5 +26,5 @@
 (defn db []
   (d/db (d/connect (dh/db-url))))
 
-(defn project [field collection]
+(defn project-value [field collection]
   (map #(field %) collection))

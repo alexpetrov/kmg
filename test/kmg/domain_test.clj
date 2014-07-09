@@ -9,7 +9,7 @@
 (use-fixtures :each before)
 
 (deftest test-children-specializations
-  (is (= (project :specialization/id (children-specializations "spec1"))
+  (is (= (project-value :specialization/id (children-specializations "spec1"))
          ["spec2" "spec3"]))
-  (is (= (project :specialization/id (children-specializations "spec3"))
+  (is (= (project-value :specialization/id (children-specializations "spec3"))
          ["spec4"])))

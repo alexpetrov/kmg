@@ -111,37 +111,37 @@
                      :recommendation/necessary false
                      :recommendation/description "spec1 book5"
                      }
-                    {:recommendation/specialization [:specialization/id "spec1"]
+                    {:recommendation/specialization [:specialization/id "spec4"]
                      :recommendation/media [:media/id "book6"]
-                     :recommendation/id "spec1_book6"
+                     :recommendation/id "spec4_book6"
 
-                     :recommendation/priority 500
+                     :recommendation/priority 550
                      :recommendation/necessary false
-                     :recommendation/description "spec1 book6"
+                     :recommendation/description "spec4 book6"
                      }
-                    {:recommendation/specialization [:specialization/id "spec1"]
+                    {:recommendation/specialization [:specialization/id "spec4"]
                      :recommendation/media [:media/id "book7"]
-                     :recommendation/id "spec1_book7"
+                     :recommendation/id "spec4_book7"
 
                      :recommendation/priority 500
                      :recommendation/necessary false
-                     :recommendation/description "spec1 book7"
+                     :recommendation/description "spec4 book7"
                      }
-                    {:recommendation/specialization [:specialization/id "spec1"]
+                    {:recommendation/specialization [:specialization/id "spec4"]
                      :recommendation/media [:media/id "book8"]
-                     :recommendation/id "spec1_book8"
+                     :recommendation/id "spec4_book8"
 
                      :recommendation/priority 400
                      :recommendation/necessary false
-                     :recommendation/description "spec1 book8"
+                     :recommendation/description "spec4 book8"
                      }
-                    {:recommendation/specialization [:specialization/id "spec1"]
+                    {:recommendation/specialization [:specialization/id "spec4"]
                      :recommendation/media [:media/id "book9"]
-                     :recommendation/id "spec1_book9"
+                     :recommendation/id "spec4_book9"
 
                      :recommendation/priority 300
                      :recommendation/necessary false
-                     :recommendation/description "spec1 book9"
+                     :recommendation/description "spec4 book9"
                      }
 
                     {:recommendation/specialization [:specialization/id "spec2"]
@@ -168,7 +168,7 @@
                      }]
   :users [{:user/name "user1"
            :user/start-career-year 2014
-           :user/goal [:specialization/id "spec1"]}
+           :user/goal [:specialization/id "spec2"]}
           {:user/name "user2"
            :user/start-career-year 2013
            :user/goal [:specialization/id "spec1"]}]
