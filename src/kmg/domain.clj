@@ -56,7 +56,7 @@
 (defn recommendation-ids [db user]
   (let [recs (recommendations-for-user db user)
         completed (set (recommendations-completed-by-user db user))]
-    (filter #(not (contains? completed %)) recs)))
+    (keep completed recs)))
 
 ;; (recommendation-ids (db) "user1")
 ;; (recommendation-ids (db) "user2")
