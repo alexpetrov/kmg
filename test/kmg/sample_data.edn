@@ -5,10 +5,26 @@
                     {:specialization/id "spec2"
                      :specialization/title "spec2_title"
                      :specialization/annotation "spec2_annotation"}
+
+                    {:specialization/id "spec3"
+                     :specialization/title "spec3_title"
+                     :specialization/annotation "spec3_annotation"}
+
+                    {:specialization/id "spec4"
+                     :specialization/title "spec4_title"
+                     :specialization/annotation "spec4_annotation"}
                     ]
  :specializations.relationships [{:specialization.relationship/from [:specialization/id "spec2"]
                                   :specialization.relationship/to [:specialization/id "spec1"]
-                                  :specialization.relationship/description "spec2->spec1"}]
+                                  :specialization.relationship/description "spec2->spec1"}
+
+                                 {:specialization.relationship/from [:specialization/id "spec3"]
+                                  :specialization.relationship/to [:specialization/id "spec1"]
+                                  :specialization.relationship/description "spec3->spec1"}
+
+                                 {:specialization.relationship/from [:specialization/id "spec4"]
+                                  :specialization.relationship/to [:specialization/id "spec3"]
+                                  :specialization.relationship/description "spec4->spec3"}]
   :media [{:media/id "book1"
           :media/type :media.type/book
           :media/title "book1_title"

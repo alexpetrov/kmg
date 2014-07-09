@@ -122,3 +122,19 @@
     (p/p :transact/feedback @(d/transact (conn) feedback))))
 
 ;; (mark-as-completed "user1" "spec1_book4")
+
+(defn children-specialization-ids [db spec]
+  (->> (d/q '[:find ?specid
+              :in $ ?parent-spec
+              :where
+              [?parent-id :specialization/id ?parent-spec]
+              [?rid :specialization.relationship/to ?parent-id]
+              [?rid :specialization.relationship/from ?specid]] db spec)
+       every-first))
+;; (children-specialization-ids (db) "spec1")
+
+(defn children-specializations [spec]
+  (let [db (db)
+        children-spec-ids (children-specialization-ids db spec)]
+    (map #(entity db %) children-spec-ids)))
+;;(children-specializations "spec1")
