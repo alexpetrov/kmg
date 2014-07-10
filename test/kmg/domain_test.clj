@@ -1,7 +1,8 @@
 (ns kmg.domain-test
   (:require
    [datomic.api :as d]
-   [clojure.test :refer :all])
+   [clojure.test :refer :all]
+   [taoensso.timbre.profiling :as p])
   (:use
    kmg.helpers
    kmg.domain))
@@ -14,7 +15,15 @@
   (is (= (project-value :specialization/id (children-specializations "spec3"))
          ["spec4"])))
 
+(defn rec-ids [db f]
+  (entity-values-by-ids db :recommendation/id (f)))
+
 (deftest test-recommendations
   (let [db (db)]
-    (is (= (entity-values-by-ids db :recommendation/id (recommendation-ids db "user2"))
-         ["spec1_book3" "spec1_book4" "spec1_book5"]))))
+    (is (= (rec-ids db #(recommendation-ids db "user2")))
+        ["spec1_book3" "spec1_book4" "spec1_book5"])))
+
+(deftest test-recommendations-completed
+  (let [db (db)]
+    (is (= (rec-ids db #(recommendations-completed-by-user db "user2"))
+           ["spec1_book2" "spec1_book1"]))))
