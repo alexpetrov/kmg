@@ -26,5 +26,8 @@
 (defn db []
   (d/db (d/connect (dh/db-url))))
 
-(defn project-value [field collection]
-  (map #(field %) collection))
+(defn project-value [field seq]
+  (map #(field %) seq))
+
+(defn entity-values-by-ids [db field seq]
+  (map #(field (d/entity db %)) seq))
