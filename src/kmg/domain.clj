@@ -163,3 +163,29 @@
   (let [required-recommendations (required-recommendation-ids db spec)
         completed-recommendations (set (recommendations-completed-by-user db user))]
     (clojure.set/subset? required-recommendations completed-recommendations)))
+
+(defn user-goals-history-dataset
+  [db user]
+   (d/q '[:find ?spec-id ?timestamp
+              :in $ ?userid
+              :where
+              [?userid :user/goal ?sid ?tx]
+              [?sid :specialization/id ?spec-id]
+              [?tx :db/txInstant ?timestamp]]
+            db [:user/name user]))
+
+(defn user-goals-history
+  "All specializations, that were goals of this user, in ordered by date desc"
+  [db user]
+  (->> (user-goals-history-dataset db user)
+       (sort-by-second -)
+       (every-first)))
+
+;;(user-goals-history (db) "user2")
+(defn completed-specializations
+  "All specializations that were goals of this user and that are completed"
+  [db user]
+  (set (filter #(is-specialization-completed? db user %)
+          (user-goals-history db user))))
+
+;;(completed-specializations (db) "user2")
