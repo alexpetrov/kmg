@@ -30,4 +30,4 @@
   (map #(field %) seq))
 
 (defn entity-values-by-ids [db field seq]
-  (map #(field (d/entity db %)) seq))
+  (set (map #(field (d/entity db %)) seq)))

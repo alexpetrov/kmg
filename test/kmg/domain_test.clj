@@ -21,12 +21,12 @@
 (deftest test-recommendations
   (let [db (db)]
     (is (= (rec-ids db #(recommendation-ids db "user2")))
-        ["spec1_book3" "spec1_book4" "spec1_book5"])))
+        #{"spec1_book3" "spec1_book4" "spec1_book5"})))
 
 (deftest test-recommendations-completed
   (let [db (db)]
     (is (= (rec-ids db #(recommendations-completed-by-user db "user2"))
-           ["spec1_book2" "spec1_book1"]))))
+           #{"spec1_book2" "spec1_book1"}))))
 
 (deftest test-is-specialization-completed
   (let [db (db)]
