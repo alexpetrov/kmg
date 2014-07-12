@@ -149,27 +149,3 @@
          [:db.type/boolean :db.cardinality/one]))
   (is (= (attr-spec :feedback/complete)
          [:db.type/boolean :db.cardinality/one])))
-
-(deftest test-kmg-sample-data
-  (is (= (d/q '[:find ?name
-                :where
-                [?id :user/name ?name]]
-              (db))
-         #{["user1"] ["user2"]}))
-
-  (is (= (d/q '[:find ?text
-                :where
-                [?id :feedback.comment/text ?text]]
-              (db))
-         #{["spec1_book1_is_awesome"] ["spec1_book2_is_irrelevant"] ["spec1_book1_is_valuable"]}))
-
-  #_(is (= (d/q '[:find ?title
-                  :where
-                  [?id :media/title ?title]]
-                (db))
-           #{["book2_title"] ["book3_title"] ["book1_title"] ["book4_title"] ["book5_title"]}))
-
-  (print (d/touch (d/entity (db) [:specialization/id "spec1"])))
-  (is (= (:specialization/title (d/touch (d/entity (db) [:specialization/id "spec1"]))) "spec1_title"))
-
-  )
