@@ -19,6 +19,16 @@
   ([order coll] (sort #(order (compare (last %1) (last %2))) coll)))
 ;; (sort-by-second + [[1 200] [3 400] [2 300]])
 
+(defn count-incompleted-recomendations-in-spec [db user spec]
+  (ffirst (d/q '[:find (count ?rec-id)
+                 :in $ ?user-id ?spec-id
+                 :where
+                 [?fid :feedback/user ?user-id]
+                 [?fid :feedback/recommendation ?rec-id]
+                 []]
+               db [:user/id user] [:spec/id spec])))
+
+
 (defn recommendations-completed-by-user-dataset [db user]
   (d/q '[:find ?id ?timestamp
          :in $ ?uid
@@ -35,6 +45,7 @@
        (every-first)))
 
 ;; (recommendations-completed-by-user-dataset (db) "user2")
+;; (recommendations-completed-by-user (db) "user2")
 (defn recommendations-for-user [db user]
   (->> (d/q '[:find ?id ?priority
          :in $ ?uid
@@ -133,3 +144,22 @@
         children-spec-ids (children-specialization-ids db spec)]
     (map #(entity db %) children-spec-ids)))
 ;;(children-specializations "spec1")
+
+(defn required-recommendation-ids [db spec]
+  (->> (d/q '[:find ?rid
+              :in $ ?spec-id
+              :where
+              [?rid :recommendation/specialization ?spec-id]
+              [?rid :recommendation/necessary true]]
+              db [:specialization/id spec])
+       (every-first)
+       set))
+;; (required-recommendation-ids (db) "spec1")
+
+;; set of required recommendations for this specialization is a subset of comleted recommendations for this user
+(defn is-specialization-completed?
+  "Specialization is completed if all required recommendations are completed by the user"
+  [db user spec]
+  (let [required-recommendations (required-recommendation-ids db spec)
+        completed-recommendations (set (recommendations-completed-by-user db user))]
+    (clojure.set/subset? required-recommendations completed-recommendations)))

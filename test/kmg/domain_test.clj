@@ -27,3 +27,10 @@
   (let [db (db)]
     (is (= (rec-ids db #(recommendations-completed-by-user db "user2"))
            ["spec1_book2" "spec1_book1"]))))
+
+(deftest test-is-specialization-completed
+  (let [db (db)]
+    (is (= (is-specialization-completed? db "user1" "spec1")
+           true))
+    (is (= (is-specialization-completed? db "user1" "spec2")
+           false))))
