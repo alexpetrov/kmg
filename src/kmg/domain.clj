@@ -139,7 +139,9 @@
        every-first))
 ;; (children-specialization-ids (db) "spec1")
 
-(defn children-specializations [spec]
+(defn children-specializations
+  "This function supposed to be used from presentation layer"
+  [spec]
   (let [db (db)
         children-spec-ids (children-specialization-ids db spec)]
     (map #(entity db %) children-spec-ids)))
@@ -151,7 +153,7 @@
               :where
               [?rid :recommendation/specialization ?spec-id]
               [?rid :recommendation/necessary true]]
-              db [:specialization/id spec])
+              db spec #_[:specialization/id spec])
        (every-first)
        set))
 ;; (required-recommendation-ids (db) "spec1")
@@ -166,11 +168,11 @@
 
 (defn user-goals-history-dataset
   [db user]
-   (d/q '[:find ?spec-id ?timestamp
+   (d/q '[:find ?sid ?timestamp
               :in $ ?userid
               :where
               [?userid :user/goal ?sid ?tx]
-              [?sid :specialization/id ?spec-id]
+;;              [?sid :specialization/id ?spec-id]
               [?tx :db/txInstant ?timestamp]]
             db [:user/name user]))
 
@@ -189,3 +191,17 @@
           (user-goals-history db user))))
 
 ;;(completed-specializations (db) "user2")
+
+(defn get-spec-id [db spec]
+  (ffirst (d/q '[:find ?sid
+         :in $ ?spec-id
+         :where
+         [?sid :specialization/id ?spec-id]]
+        db spec)))
+;; (get-spec-id (db) "spec1")
+
+(defn available-specializations
+  [user]
+  (let [db (db)]
+   (flatten (map #(conj (children-specialization-ids db %) (get-spec-id db %)) (completed-specializations db user)))))
+;; (available-specializations "user2")

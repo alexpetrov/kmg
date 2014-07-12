@@ -9,14 +9,23 @@
 
 (use-fixtures :each before)
 
+(defn spec-ids [db f]
+  (entity-values-by-ids db :specialization/id (f)))
+
+(deftest test-available-specializations
+  (let [db (db)]
+    (is (= (spec-ids db #(available-specializations "user2")))
+        #{"spec1" "spec2" "spec3"})))
+
 (deftest test-user-goals-history
   (let [db (db)]
-    (is (= (user-goals-history db "user2")
-           ["spec1"]))))
+    (is (= (spec-ids db #(user-goals-history db "user2"))
+           #{"spec1"})))
+  )
 
 (deftest test-completed-specializations
   (let [db (db)]
-    (is (= (completed-specializations db "user2")
+    (is (= (spec-ids db #(completed-specializations db "user2"))
            #{"spec1"}))))
 
 (deftest test-children-specializations
@@ -27,9 +36,9 @@
 
 (deftest test-is-specialization-completed
   (let [db (db)]
-    (is (= (is-specialization-completed? db "user1" "spec1")
+    (is (= (is-specialization-completed? db "user1" (get-spec-id db "spec1"))
            true))
-    (is (= (is-specialization-completed? db "user1" "spec2")
+    (is (= (is-specialization-completed? db "user1" (get-spec-id db "spec2"))
            false))))
 
 (defn rec-ids [db f]
