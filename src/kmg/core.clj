@@ -14,10 +14,15 @@
    :headers {"Content-Type" "application/edn"}
    :body (pr-str data)})
 
-(defn recommendations [user]
+(defn recommendations
+  ([user]
   (log/info "recommendations for user: " user)
   (response (p/profile :info :recommendations
                        (model/recommendations user))))
+  ([user spec]
+     (log/info "recommendations for user: " user "; specialization: " spec)
+     (response (p/profile :info :recommendations
+                       (model/recommendations user spec)))))
 
 (defn recommendations-completed [user]
   (log/info "recommendations-completed for user: " user)
@@ -37,6 +42,7 @@
 
 (defroutes recommendation-routes
   (GET "/list/:user" [user] (recommendations user))
+  (GET "/list/:user/:spec" [user spec] (recommendations user spec))
   (GET "/completed/:user" [user] (recommendations-completed user))
   (POST "/mark-as-completed/:user/:recommendation" [user recommendation] (mark-as-completed user recommendation)))
 

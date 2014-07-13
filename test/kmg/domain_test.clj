@@ -49,12 +49,6 @@
     (is (= (is-specialization-completed? db "user1" (get-spec-id db "spec2"))
            false))))
 
-(deftest test-recommendations-default-goal
-  (let [db (db)]
-    (is (= (rec-ids db #(recommendation-ids db "user2")))
-        #{"spec1_book3" "spec1_book4" "spec1_book5"})))
-
-;; TODO
 (deftest test-reommendations
   (let [db (db)]
     (is (= (rec-ids db #(recommendation-ids db "user2" (get-spec-id db "spec1"))))

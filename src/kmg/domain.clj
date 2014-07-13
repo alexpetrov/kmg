@@ -19,6 +19,9 @@
                  [?userid :user/goal ?sid]]
                 db [:user/name user])))
 
+(defn user-current-goal-id [db user]
+  (:specialization/id (d/entity db (user-current-goal db user))))
+
 ;;(user-current-goal (db) "user1")
 
 (defn user-goals-history-dataset
@@ -71,12 +74,11 @@
 
 ;; (recommendations-for-user (db) "user2")
 (defn recommendation-ids
-  "Gives recommendation ids for user by specialization (current goal by default)"
-  ([db user]
-     (recommendation-ids db user (user-current-goal db user)))
-  ([db user spec] (let [recs (recommendations-for-user db user spec)
+  "Gives recommendation ids for user by specialization"
+  [db user spec]
+     (let [recs (recommendations-for-user db user spec)
         completed (set (recommendations-completed-by-user db user))]
-    (remove completed recs))))
+    (remove completed recs)))
 
 ;; (recommendation-ids (db) "user1")
 ;; (recommendation-ids (db) "user2")

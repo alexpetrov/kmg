@@ -14,11 +14,16 @@
        (db))
       every-first))
 
-(defn recommendations [user]
-  (with-syncronized-db-do
-    (fn [] (let [db (db)
-                 recommend-ids (take 4 (recommendation-ids db user))]
-    (map #(recommendation-data db %) recommend-ids)))))
+(defn recommendations
+  ([user]
+     (recommendations user (user-current-goal-id (db) user)))
+  ([user spec]
+     (with-syncronized-db-do
+       (fn []
+         (let [db (db)
+               recommend-ids (take 4 (recommendation-ids db user (get-spec-id db spec)))]
+                (map #(recommendation-data db %) recommend-ids))))))
+
 
 (defn recommendations-completed [user]
   (with-syncronized-db-do
