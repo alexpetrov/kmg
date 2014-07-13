@@ -129,13 +129,16 @@
 
 (defn children-specialization-ids [db spec]
   (->> (d/q '[:find ?specid
-              :in $ ?parent-spec
+              :in $ ?parent-id
+;;              :in $ ?parent-spec
+
               :where
-              [?parent-id :specialization/id ?parent-spec]
+;;              [?parent-id :specialization/id ?parent-spec]
               [?rid :specialization.relationship/to ?parent-id]
-              [?rid :specialization.relationship/from ?specid]] db spec)
+              [?rid :specialization.relationship/from ?specid]]
+            db spec)
        every-first))
-;; (children-specialization-ids (db) "spec1")
+;; (children-specialization-ids (db) (get-spec-id (db) "spec1"))
 
 (defn required-recommendation-ids [db spec]
   (->> (d/q '[:find ?rid
@@ -171,7 +174,7 @@
   (set (filter #(is-specialization-completed? db user %)
           (user-goals-history db user))))
 
-;;(completed-specializations (db) "user2")
+;;(completed-specialization-ids (db) "user2")
 
 (defn get-spec-id [db spec]
   (ffirst (d/q '[:find ?sid
@@ -183,5 +186,6 @@
 
 (defn available-specialization-ids
   [db user]
-  (flatten (map #(conj (children-specialization-ids db %) (get-spec-id db %)) (completed-specialization-ids db user))))
-;; (available-specializations "user2")
+  (let [completed  (completed-specialization-ids db user)]
+    (flatten (map #(conj (children-specialization-ids db %) % #_(get-spec-id db %)) completed))))
+;; (available-specialization-ids (db) "user2")

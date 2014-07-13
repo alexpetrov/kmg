@@ -15,7 +15,7 @@
 (defn rec-ids [db f]
   (entity-values-by-ids db :recommendation/id (f)))
 
-(deftest test-available-specializations
+(deftest test-available-specialization-ids
   (let [db (db)]
     (is (= (spec-ids db #(available-specialization-ids db "user2")))
         #{"spec1" "spec2" "spec3"})))
@@ -30,16 +30,16 @@
     (is (= (spec-ids db #(vector (user-current-goal db "user2")))
            #{"spec1"}))))
 
-(deftest test-completed-specializations
+(deftest test-completed-specialization-ids
   (let [db (db)]
     (is (= (spec-ids db #(completed-specialization-ids db "user2"))
            #{"spec1"}))))
 
 (deftest test-children-specialization-ids
   (let [db (db)]
-    (is (= (spec-ids db #(children-specialization-ids db "spec1"))
+    (is (= (spec-ids db #(children-specialization-ids db (get-spec-id db "spec1")))
          #{"spec2" "spec3"}))
-    (is (= (spec-ids db #(children-specialization-ids db "spec3"))
+    (is (= (spec-ids db #(children-specialization-ids db (get-spec-id db "spec3")))
          #{"spec4"}))))
 
 (deftest test-is-specialization-completed

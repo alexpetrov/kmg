@@ -42,7 +42,7 @@
   "This function supposed to be used from presentation layer"
   [spec]
   (let [db (db)
-        children-spec-ids (children-specialization-ids db spec)]
+        children-spec-ids (children-specialization-ids db (get-spec-id db spec))]
     (map #(entity db %) children-spec-ids)))
 ;;(children-specializations "spec1")
 
@@ -54,3 +54,12 @@
         (map #(entity db %) completed-specs)))))
 
 ;; (completed-specializations "user2")
+
+(defn available-specializations [user]
+  (with-synchronized-db-do
+    (fn []
+      (let [db (db)
+            available-specs (available-specialization-ids db user)]
+        (map #(entity db %) available-specs)))))
+
+;;(available-specializations "user2")
