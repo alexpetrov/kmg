@@ -18,9 +18,9 @@
          ["spec4"])))
 
 (deftest test-completed-specializations
-  (is (= (project-value :specialization/id (completed-specializations "user2"))
+  (is (= (project-value :specialization/id (specializations-completed "user2"))
          ["spec1"])))
 
 (deftest test-available-specializations
-  (is (= (project-value :specialization/id (available-specializations "user2"))
+  (is (= (project-value :specialization/id (specializations-available "user2"))
          ["spec1" "spec2" "spec3"])))

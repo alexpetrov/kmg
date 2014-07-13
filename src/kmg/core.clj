@@ -29,6 +29,17 @@
   (response (p/profile :info :recommendations-completed
                        (model/recommendations-completed user))))
 
+(defn specializations-completed [user]
+  (log/info "specializations-completed for user: " user)
+  (response (p/profile :info :specializations-completed
+                       (model/specializations-completed user))))
+
+(defn specializations-available [user]
+  (log/info "specializations-available for user: " user)
+  (response (p/profile :info :specializations-available
+                       (model/specializations-available user))))
+
+
 (defn user-list []
   (response (model/users)))
 
@@ -46,6 +57,10 @@
   (GET "/completed/:user" [user] (recommendations-completed user))
   (POST "/mark-as-completed/:user/:recommendation" [user recommendation] (mark-as-completed user recommendation)))
 
+(defroutes specialization-routes
+  (GET "/completed/:user" [user] (specializations-completed user))
+  (GET "/available/:user" [user] (specializations-available user)))
+
 (defroutes user-routes
   (GET "/list" [] (user-list)))
 
@@ -53,6 +68,7 @@
   (GET "/" [] (slurp (io/resource "public/html/index.html")))
 
   (context "/recommendation" [] recommendation-routes)
+  (context "/specialization" [] specialization-routes)
 
   (context "/user" [] user-routes)
   (GET "/req" request (str request))

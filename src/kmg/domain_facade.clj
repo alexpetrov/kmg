@@ -46,7 +46,7 @@
     (map #(entity db %) children-spec-ids)))
 ;;(children-specializations "spec1")
 
-(defn completed-specializations [user]
+(defn specializations-completed [user]
   (with-synchronized-db-do
     (fn []
       (let [db (db)
@@ -55,7 +55,7 @@
 
 ;; (completed-specializations "user2")
 
-(defn available-specializations [user]
+(defn specializations-available [user]
   (with-synchronized-db-do
     (fn []
       (let [db (db)
