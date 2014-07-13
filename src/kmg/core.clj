@@ -1,7 +1,7 @@
 (ns kmg.core
   (:require [compojure.route :as route]
             [clojure.java.io :as io]
-            [kmg.domain :as model]
+            [kmg.domain-facade :as model]
             [taoensso.timbre :as log]
             [taoensso.timbre.profiling :as p])
   (:use compojure.core

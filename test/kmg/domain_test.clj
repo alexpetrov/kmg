@@ -12,9 +12,12 @@
 (defn spec-ids [db f]
   (entity-values-by-ids db :specialization/id (f)))
 
+(defn rec-ids [db f]
+  (entity-values-by-ids db :recommendation/id (f)))
+
 (deftest test-available-specializations
   (let [db (db)]
-    (is (= (spec-ids db #(available-specializations "user2")))
+    (is (= (spec-ids db #(available-specialization-ids db "user2")))
         #{"spec1" "spec2" "spec3"})))
 
 (deftest test-user-goals-history
@@ -28,11 +31,12 @@
     (is (= (spec-ids db #(completed-specializations db "user2"))
            #{"spec1"}))))
 
-(deftest test-children-specializations
-  (is (= (project-value :specialization/id (children-specializations "spec1"))
-         ["spec2" "spec3"]))
-  (is (= (project-value :specialization/id (children-specializations "spec3"))
-         ["spec4"])))
+(deftest test-children-specialization-ids
+  (let [db (db)]
+    (is (= (spec-ids db #(children-specialization-ids db "spec1"))
+         #{"spec2" "spec3"}))
+    (is (= (spec-ids db #(children-specialization-ids db "spec3"))
+         #{"spec4"}))))
 
 (deftest test-is-specialization-completed
   (let [db (db)]
@@ -41,12 +45,16 @@
     (is (= (is-specialization-completed? db "user1" (get-spec-id db "spec2"))
            false))))
 
-(defn rec-ids [db f]
-  (entity-values-by-ids db :recommendation/id (f)))
 
-(deftest test-recommendations
+(deftest test-recommendations-default-goal
   (let [db (db)]
     (is (= (rec-ids db #(recommendation-ids db "user2")))
+        #{"spec1_book3" "spec1_book4" "spec1_book5"})))
+
+;; TODO
+#_(deftest test-reommendations
+  (let [db (db)]
+    (is (= (rec-ids db #(recommendation-ids db "user2" "spec1")))
         #{"spec1_book3" "spec1_book4" "spec1_book5"})))
 
 (deftest test-recommendations-completed

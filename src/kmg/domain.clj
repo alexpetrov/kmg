@@ -7,13 +7,6 @@
         clojure.data
         kmg.datomic-helpers))
 
-(defn users []
-  (->> (d/q '[:find ?username
-         :where
-         [_ :user/name ?username]]
-       (db))
-      every-first))
-
 (defn sort-by-second
   ([coll] (sort-by-second - coll))
   ([order coll] (sort #(order (compare (last %1) (last %2))) coll)))
@@ -83,18 +76,6 @@
   (p/p :sync @(d/sync (conn)))
   (p/p :call-domain-function (f)))
 
-(defn recommendations [user]
-  (with-syncronized-db-do
-    (fn [] (let [db (db)
-                 recommend-ids (take 4 (recommendation-ids db user))]
-    (map #(recommendation-data db %) recommend-ids)))))
-
-(defn recommendations-completed [user]
-  (with-syncronized-db-do
-    (fn [] (let [db (db)
-                 recommend-ids (take 10 (recommendations-completed-by-user db user))]
-    (map #(recommendation-data db %) recommend-ids)))))
-
 ;;(recommendations "user1")
 ;;(recommendations "user2")
 
@@ -122,13 +103,6 @@
 
 ;; (create-feedback "user1" "spec1_book2")
 
-(defn mark-as-completed [user recommendation]
-  (let [db (db)
-        feedback (create-feedback user recommendation)]
-    (p/p :transact/feedback @(d/transact (conn) feedback))))
-
-;; (mark-as-completed "user1" "spec1_book4")
-
 (defn children-specialization-ids [db spec]
   (->> (d/q '[:find ?specid
               :in $ ?parent-spec
@@ -139,21 +113,13 @@
        every-first))
 ;; (children-specialization-ids (db) "spec1")
 
-(defn children-specializations
-  "This function supposed to be used from presentation layer"
-  [spec]
-  (let [db (db)
-        children-spec-ids (children-specialization-ids db spec)]
-    (map #(entity db %) children-spec-ids)))
-;;(children-specializations "spec1")
-
 (defn required-recommendation-ids [db spec]
   (->> (d/q '[:find ?rid
               :in $ ?spec-id
               :where
               [?rid :recommendation/specialization ?spec-id]
               [?rid :recommendation/necessary true]]
-              db spec #_[:specialization/id spec])
+              db spec)
        (every-first)
        set))
 ;; (required-recommendation-ids (db) "spec1")
@@ -200,8 +166,7 @@
         db spec)))
 ;; (get-spec-id (db) "spec1")
 
-(defn available-specializations
-  [user]
-  (let [db (db)]
-   (flatten (map #(conj (children-specialization-ids db %) (get-spec-id db %)) (completed-specializations db user)))))
+(defn available-specialization-ids
+  [db user]
+  (flatten (map #(conj (children-specialization-ids db %) (get-spec-id db %)) (completed-specializations db user))))
 ;; (available-specializations "user2")
