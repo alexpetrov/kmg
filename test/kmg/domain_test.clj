@@ -23,8 +23,12 @@
 (deftest test-user-goals-history
   (let [db (db)]
     (is (= (spec-ids db #(user-goals-history db "user2"))
-           #{"spec1"})))
-  )
+           #{"spec1"}))))
+
+(deftest test-user-current-goal
+  (let [db (db)]
+    (is (= (spec-ids db #(vector (user-current-goal db "user2")))
+           #{"spec1"}))))
 
 (deftest test-completed-specializations
   (let [db (db)]
@@ -45,7 +49,6 @@
     (is (= (is-specialization-completed? db "user1" (get-spec-id db "spec2"))
            false))))
 
-
 (deftest test-recommendations-default-goal
   (let [db (db)]
     (is (= (rec-ids db #(recommendation-ids db "user2")))
@@ -61,3 +64,10 @@
   (let [db (db)]
     (is (= (rec-ids db #(recommendations-completed-by-user db "user2"))
            #{"spec1_book2" "spec1_book1"}))))
+
+(deftest test-recommendatons-for-user
+  (let [db (db)]
+    (is (= (rec-ids db #(recommendations-for-user db "user1"))
+           #{"spec2_book3" "spec5_book4" "spec2_book4"}))
+    (is (= (rec-ids db #(recommendations-for-user db "user2"))
+           #{"spec1_book4" "spec1_book5" "spec1_book1" "spec1_book3" "spec1_book2"}))))
