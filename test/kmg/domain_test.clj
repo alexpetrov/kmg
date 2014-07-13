@@ -55,9 +55,9 @@
         #{"spec1_book3" "spec1_book4" "spec1_book5"})))
 
 ;; TODO
-#_(deftest test-reommendations
+(deftest test-reommendations
   (let [db (db)]
-    (is (= (rec-ids db #(recommendation-ids db "user2" "spec1")))
+    (is (= (rec-ids db #(recommendation-ids db "user2" (get-spec-id db "spec1"))))
         #{"spec1_book3" "spec1_book4" "spec1_book5"})))
 
 (deftest test-recommendations-completed
@@ -67,7 +67,5 @@
 
 (deftest test-recommendatons-for-user
   (let [db (db)]
-    (is (= (rec-ids db #(recommendations-for-user db "user1"))
-           #{"spec2_book3" "spec5_book4" "spec2_book4"}))
-    (is (= (rec-ids db #(recommendations-for-user db "user2"))
-           #{"spec1_book4" "spec1_book5" "spec1_book1" "spec1_book3" "spec1_book2"}))))
+    (is (= (rec-ids db #(recommendations-for-user db "user1" (user-current-goal db "user1")))
+           #{"spec2_book3" "spec5_book4" "spec2_book4"}))))

@@ -10,7 +10,25 @@
 (defn sort-by-second
   ([coll] (sort-by-second - coll))
   ([order coll] (sort #(order (compare (last %1) (last %2))) coll)))
+
 ;; (sort-by-second + [[1 200] [3 400] [2 300]])
+(defn user-current-goal [db user]
+  (ffirst (d/q '[:find ?sid
+                 :in $ ?userid
+                 :where
+                 [?userid :user/goal ?sid]]
+                db [:user/name user])))
+
+;;(user-current-goal (db) "user1")
+
+(defn user-goals-history-dataset
+  [db user]
+   (d/q '[:find ?sid ?timestamp
+          :in $ ?userid
+          :where
+          [?userid :user/goal ?sid ?tx]
+          [?tx :db/txInstant ?timestamp]]
+          db [:user/name user]))
 
 (defn count-incompleted-recomendations-in-spec [db user spec]
   (ffirst (d/q '[:find (count ?rec-id)
@@ -39,16 +57,15 @@
 
 ;; (recommendations-completed-by-user-dataset (db) "user2")
 ;; (recommendations-completed-by-user (db) "user2")
-(defn recommendations-for-user [db user]
+(defn recommendations-for-user [db user spec]
   (->> (d/q '[:find ?id ?priority
-         :in $ ?uid
+         :in $ ?uid ?sid
          :where
          [?uid :user/name ?user]
-         [?uid :user/goal ?sid]
          [?id :recommendation/specialization ?sid]
          [?id :recommendation/priority ?priority]
          [?mid :media/id ?media_id]]
-       db [:user/name user])
+       db [:user/name user] spec)
        (sort-by-second)
        (every-first)))
 
@@ -56,10 +73,10 @@
 (defn recommendation-ids
   "Gives recommendation ids for user by specialization (current goal by default)"
   ([db user]
-  (let [recs (recommendations-for-user db user)
+     (recommendation-ids db user (user-current-goal db user)))
+  ([db user spec] (let [recs (recommendations-for-user db user spec)
         completed (set (recommendations-completed-by-user db user))]
-    (remove completed recs)))
-  ([db user spec] :TBD))
+    (remove completed recs))))
 
 ;; (recommendation-ids (db) "user1")
 ;; (recommendation-ids (db) "user2")
@@ -136,23 +153,6 @@
         completed-recommendations (set (recommendations-completed-by-user db user))]
     (clojure.set/subset? required-recommendations completed-recommendations)))
 
-(defn user-current-goal [db user]
-  (ffirst (d/q '[:find ?sid
-                 :in $ ?userid
-                 :where
-                 [?userid :user/goal ?sid]]
-                db [:user/name user])))
-
-;;(user-current-goal (db) "user1")
-
-(defn user-goals-history-dataset
-  [db user]
-   (d/q '[:find ?sid ?timestamp
-          :in $ ?userid
-          :where
-          [?userid :user/goal ?sid ?tx]
-          [?tx :db/txInstant ?timestamp]]
-          db [:user/name user]))
 
 (defn user-goals-history
   "All specializations, that were goals of this user, in ordered by date desc"
