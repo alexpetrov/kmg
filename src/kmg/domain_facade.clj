@@ -18,7 +18,7 @@
   ([user]
      (recommendations user (user-current-goal-id (db) user)))
   ([user spec]
-     (with-syncronized-db-do
+     (with-synchronized-db-do
        (fn []
          (let [db (db)
                recommend-ids (take 4 (recommendation-ids db user (get-spec-id db spec)))]
@@ -26,7 +26,7 @@
 
 
 (defn recommendations-completed [user]
-  (with-syncronized-db-do
+  (with-synchronized-db-do
     (fn [] (let [db (db)
                  recommend-ids (take 10 (recommendations-completed-by-user db user))]
     (map #(recommendation-data db %) recommend-ids)))))
@@ -45,3 +45,12 @@
         children-spec-ids (children-specialization-ids db spec)]
     (map #(entity db %) children-spec-ids)))
 ;;(children-specializations "spec1")
+
+(defn completed-specializations [user]
+  (with-synchronized-db-do
+    (fn []
+      (let [db (db)
+            completed-specs (completed-specialization-ids db user)]
+        (map #(entity db %) completed-specs)))))
+
+;; (completed-specializations "user2")

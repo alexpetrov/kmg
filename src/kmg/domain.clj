@@ -7,6 +7,10 @@
         clojure.data
         kmg.datomic-helpers))
 
+(defn with-synchronized-db-do [f]
+  (p/p :sync @(d/sync (conn)))
+  (p/p :call-domain-function (f)))
+
 (defn sort-by-second
   ([coll] (sort-by-second - coll))
   ([order coll] (sort #(order (compare (last %1) (last %2))) coll)))
@@ -95,9 +99,6 @@
 (defn recommendation-data [db rid]
   {:recommendation (entity db rid) :media (entity db (media-id-by-recommendation-id db rid))})
 
-(defn with-syncronized-db-do [f]
-  (p/p :sync @(d/sync (conn)))
-  (p/p :call-domain-function (f)))
 
 ;;(recommendations "user1")
 ;;(recommendations "user2")
@@ -164,7 +165,7 @@
        (every-first)))
 
 ;;(user-goals-history (db) "user2")
-(defn completed-specializations
+(defn completed-specialization-ids
   "All specializations that were goals of this user and that are completed"
   [db user]
   (set (filter #(is-specialization-completed? db user %)
@@ -182,5 +183,5 @@
 
 (defn available-specialization-ids
   [db user]
-  (flatten (map #(conj (children-specialization-ids db %) (get-spec-id db %)) (completed-specializations db user))))
+  (flatten (map #(conj (children-specialization-ids db %) (get-spec-id db %)) (completed-specialization-ids db user))))
 ;; (available-specializations "user2")

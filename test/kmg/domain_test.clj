@@ -32,7 +32,7 @@
 
 (deftest test-completed-specializations
   (let [db (db)]
-    (is (= (spec-ids db #(completed-specializations db "user2"))
+    (is (= (spec-ids db #(completed-specialization-ids db "user2"))
            #{"spec1"}))))
 
 (deftest test-children-specialization-ids
