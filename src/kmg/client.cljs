@@ -31,6 +31,9 @@
 (em/defsnippet recommendation-completed tmpl ".recommendation-completed" [{:keys [media]}]
   ".recommendation-completed-title" (ef/content (:media/title media)))
 
+(em/defsnippet specialization-available tmpl ".specialization-available" [specialization]
+  ".specialization-available-title" (ef/content (:specialization/title specialization)))
+
 (defn error-handler [{:keys [status status-text]}]
   (js/alert (str "somthing bad happened: " status " " status-text))
   #_(.log js/console (str "somthing bad happened: " status " " status-text)))
@@ -40,6 +43,9 @@
 
 (defn recommendation-completed-list [data]
   (ef/at "#recommenations-completed" (ef/content (map recommendation-completed data))))
+
+(defn specialization-available-list [data]
+  (ef/at "#specializations-available" (ef/content (map specialization-available data))))
 
 (defn try-load-recommendations []
   (GET (str "/recommendation/list/" (:username @user))
@@ -51,9 +57,15 @@
        {:handler recommendation-completed-list
         :error-handler error-handler}))
 
+(defn try-load-specializations-available []
+  (GET (str "/specialization/available/" (:username @user))
+       {:handler specialization-available-list
+        :error-hadler error-handler}))
+
 (defn refresh []
   (try-load-recommendations)
-  (try-load-recommendations-completed))
+  (try-load-recommendations-completed)
+  (try-load-specializations-available))
 
 (defn try-mark-as-completed [recommendation]
   (POST (str "/recommendation/mark-as-completed/" (:username @user) "/" (:recommendation/id recommendation))
@@ -84,8 +96,9 @@
          (ef/do-> (ef/content (kmg-header))
                   (ef/append (kmg-content))
                   (ef/append (kmg-sidebar))))
-  (try-load-recommendations)
-  (try-load-recommendations-completed)
+  (refresh)
+  #_(try-load-recommendations)
+  #_(try-load-recommendations-completed)
   (try-get-users)
   (observe-change-user))
 
