@@ -23,4 +23,4 @@
 
 (deftest test-available-specializations
   (is (= (project-value :specialization/id (specializations-available "user2"))
-         ["spec1" "spec2" "spec3"])))
+         ["spec2" "spec3"])))

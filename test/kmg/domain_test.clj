@@ -18,7 +18,7 @@
 (deftest test-available-specialization-ids
   (let [db (db)]
     (is (= (spec-ids db #(available-specialization-ids db "user2")))
-        #{"spec1" "spec2" "spec3"})))
+        #{"spec2" "spec3"})))
 
 (deftest test-user-goals-history
   (let [db (db)]

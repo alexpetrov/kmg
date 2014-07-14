@@ -187,5 +187,5 @@
 (defn available-specialization-ids
   [db user]
   (let [completed  (completed-specialization-ids db user)]
-    (flatten (map #(conj (children-specialization-ids db %) % #_(get-spec-id db %)) completed))))
+    (flatten (map #(children-specialization-ids db %) completed))))
 ;; (available-specialization-ids (db) "user2")
