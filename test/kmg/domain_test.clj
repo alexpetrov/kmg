@@ -30,6 +30,15 @@
     (is (= (spec-ids db #(vector (user-current-goal db "user2")))
            #{"spec1"}))))
 
+(deftest test-select-specialization-as-goal
+  (let [db-before (db)]
+    (is (= (spec-ids db-before #(vector (user-current-goal db-before "user2")))
+           #{"spec1"}))
+    (change-goal "user2" "spec2")
+    (let [db-after (db)]
+          (is (= (spec-ids db-after #(vector (user-current-goal db-after "user2")))
+           #{"spec2"})))))
+
 (deftest test-completed-specialization-ids
   (let [db (db)]
     (is (= (spec-ids db #(completed-specialization-ids db "user2"))

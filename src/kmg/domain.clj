@@ -189,3 +189,10 @@
   (let [completed  (completed-specialization-ids db user)]
     (flatten (map #(children-specialization-ids db %) completed))))
 ;; (available-specialization-ids (db) "user2")
+
+(defn change-goal-fact [user spec]
+  [[:db/add [:user/name user] :user/goal [:specialization/id spec]]])
+
+(defn change-goal [user spec]
+  @(d/transact (conn)
+      (change-goal-fact user spec)))

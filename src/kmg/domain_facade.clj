@@ -32,8 +32,7 @@
     (map #(recommendation-data db %) recommend-ids)))))
 
 (defn mark-as-completed [user recommendation]
-  (let [db (db)
-        feedback (create-feedback user recommendation)]
+  (let [feedback (create-feedback user recommendation)]
     (p/p :transact/feedback @(d/transact (conn) feedback))))
 
 ;; (mark-as-completed "user1" "spec1_book4")
