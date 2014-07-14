@@ -32,20 +32,32 @@
   ".recommendation-completed-title" (ef/content (:media/title media)))
 
 (em/defsnippet specialization-available tmpl ".specialization-available" [specialization]
-  ".specialization-available-title" (ef/content (:specialization/title specialization)))
+  ".specialization-available-title"
+  (ef/content (:specialization/title specialization)))
+
+(em/defsnippet specialization-comleted tmpl ".specialization-completed" [specialization]
+  ".specialization-completed-title"
+  (ef/content (:specialization/title specialization)))
 
 (defn error-handler [{:keys [status status-text]}]
   (js/alert (str "somthing bad happened: " status " " status-text))
   #_(.log js/console (str "somthing bad happened: " status " " status-text)))
 
 (defn recommendation-list [data]
-  (ef/at "#inner-content" (ef/content (map recommendation data))))
+  (ef/at "#inner-content"
+         (ef/content (map recommendation data))))
 
 (defn recommendation-completed-list [data]
-  (ef/at "#recommenations-completed" (ef/content (map recommendation-completed data))))
+  (ef/at "#recommenations-completed"
+         (ef/content (map recommendation-completed data))))
 
 (defn specialization-available-list [data]
-  (ef/at "#specializations-available" (ef/content (map specialization-available data))))
+  (ef/at "#specializations-available"
+         (ef/content (map specialization-available data))))
+
+(defn specialization-comleted-list [data]
+  (ef/at "#specializations-completed"
+         (ef/content (map specialization-comleted data))))
 
 (defn try-load-recommendations []
   (GET (str "/recommendation/list/" (:username @user))
@@ -62,10 +74,16 @@
        {:handler specialization-available-list
         :error-hadler error-handler}))
 
+(defn try-load-specializations-completed []
+  (GET (str "/specialization/completed/" (:username @user))
+       {:handler specialization-comleted-list
+        :error-handler error-handler}))
+
 (defn refresh []
   (try-load-recommendations)
   (try-load-recommendations-completed)
-  (try-load-specializations-available))
+  (try-load-specializations-available)
+  (try-load-specializations-completed))
 
 (defn try-mark-as-completed [recommendation]
   (POST (str "/recommendation/mark-as-completed/" (:username @user) "/" (:recommendation/id recommendation))
