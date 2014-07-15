@@ -41,16 +41,23 @@
   (model/mark-as-completed user recommendation)
   (response nil))
 
+(defn change-goal [user specialization]
+  (log/info "user: " user "change goal to specialization: " specialization)
+  (model/change-goal user specialization)
+  (response nil))
 
 (defroutes recommendation-routes
   (GET "/list/:user" [user] (recommendations user))
   (GET "/list/:user/:spec" [user spec] (recommendations user spec))
   (GET "/completed/:user" [user] (recommendations-completed user))
-  (POST "/mark-as-completed/:user/:recommendation" [user recommendation] (mark-as-completed user recommendation)))
+  (POST "/mark-as-completed/:user/:recommendation" [user recommendation]
+        (mark-as-completed user recommendation)))
 
 (defroutes specialization-routes
   (GET "/completed/:user" [user] (specializations-completed user))
-  (GET "/available/:user" [user] (specializations-available user)))
+  (GET "/available/:user" [user] (specializations-available user))
+  (GET "/change-goal/:user/:specialization" [user specialization]
+       (change-goal user specialization)))
 
 (defroutes user-routes
   (GET "/list" [] (user-list)))
