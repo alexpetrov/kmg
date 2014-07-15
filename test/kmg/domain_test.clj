@@ -25,19 +25,6 @@
     (is (= (spec-ids db #(user-goals-history db "user2"))
            #{"spec1"}))))
 
-(deftest test-user-current-goal
-  (let [db (db)]
-    (is (= (spec-ids db #(vector (user-current-goal db "user2")))
-           #{"spec1"}))))
-
-(deftest test-select-specialization-as-goal
-  (let [db-before (db)]
-    (is (= (spec-ids db-before #(vector (user-current-goal db-before "user2")))
-           #{"spec1"}))
-    (change-goal "user2" "spec2")
-    (let [db-after (db)]
-          (is (= (spec-ids db-after #(vector (user-current-goal db-after "user2")))
-           #{"spec2"})))))
 
 (deftest test-completed-specialization-ids
   (let [db (db)]
@@ -72,3 +59,20 @@
   (let [db (db)]
     (is (= (rec-ids db #(recommendations-for-user db "user1" (user-current-goal db "user1")))
            #{"spec2_book3" "spec5_book4" "spec2_book4"}))))
+
+(deftest test-user-current-goal
+  (let [db (db)]
+    (is (= (spec-ids db #(vector (user-current-goal db "user2")))
+           #{"spec1"}))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Commands tests
+
+(deftest test-change-goal
+  (let [db-before (db)]
+    (is (= (spec-ids db-before #(vector (user-current-goal db-before "user2")))
+           #{"spec1"}))
+    (change-goal-command "user2" "spec2")
+    (let [db-after (db)]
+          (is (= (spec-ids db-after #(vector (user-current-goal db-after "user2")))
+           #{"spec2"})))))

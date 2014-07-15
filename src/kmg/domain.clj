@@ -7,9 +7,10 @@
         clojure.data
         kmg.datomic-helpers))
 
-(defn with-synchronized-db-do [f]
-  (p/p :sync @(d/sync (conn)))
-  (p/p :call-domain-function (f)))
+(defn with-synchronized-db-do [profile-description f]
+  (p/profile :info profile-description
+             (do (p/p :sync @(d/sync (conn)))
+                 (p/p :call-domain-function (f)))))
 
 (defn sort-by-second
   ([coll] (sort-by-second - coll))
@@ -118,14 +119,6 @@
 
 ;; (get-feedback "user1" "spec1_book4")
 
-(defn create-feedback
-  [user recommendation]
-  [{:feedback/user [:user/name user]
-   :feedback/recommendation [:recommendation/id recommendation]
-   :feedback/complete true
-   :db/id (d/tempid :db.part/user)}])
-
-;; (create-feedback "user1" "spec1_book2")
 
 (defn children-specialization-ids [db spec]
   (->> (d/q '[:find ?specid
@@ -190,9 +183,26 @@
     (flatten (map #(children-specialization-ids db %) completed))))
 ;; (available-specialization-ids (db) "user2")
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Commands
+
+(defn create-feedback
+  [user recommendation]
+  [{:feedback/user [:user/name user]
+   :feedback/recommendation [:recommendation/id recommendation]
+   :feedback/complete true
+   :db/id (d/tempid :db.part/user)}])
+
+;; (create-feedback "user1" "spec1_book2")
+
+(defn mark-as-completed-command [user recommendation]
+  (let [feedback (create-feedback user recommendation)]
+    @(d/transact (conn) feedback)))
+
+
 (defn change-goal-fact [user spec]
   [[:db/add [:user/name user] :user/goal [:specialization/id spec]]])
 
-(defn change-goal [user spec]
+(defn change-goal-command [user spec]
   @(d/transact (conn)
       (change-goal-fact user spec)))

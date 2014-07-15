@@ -18,7 +18,7 @@
   ([user]
      (recommendations user (user-current-goal-id (db) user)))
   ([user spec]
-     (with-synchronized-db-do
+     (with-synchronized-db-do :recommendations
        (fn []
          (let [db (db)
                recommend-ids (take 4 (recommendation-ids db user (get-spec-id db spec)))]
@@ -26,16 +26,11 @@
 
 
 (defn recommendations-completed [user]
-  (with-synchronized-db-do
+  (with-synchronized-db-do :recommendations-completed
     (fn [] (let [db (db)
                  recommend-ids (take 10 (recommendations-completed-by-user db user))]
     (map #(recommendation-data db %) recommend-ids)))))
 
-(defn mark-as-completed [user recommendation]
-  (let [feedback (create-feedback user recommendation)]
-    (p/p :transact/feedback @(d/transact (conn) feedback))))
-
-;; (mark-as-completed "user1" "spec1_book4")
 
 (defn children-specializations
   "This function supposed to be used from presentation layer"
@@ -46,7 +41,7 @@
 ;;(children-specializations "spec1")
 
 (defn specializations-completed [user]
-  (with-synchronized-db-do
+  (with-synchronized-db-do :specializations-completed
     (fn []
       (let [db (db)
             completed-specs (completed-specialization-ids db user)]
@@ -55,10 +50,23 @@
 ;; (completed-specializations "user2")
 
 (defn specializations-available [user]
-  (with-synchronized-db-do
+  (with-synchronized-db-do :specializations-available
     (fn []
       (let [db (db)
             available-specs (available-specialization-ids db user)]
         (map #(entity db %) available-specs)))))
 
 ;;(available-specializations "user2")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Commands
+
+(defn change-goal [user spec]
+  (p/profile :info :change-goal
+             (p/p :command (change-goal-command user spec))))
+
+(defn mark-as-completed [user recommendation]
+  (p/profile :info :mark-as-completed
+             (p/p :command (mark-as-completed-command user recommendation))))
+
+;; (mark-as-completed "user1" "spec1_book4")

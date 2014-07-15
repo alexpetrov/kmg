@@ -2,8 +2,7 @@
   (:require [compojure.route :as route]
             [clojure.java.io :as io]
             [kmg.domain-facade :as model]
-            [taoensso.timbre :as log]
-            [taoensso.timbre.profiling :as p])
+            [taoensso.timbre :as log])
   (:use compojure.core
         compojure.handler
         ring.middleware.edn
@@ -16,38 +15,30 @@
 
 (defn recommendations
   ([user]
-  (log/info "recommendations for user: " user)
-  (response (p/profile :info :recommendations
-                       (model/recommendations user))))
+     (log/info "recommendations for user: " user)
+     (response (model/recommendations user)))
   ([user spec]
      (log/info "recommendations for user: " user "; specialization: " spec)
-     (response (p/profile :info :recommendations
-                       (model/recommendations user spec)))))
+     (response (model/recommendations user spec))))
 
 (defn recommendations-completed [user]
   (log/info "recommendations-completed for user: " user)
-  (response (p/profile :info :recommendations-completed
-                       (model/recommendations-completed user))))
+  (response (model/recommendations-completed user)))
 
 (defn specializations-completed [user]
   (log/info "specializations-completed for user: " user)
-  (response (p/profile :info :specializations-completed
-                       (model/specializations-completed user))))
+  (response (model/specializations-completed user)))
 
 (defn specializations-available [user]
   (log/info "specializations-available for user: " user)
-  (response (p/profile :info :specializations-available
-                       (model/specializations-available user))))
-
+  (response (model/specializations-available user)))
 
 (defn user-list []
   (response (model/users)))
 
 (defn mark-as-completed [user recommendation]
-  (p/profile :info :mark-as-completed
-             (do
-               (log/info "user: " user "recommendation:" recommendation)
-               (model/mark-as-completed user recommendation)))
+  (log/info "user: " user "mark-as-completed recommendation:" recommendation)
+  (model/mark-as-completed user recommendation)
   (response nil))
 
 
