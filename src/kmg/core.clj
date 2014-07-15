@@ -56,7 +56,7 @@
 (defroutes specialization-routes
   (GET "/completed/:user" [user] (specializations-completed user))
   (GET "/available/:user" [user] (specializations-available user))
-  (GET "/change-goal/:user/:specialization" [user specialization]
+  (POST "/change-goal/:user/:specialization" [user specialization]
        (change-goal user specialization)))
 
 (defroutes user-routes

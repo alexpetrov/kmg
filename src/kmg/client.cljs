@@ -5,7 +5,7 @@
             [ajax.core :refer [GET POST]])
   (:require-macros [enfocus.macros :as em]))
 
-(declare try-mark-as-completed try-load-recommendations-completed start)
+(declare try-mark-as-completed try-change-goal try-load-recommendations-completed start)
 
 
 (def user (atom {:username "user2"}))
@@ -32,8 +32,8 @@
   ".recommendation-completed-title" (ef/content (:media/title media)))
 
 (em/defsnippet specialization-available tmpl ".specialization-available" [specialization]
-  ".specialization-available-title"
-  (ef/content (:specialization/title specialization)))
+  ".specialization-available-title" (ef/content (:specialization/title specialization))
+  "#choose" (events/listen :click #(try-change-goal specialization)))
 
 (em/defsnippet specialization-comleted tmpl ".specialization-completed" [specialization]
   ".specialization-completed-title"
@@ -90,6 +90,10 @@
         {:handler refresh
          :error-handler error-handler}))
 
+(defn try-change-goal [specialization]
+  (POST (str "/specialization/change-goal/" (:username @user) "/" (:specialization/id specialization))
+        {:handler refresh
+         :error-handler error-handler}))
 ;; TODO: How to avoid blinking of sample value for select?
 ;; May be make it hide by-default and make it shown after transformation
 (defn show-user-choose [users]
@@ -115,8 +119,6 @@
                   (ef/append (kmg-content))
                   (ef/append (kmg-sidebar))))
   (refresh)
-  #_(try-load-recommendations)
-  #_(try-load-recommendations-completed)
   (try-get-users)
   (observe-change-user))
 
