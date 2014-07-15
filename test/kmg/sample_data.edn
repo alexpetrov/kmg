@@ -168,7 +168,7 @@
                      }]
   :users [{:user/name "user1"
            :user/start-career-year 2014
-           :user/goal [:specialization/id "spec2"]}
+           :user/goal [:specialization/id "spec1"]}
           {:user/name "user2"
            :user/start-career-year 2013
            :user/goal [:specialization/id "spec1"]}]
