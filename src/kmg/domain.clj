@@ -7,10 +7,14 @@
         clojure.data
         kmg.datomic-helpers))
 
-(defn with-synchronized-db-do [profile-description f]
-  (p/profile :info profile-description
+(defn query [description f]
+  (p/profile :info description
              (do (p/p :sync @(d/sync (conn)))
-                 (p/p :call-domain-function (f)))))
+                 (p/p :call-domain-query (f)))))
+
+(defn command [description f]
+  (p/profile :info description
+             (p/p :call-domain-command (f))))
 
 (defn sort-by-second
   ([coll] (sort-by-second - coll))

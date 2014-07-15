@@ -18,7 +18,7 @@
   ([user]
      (recommendations user (user-current-goal-id (db) user)))
   ([user spec]
-     (with-synchronized-db-do :recommendations
+     (query :recommendations
        (fn []
          (let [db (db)
                recommend-ids (take 4 (recommendation-ids db user (get-spec-id db spec)))]
@@ -26,7 +26,7 @@
 
 
 (defn recommendations-completed [user]
-  (with-synchronized-db-do :recommendations-completed
+  (query :recommendations-completed
     (fn [] (let [db (db)
                  recommend-ids (take 10 (recommendations-completed-by-user db user))]
     (map #(recommendation-data db %) recommend-ids)))))
@@ -41,7 +41,7 @@
 ;;(children-specializations "spec1")
 
 (defn specializations-completed [user]
-  (with-synchronized-db-do :specializations-completed
+  (query :specializations-completed
     (fn []
       (let [db (db)
             completed-specs (completed-specialization-ids db user)]
@@ -50,7 +50,7 @@
 ;; (completed-specializations "user2")
 
 (defn specializations-available [user]
-  (with-synchronized-db-do :specializations-available
+  (query :specializations-available
     (fn []
       (let [db (db)
             available-specs (available-specialization-ids db user)]
@@ -62,11 +62,11 @@
 ;; Commands
 
 (defn change-goal [user spec]
-  (p/profile :info :change-goal
-             (p/p :command (change-goal-command user spec))))
+  (command :change-goal
+           #(change-goal-command user spec)))
 
 (defn mark-as-completed [user recommendation]
-  (p/profile :info :mark-as-completed
-             (p/p :command (mark-as-completed-command user recommendation))))
+  (command :mark-as-completed
+           #(mark-as-completed-command user recommendation)))
 
 ;; (mark-as-completed "user1" "spec1_book4")
