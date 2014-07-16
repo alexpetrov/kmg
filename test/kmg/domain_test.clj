@@ -45,6 +45,11 @@
     (is (= (is-specialization-completed? db "user1" (get-spec-id db "spec2"))
            false))))
 
+(deftest test-is-specialization-available
+  (let [db (db)]
+    (is (= (is-specialization-available? db "user1" (get-spec-id db "spec2"))
+           true))))
+
 (deftest test-reommendations
   (let [db (db)]
     (is (= (rec-ids db #(recommendation-ids db "user2" (get-spec-id db "spec1"))))

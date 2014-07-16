@@ -185,7 +185,20 @@
   [db user]
   (let [completed  (completed-specialization-ids db user)]
     (flatten (map #(children-specialization-ids db %) completed))))
-;; (available-specialization-ids (db) "user2")
+;; (available-specialization-ids (db) "user1")
+;; (get-spec-id (db) "spec2")
+
+(defn in?
+  "true if seq contains elm"
+  [seq elm]
+  (some #(= elm %) seq))
+
+(defn is-specialization-available? [db user spec]
+  (let [available-specs (available-specialization-ids db user) #_(vec (available-specialization-ids db user))]
+    (in? available-specs spec)))
+
+;; (some #(= 1 %) [1 2 3]) ;:=> true
+;;(is-specialization-available?  (db) "user1" (get-spec-id (db) "spec2"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Commands
