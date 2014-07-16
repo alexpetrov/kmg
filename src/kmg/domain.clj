@@ -194,11 +194,12 @@
   (some #(= elm %) seq))
 
 (defn is-specialization-available? [db user spec]
-  (let [available-specs (available-specialization-ids db user) #_(vec (available-specialization-ids db user))]
-    (in? available-specs spec)))
+  (let [available-specs (available-specialization-ids db user)
+        spec-id (get-spec-id db spec)]
+    (in? available-specs spec-id)))
 
 ;; (some #(= 1 %) [1 2 3]) ;:=> true
-;;(is-specialization-available?  (db) "user1" (get-spec-id (db) "spec2"))
+;;(is-specialization-available?  (db) "user1" "spec2")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Commands
@@ -221,5 +222,7 @@
   [[:db/add [:user/name user] :user/goal [:specialization/id spec]]])
 
 (defn change-goal-command [user spec]
+  (if (not (is-specialization-available? (db) user spec))
+    (throw (IllegalArgumentException. (str "Trying to change user goal to unavailable specialization; User: " user "; Specialization: " spec))))
   @(d/transact (conn)
       (change-goal-fact user spec)))

@@ -47,7 +47,7 @@
 
 (deftest test-is-specialization-available
   (let [db (db)]
-    (is (= (is-specialization-available? db "user1" (get-spec-id db "spec2"))
+    (is (= (is-specialization-available? db "user1" "spec2")
            true))))
 
 (deftest test-reommendations
@@ -81,3 +81,12 @@
     (let [db-after (db)]
           (is (= (spec-ids db-after #(vector (user-current-goal db-after "user2")))
            #{"spec2"})))))
+
+(deftest test-change-goal-to-unavailable-spcialization
+  (let [db-before (db)]
+    (is (= (spec-ids db-before #(vector (user-current-goal db-before "user2")))
+           #{"spec1"}))
+    (is (thrown? IllegalArgumentException (change-goal-command "user2" "spec4")))
+    (let [db-after (db)]
+          (is (= (spec-ids db-after #(vector (user-current-goal db-after "user2")))
+           #{"spec1"})))))
