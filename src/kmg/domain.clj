@@ -184,7 +184,10 @@
 (defn available-specialization-ids
   [db user]
   (let [completed  (completed-specialization-ids db user)]
-    (flatten (map #(children-specialization-ids db %) completed))))
+    (->> (map #(children-specialization-ids db %) completed)
+         flatten
+         (remove completed))))
+
 ;; (available-specialization-ids (db) "user1")
 ;; (get-spec-id (db) "spec2")
 
