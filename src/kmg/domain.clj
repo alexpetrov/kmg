@@ -40,7 +40,7 @@
           :where
           [?userid :user/goal ?sid ?tx]
           [?tx :db/txInstant ?timestamp]]
-          db [:user/name user]))
+          (d/history db) [:user/name user]))
 
 (defn count-incompleted-recomendations-in-spec [db user spec]
   (ffirst (d/q '[:find (count ?rec-id)

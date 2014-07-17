@@ -21,15 +21,23 @@
         #{"spec2" "spec3"})))
 
 (deftest test-user-goals-history
-  (let [db (db)]
-    (is (= (spec-ids db #(user-goals-history db "user2"))
-           #{"spec1"}))))
-
+  (let [before-db (db)]
+    (is (= (spec-ids before-db #(user-goals-history before-db "user2"))
+           #{"spec1"}))
+    (change-goal-command "user2" "spec2")
+    (let [after-db (db)]
+      (is (= (spec-ids after-db #(user-goals-history after-db "user2"))
+           #{"spec1" "spec2"})))
+    ))
 
 (deftest test-completed-specialization-ids
-  (let [db (db)]
-    (is (= (spec-ids db #(completed-specialization-ids db "user2"))
-           #{"spec1"}))))
+  (let [before-db (db)]
+    (is (= (spec-ids before-db #(completed-specialization-ids before-db "user2"))
+           #{"spec1"}))
+    (change-goal-command "user2" "spec2")
+    (mark-as-completed-command "user2" "spec2_book3")
+    (let [after-db (db)](is (= (spec-ids after-db #(user-goals-history after-db "user2"))
+           #{"spec1" "spec2"})))))
 
 (deftest test-children-specialization-ids
   (let [db (db)]

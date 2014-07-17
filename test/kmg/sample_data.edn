@@ -76,6 +76,11 @@
           :media/type :media.type/book
           :media/title "book10_title"
           :media/essential false
+          :media/experience 1}
+         {:media/id "book11"
+          :media/type :media.type/book
+          :media/title "book11_title"
+          :media/essential false
           :media/experience 1}]
   :recommendations [{:recommendation/specialization [:specialization/id "spec1"]
                      :recommendation/media [:media/id "book1"]
@@ -101,71 +106,70 @@
                      :recommendation/id "spec1_book4"
                      :recommendation/priority 700
                      :recommendation/necessary false
-                     :recommendation/description "spec1 book4"
-                     }
+                     :recommendation/description "spec1 book4"}
                     {:recommendation/specialization [:specialization/id "spec1"]
                      :recommendation/media [:media/id "book5"]
                      :recommendation/id "spec1_book5"
 
                      :recommendation/priority 600
                      :recommendation/necessary false
-                     :recommendation/description "spec1 book5"
-                     }
+                     :recommendation/description "spec1 book5"}
                     {:recommendation/specialization [:specialization/id "spec4"]
                      :recommendation/media [:media/id "book6"]
                      :recommendation/id "spec4_book6"
 
                      :recommendation/priority 550
                      :recommendation/necessary false
-                     :recommendation/description "spec4 book6"
-                     }
+                     :recommendation/description "spec4 book6"}
                     {:recommendation/specialization [:specialization/id "spec4"]
                      :recommendation/media [:media/id "book7"]
                      :recommendation/id "spec4_book7"
-
                      :recommendation/priority 500
                      :recommendation/necessary false
-                     :recommendation/description "spec4 book7"
-                     }
+                     :recommendation/description "spec4 book7"}
                     {:recommendation/specialization [:specialization/id "spec4"]
                      :recommendation/media [:media/id "book8"]
                      :recommendation/id "spec4_book8"
-
                      :recommendation/priority 400
                      :recommendation/necessary false
-                     :recommendation/description "spec4 book8"
-                     }
+                     :recommendation/description "spec4 book8"}
                     {:recommendation/specialization [:specialization/id "spec4"]
                      :recommendation/media [:media/id "book9"]
                      :recommendation/id "spec4_book9"
-
                      :recommendation/priority 300
                      :recommendation/necessary false
-                     :recommendation/description "spec4 book9"
-                     }
+                     :recommendation/description "spec4 book9"}
 
                     {:recommendation/specialization [:specialization/id "spec2"]
                      :recommendation/media [:media/id "book3"]
                      :recommendation/id "spec2_book3"
-
                      :recommendation/priority 1000
                      :recommendation/necessary true
-                     :recommendation/description "spec2 book3"
-                     }
+                     :recommendation/description "spec2 book3"}
                     {:recommendation/specialization [:specialization/id "spec2"]
                      :recommendation/media [:media/id "book4"]
                      :recommendation/id "spec2_book4"
                      :recommendation/priority 900
-                     :recommendation/necessary true
-                     :recommendation/description "spec2 book4"
-                     }
+                     :recommendation/necessary false
+                     :recommendation/description "spec2 book4"}
                     {:recommendation/specialization [:specialization/id "spec2"]
                      :recommendation/media [:media/id "book5"]
                      :recommendation/id "spec5_book4"
                      :recommendation/priority 800
+                     :recommendation/necessary false
+                     :recommendation/description "spec2 book5"}
+                    {:recommendation/specialization [:specialization/id "spec3"]
+                     :recommendation/media [:media/id "book10"]
+                     :recommendation/id "spec3_book10"
+                     :recommendation/priority 800
                      :recommendation/necessary true
-                     :recommendation/description "spec2 book5"
-                     }]
+                     :recommendation/description "spec3 book10"}
+                    {:recommendation/specialization [:specialization/id "spec3"]
+                     :recommendation/media [:media/id "book11"]
+                     :recommendation/id "spec3_book11"
+                     :recommendation/priority 700
+                     :recommendation/necessary false
+                     :recommendation/description "spec3 book11"}]
   :users [{:user/name "user1"
            :user/start-career-year 2014
            :user/goal [:specialization/id "spec1"]}
