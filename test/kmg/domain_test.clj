@@ -63,6 +63,10 @@
     (is (= (rec-ids db #(recommendation-ids db "user2" (get-spec-id db "spec1"))))
         #{"spec1_book3" "spec1_book4" "spec1_book5"})))
 
+(deftest test-reommendations-throws-exception-if-specializaion-is-not-one-from-goal-history
+  (let [db (db)]
+    (is (thrown? IllegalArgumentException (recommendation-ids db "user2" (get-spec-id db "spec2"))))))
+
 (deftest test-recommendations-completed
   (let [db (db)]
     (is (= (rec-ids db #(recommendations-completed-by-user db "user2"))

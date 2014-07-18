@@ -7,6 +7,8 @@
         clojure.data
         kmg.datomic-helpers))
 
+(declare in? user-goals-history)
+
 (defn query [description f]
   (p/profile :info description
              (do (p/p :sync @(d/sync (conn)))
@@ -81,16 +83,26 @@
        (sort-by-second)
        (every-first)))
 
+(defn check-if-spec-is-one-of-goal-history
+  [db user spec]
+  (let [goal-history (user-goals-history db user)]
+    (if (not (in? goal-history spec))
+      (throw (IllegalArgumentException.
+              (str "Trying get recommendations for specialization that is not one of users history of goals; User: "
+                   user "; Specialization: " spec))))))
+
 ;; (recommendations-for-user (db) "user2")
 (defn recommendation-ids
   "Gives recommendation ids for user by specialization"
   [db user spec]
-     (let [recs (recommendations-for-user db user spec)
+  (p/p :check-permission (check-if-spec-is-one-of-goal-history db user spec))
+  (let [recs (recommendations-for-user db user spec)
         completed (set (recommendations-completed-by-user db user))]
     (remove completed recs)))
 
 ;; (recommendation-ids (db) "user1")
 ;; (recommendation-ids (db) "user2")
+;;
 
 (defn media-id-by-recommendation-id [db recommend-id]
   (ffirst (d/q '[:find ?mid
