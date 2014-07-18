@@ -83,13 +83,16 @@
        (sort-by-second)
        (every-first)))
 
+(defn specialization-title [db spec-id]
+  (:specialization/title (d/entity db spec-id)))
+
 (defn check-if-spec-is-one-of-goal-history
   [db user spec]
   (let [goal-history (user-goals-history db user)]
     (if (not (in? goal-history spec))
       (throw (IllegalArgumentException.
               (str "Trying get recommendations for specialization that is not one of users history of goals; User: "
-                   user "; Specialization: " spec))))))
+                   user "; Specialization: " (specialization-title db spec)))))))
 
 ;; (recommendations-for-user (db) "user2")
 (defn recommendation-ids
