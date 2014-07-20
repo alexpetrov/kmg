@@ -9,6 +9,7 @@
 
 
 (def user (atom {:username "user2"}))
+(def user-data (atom {}))
 
 (def tmpl "/html/kmg.html")
 
@@ -60,11 +61,19 @@
   (ef/at "#specializations-completed"
          (ef/content (map specialization-comleted data))))
 
+(defn data-changed? [data data-part]
+  (if (= {} @user-data) true
+      (not= (data-part data) (data-part @user-data))))
+
+(defn render-if-changed [render-function data data-part]
+  (if (data-changed? data data-part) (render-function (data-part data))))
+
 (defn render-whole-user-data [data]
-  (recommendation-list (:recommendations data))
-  (recommendation-completed-list (:recommendations-completed data))
-  (specialization-available-list (:specializations-available data))
-  (specialization-completed-list (:specializations-completed data)))
+  (render-if-changed recommendation-list data :recommendations)
+  (render-if-changed recommendation-completed-list data :recommendations-completed)
+  (render-if-changed specialization-available-list data :specializations-available)
+  (render-if-changed specialization-completed-list data :specializations-completed)
+  (reset! user-data data))
 
 (defn try-load-recommendations
   ([]
@@ -75,17 +84,17 @@
        {:handler recommendation-list
         :error-handler error-handler})))
 
-(defn try-load-recommendations-completed []
+#_(defn try-load-recommendations-completed []
   (GET (str "/recommendation/completed/" (:username @user))
        {:handler recommendation-completed-list
         :error-handler error-handler}))
 
-(defn try-load-specializations-available []
+#_(defn try-load-specializations-available []
   (GET (str "/specialization/available/" (:username @user))
        {:handler specialization-available-list
         :error-hadler error-handler}))
 
-(defn try-load-specializations-completed []
+#_(defn try-load-specializations-completed []
   (GET (str "/specialization/completed/" (:username @user))
        {:handler specialization-completed-list
         :error-handler error-handler}))
@@ -120,11 +129,9 @@
 (em/defaction observe-change-user []
   ["#users-id"]
   (events/listen :change
-                 #((do (reset! user {:username (ef/from "#users-id" (get-prop :value))})
-                       #_(js/alert (str "Before try load recommendations for user: " @user))
-                       (refresh)
-
-                       #_(js/alert (str "User changed. Current user: " @user))))))
+                 #((do (reset! user
+                               {:username (ef/from "#users-id" (get-prop :value))})
+                       (refresh)))))
 
 (defn start []
   (ef/at ".container"
