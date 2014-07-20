@@ -33,6 +33,10 @@
   (log/info "specializations-available for user: " user)
   (response (model/specializations-available user)))
 
+(defn whole-user-data [user]
+  (log/info "whole-user-data for user: " user)
+  (response (model/whole-user-data user)))
+
 (defn user-list []
   (response (model/users)))
 
@@ -59,15 +63,15 @@
   (POST "/change-goal/:user/:specialization" [user specialization]
        (change-goal user specialization)))
 
+
 (defroutes user-routes
   (GET "/list" [] (user-list)))
 
 (defroutes compojure-handler
   (GET "/" [] (slurp (io/resource "public/html/index.html")))
-
+  (GET "/data/:user" [user] (whole-user-data user))
   (context "/recommendation" [] recommendation-routes)
   (context "/specialization" [] specialization-routes)
-
   (context "/user" [] user-routes)
   (GET "/req" request (str request))
   (route/resources "/")
