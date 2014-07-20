@@ -24,3 +24,13 @@
 (deftest test-available-specializations
   (is (= (project-value :specialization/id (specializations-available "user2"))
          ["spec2" "spec3"])))
+
+(deftest test-whole-user-data
+  (is (not= (:recommendations (whole-user-data "user2"))
+         nil))
+  (is (not= (:recommendations-completed (whole-user-data "user2"))
+         nil))
+  (is (not= (:specializations-completed (whole-user-data "user2"))
+         nil))
+  (is (not= (:specializations-available (whole-user-data "user2"))
+         nil)))

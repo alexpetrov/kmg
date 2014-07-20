@@ -22,14 +22,14 @@
        (fn []
          (let [db (db)
                recommend-ids (take 4 (recommendation-ids db user (get-spec-id db spec)))]
-                (map #(recommendation-data db %) recommend-ids))))))
+                (vec (map #(recommendation-data db %) recommend-ids)))))))
 
 
 (defn recommendations-completed [user]
   (query :recommendations-completed
     (fn [] (let [db (db)
                  recommend-ids (take 10 (recommendations-completed-by-user db user))]
-    (map #(recommendation-data db %) recommend-ids)))))
+    (vec (map #(recommendation-data db %) recommend-ids))))))
 
 
 (defn children-specializations
@@ -57,6 +57,12 @@
         (map #(entity db %) available-specs)))))
 
 ;;(available-specializations "user2")
+
+(defn whole-user-data [user]
+  {:recommendations (recommendations user)
+   :recommendations-completed (recommendations-completed user)
+   :specializations-available (specializations-available user)
+   :specializations-completed (specializations-completed user)})
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Commands

@@ -53,4 +53,4 @@ It needs only for prototype"
     #_(reset)
     (import-knowledge-base-data data-path (fresh-conn))))
 ;; (reset)
-;; (create-db-and-import-sample-data-for-prototype)
+;; (time (create-db-and-import-sample-data-for-prototype))
