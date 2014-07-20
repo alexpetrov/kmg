@@ -59,10 +59,10 @@
 ;;(available-specializations "user2")
 
 (defn whole-user-data [user]
-  {:recommendations (vec (recommendations user))
+  (p/profile :info :whole-user-data {:recommendations (vec (recommendations user))
    :recommendations-completed (vec (recommendations-completed user))
    :specializations-available (vec (specializations-available user))
-   :specializations-completed (vec (specializations-completed user))})
+   :specializations-completed (vec (specializations-completed user))}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Commands

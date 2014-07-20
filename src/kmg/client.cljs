@@ -56,9 +56,15 @@
   (ef/at "#specializations-available"
          (ef/content (map specialization-available data))))
 
-(defn specialization-comleted-list [data]
+(defn specialization-completed-list [data]
   (ef/at "#specializations-completed"
          (ef/content (map specialization-comleted data))))
+
+(defn render-whole-user-data [data]
+  (recommendation-list (:recommendations data))
+  (recommendation-completed-list (:recommendations-completed data))
+  (specialization-available-list (:specializations-available data))
+  (specialization-completed-list (:specializations-completed data)))
 
 (defn try-load-recommendations
   ([]
@@ -81,14 +87,16 @@
 
 (defn try-load-specializations-completed []
   (GET (str "/specialization/completed/" (:username @user))
-       {:handler specialization-comleted-list
+       {:handler specialization-completed-list
+        :error-handler error-handler}))
+
+(defn try-load-whole-user-data []
+  (GET (str "/data/" (:username @user))
+       {:handler render-whole-user-data
         :error-handler error-handler}))
 
 (defn refresh []
-  (try-load-recommendations)
-  (try-load-recommendations-completed)
-  (try-load-specializations-available)
-  (try-load-specializations-completed))
+  (try-load-whole-user-data))
 
 (defn try-mark-as-completed [recommendation]
   (POST (str "/recommendation/mark-as-completed/" (:username @user) "/" (:recommendation/id recommendation))
