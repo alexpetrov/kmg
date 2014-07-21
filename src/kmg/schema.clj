@@ -85,14 +85,14 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Media Relationship type
-  {:db/ident :media.relationship/media_from
+  {:db/ident :media.relationship/from
    :db/valueType :db.type/ref
    :db/cardinality :db.cardinality/one
    :db/doc "'From' end of relationship between media."
    :db/id (d/tempid :db.part/db)
    :db.install/_attribute :db.part/db}
 
-  {:db/ident :media.relationship/media_to
+  {:db/ident :media.relationship/to
    :db/valueType :db.type/ref
    :db/cardinality :db.cardinality/one
    :db/doc "'To' end of relationship between media."

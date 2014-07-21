@@ -58,10 +58,10 @@
   )
 
 (deftest test-kmg-schema-for-media-relationship
-  (is (= (attr-spec :media.relationship/media_from)
+  (is (= (attr-spec :media.relationship/from)
          [:db.type/ref :db.cardinality/one]))
 
-  (is (= (attr-spec :media.relationship/media_to)
+  (is (= (attr-spec :media.relationship/to)
          [:db.type/ref :db.cardinality/one]))
 
   (is (= (attr-spec :media.relationship/type)

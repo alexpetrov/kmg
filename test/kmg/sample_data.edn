@@ -82,6 +82,10 @@
           :media/title "book11_title"
           :media/essential false
           :media/experience 1}]
+  :media.relationships [{:media.relationship/from [:media/id "book2"]
+                   :media.relationship/to [:media/id "book1"]
+                   :media.relationship/type :prerequisite
+                   :media.relationship/description "book2 requires book1 to be understandable"}]
   :recommendations [{:recommendation/specialization [:specialization/id "spec1"]
                      :recommendation/media [:media/id "book1"]
                      :recommendation/id "spec1_book1"

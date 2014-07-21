@@ -82,6 +82,11 @@
     (is (= (spec-ids db #(vector (user-current-goal db "user2")))
            #{"spec1"}))))
 
+(deftest test-media-prerequisites
+  (let [db (db)]
+    (is (= (media-prerequisites db "book2")
+           #{"book1"}))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Commands tests
 
