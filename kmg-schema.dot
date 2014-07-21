@@ -8,13 +8,15 @@ user [label=<<table border="0" cellborder="1" cellspacing="0" color="#808080" po
 "specialization.relationship" [label=<<table border="0" cellborder="1" cellspacing="0" color="#808080" port="specialization.relationship"><tr><td bgcolor="gray">specialization.relationship</td></tr><tr><td port="from">from : ref</td></tr><tr><td port="to">to : ref</td></tr><tr><td>description : string</td></tr></table>>];
 feedback [label=<<table border="0" cellborder="1" cellspacing="0" color="#808080" port="feedback"><tr><td bgcolor="gray">feedback</td></tr><tr><td port="user">user : ref</td></tr><tr><td>complete : boolean</td></tr><tr><td>relevant : boolean</td></tr><tr><td port="recommendation">recommendation : ref</td></tr></table>>];
 recommendation [label=<<table border="0" cellborder="1" cellspacing="0" color="#808080" port="recommendation"><tr><td bgcolor="gray">recommendation</td></tr><tr><td>necessary : boolean</td></tr><tr><td port="media">media : ref</td></tr><tr><td>priority : long</td></tr><tr><td>description : string</td></tr><tr><td><font color="red">id : string</font></td></tr><tr><td port="specialization">specialization : ref</td></tr></table>>];
-"media.relationship" [label=<<table border="0" cellborder="1" cellspacing="0" color="#808080" port="media.relationship"><tr><td bgcolor="gray">media.relationship</td></tr><tr><td port="media_from">media_from : ref</td></tr><tr><td port="media_to">media_to : ref</td></tr><tr><td>description : string</td></tr><tr><td>type : keyword</td></tr></table>>];
+"media.relationship" [label=<<table border="0" cellborder="1" cellspacing="0" color="#808080" port="media.relationship"><tr><td bgcolor="gray">media.relationship</td></tr><tr><td port="from">from : ref</td></tr><tr><td port="to">to : ref</td></tr><tr><td>description : string</td></tr><tr><td>type : keyword</td></tr></table>>];
 "specialization.relationship":from -> specialization:specialization [color="#441C14",arrowhead=tee];
-feedback:recommendation -> recommendation:recommendation [color="#15484C",arrowhead=tee];
-media:type -> db:db [color="#257580",arrowhead=tee];
-feedback:user -> user:user [color="#6E7D2C",arrowhead=tee];
-recommendation:specialization -> specialization:specialization [color="#CED796",arrowhead=tee];
-"specialization.relationship":to -> specialization:specialization [color="#441C14",arrowhead=tee];
-recommendation:media -> media:media [color="#15484C",arrowhead=tee];
-user:goal -> specialization:specialization [color="#257580",arrowhead=tee];
+"media.relationship":to -> media:media [color="#15484C",arrowhead=tee];
+feedback:recommendation -> recommendation:recommendation [color="#257580",arrowhead=tee];
+"media.relationship":from -> media:media [color="#6E7D2C",arrowhead=tee];
+media:type -> db:db [color="#CED796",arrowhead=tee];
+feedback:user -> user:user [color="#441C14",arrowhead=tee];
+recommendation:specialization -> specialization:specialization [color="#15484C",arrowhead=tee];
+"specialization.relationship":to -> specialization:specialization [color="#257580",arrowhead=tee];
+recommendation:media -> media:media [color="#6E7D2C",arrowhead=tee];
+user:goal -> specialization:specialization [color="#CED796",arrowhead=tee];
 } 
