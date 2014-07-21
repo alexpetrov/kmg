@@ -5,7 +5,7 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [org.clojure/clojurescript "0.0-2234"]
-                 [com.datomic/datomic-free "0.9.4815"]
+                 [com.datomic/datomic-free "0.9.4815.12"]
                  [datomic-schema-grapher "0.0.1"]
                  [enfocus "2.1.0-SNAPSHOT"]
                  [compojure "1.1.8"]
