@@ -219,17 +219,17 @@
 ;; (some #(= 1 %) [1 2 3]) ;:=> true
 ;;(is-specialization-available?  (db) "user1" "spec2")
 
-(defn media-prerequisite-dataset [db media]
+(defn media-background-dataset [db media]
   (d/q '[:find ?mto
          :in $ ?mfr
          :where
          [?mrid :media.relationship/from ?mfr]
          [?mrid :media.relationship/to ?mto]
-         [?mrid :media.relationship/type :prerequisite]]
+         [?mrid :media.relationship/type :background]]
        db [:media/id media]))
 
-(defn media-prerequisites [db media]
-  (let [media-prereq (set (every-first (media-prerequisite-dataset db media)))]
+(defn media-backgrounds [db media]
+  (let [media-prereq (set (every-first (media-background-dataset db media)))]
     (set (map #(:media/id (d/entity db %)) media-prereq))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

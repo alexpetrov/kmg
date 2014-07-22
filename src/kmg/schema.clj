@@ -102,14 +102,14 @@
   {:db/ident :media.relationship/type
    :db/valueType :db.type/keyword
    :db/cardinality :db.cardinality/one
-   :db/doc "Type of relationship. For example: :localization, :prerequisite."
+   :db/doc "Type of relationship. For example: :localization, :background."
    :db/id (d/tempid :db.part/db)
    :db.install/_attribute :db.part/db}
 
   {:db/ident :media.relationship/description
    :db/valueType :db.type/string
    :db/cardinality :db.cardinality/one
-   :db/doc "Description of relationship. For example, why this is prerequisite."
+   :db/doc "Description of relationship. For example, why this media is background for that one."
    :db/id (d/tempid :db.part/db)
    :db.install/_attribute :db.part/db}
 

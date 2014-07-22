@@ -82,9 +82,9 @@
     (is (= (spec-ids db #(vector (user-current-goal db "user2")))
            #{"spec1"}))))
 
-(deftest test-media-prerequisites
+(deftest test-media-backgrounds
   (let [db (db)]
-    (is (= (media-prerequisites db "book2")
+    (is (= (media-backgrounds db "book2")
            #{"book1"}))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
