@@ -232,6 +232,22 @@
   (let [media-prereq (set (every-first (media-background-dataset db media)))]
     (set (map #(:media/id (d/entity db %)) media-prereq))))
 
+(defn media-feedback-complete [db media user]
+ (->> (d/q '[:find ?fid
+         :in $ ?mid ?user-id
+         :where
+         [?rid :recommendation/media ?mid]
+         [?fid :feedback/recommendation ?rid]
+         [?fid :feedback/user ?user-id]
+         [?fid :feedback/complete true]]
+       db [:media/id media] [:user/name user])
+      every-first))
+
+
+(defn is-media-complete? [db media user]
+  (let [complete-dataset (media-feedback-complete db media user)]
+    (not (empty? complete-dataset))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Commands
 

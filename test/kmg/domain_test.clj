@@ -87,6 +87,13 @@
     (is (= (media-backgrounds db "book2")
            #{"book1"}))))
 
+(deftest test-is-media-complete
+  (let [db (db)]
+    (is (= (is-media-complete? db "book1" "user2")
+           true))
+    (is (= (is-media-complete? db "book2" "user1")
+           false))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Commands tests
 
