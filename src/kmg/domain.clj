@@ -7,7 +7,7 @@
         clojure.data
         kmg.datomic-helpers))
 
-(declare in? user-goals-history)
+(declare in? user-goals-history media-backgrounds media-background-dataset)
 
 (defn query [description f]
   (p/profile :info description
@@ -107,6 +107,11 @@
 ;; (recommendation-ids (db) "user2")
 ;;
 
+(defn recommendation-dbid [db id]
+  (ffirst (d/q '[:find ?rid
+                 :in $ ?rid]
+               db [:recommendation/id id])))
+
 (defn media-id-by-recommendation-id [db recommend-id]
   (ffirst (d/q '[:find ?mid
               :in $ ?rid
@@ -116,10 +121,28 @@
 
 ;;(media-id-by-recommendation-id (db) 17592186045434)
 
+#_(defn media-id-by-dbid [db dbid]
+  (ffirst (d/q '[:find ?id
+                 :in $ ?dbid
+                 :where
+                 [?dbid :media/id ?id]]
+                 db dbid)))
+
+(defn media-dbid-by-id [db id]
+  (ffirst (d/q '[:find ?dbid
+                 :in $ ?dbid]
+                 db [:media/id id])))
+
+;;(media-id-by-dbid (db) 17592186045434)
+
 (defn recommendation-data [db rid]
-  {:recommendation (entity db rid) :media (entity db (media-id-by-recommendation-id db rid))})
+  (let [media-dbid (media-id-by-recommendation-id db rid)
+        media-backgrounds (set (every-first (media-background-dataset db media-dbid)))]
+    {:recommendation (entity db rid)
+     :media (entity db media-dbid)
+     :backgrounds (vec (map #(entity db %) media-backgrounds))}))
 
-
+;;(recommendation-data (db) (recommendation-dbid db "spec1_book2"))
 ;;(recommendations "user1")
 ;;(recommendations "user2")
 
@@ -219,7 +242,7 @@
 ;; (some #(= 1 %) [1 2 3]) ;:=> true
 ;;(is-specialization-available?  (db) "user1" "spec2")
 
-(defn media-background-dataset [db media]
+#_(defn media-background-dataset [db media]
   (d/q '[:find ?mto
          :in $ ?mfr
          :where
@@ -228,9 +251,19 @@
          [?mrid :media.relationship/type :background]]
        db [:media/id media]))
 
-(defn media-backgrounds [db media]
-  (let [media-prereq (set (every-first (media-background-dataset db media)))]
-    (set (map #(:media/id (d/entity db %)) media-prereq))))
+(defn media-background-dataset [db media-id]
+  (d/q '[:find ?mto
+         :in $ ?mfr
+         :where
+         [?mrid :media.relationship/from ?mfr]
+         [?mrid :media.relationship/to ?mto]
+         [?mrid :media.relationship/type :background]]
+       db media-id))
+
+(defn media-backgrounds
+  ([db media] (media-backgrounds db (media-dbid-by-id db media) "dummy"))
+  ([db media-id _] (let [media-prereq (set (every-first (media-background-dataset db media-id)))]
+    (set (map #(:media/id (d/entity db %)) media-prereq)))))
 
 (defn media-feedback-complete [db media user]
  (->> (d/q '[:find ?fid

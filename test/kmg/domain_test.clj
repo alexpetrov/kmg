@@ -94,6 +94,10 @@
     (is (= (is-media-complete? db "book2" "user1")
            false))))
 
+(deftest test-recommendation-data
+  (let [db (db)]
+    (is (= (:media/id (first (:backgrounds (recommendation-data db (recommendation-dbid db "spec1_book2")))))
+        "book1"))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Commands tests
 

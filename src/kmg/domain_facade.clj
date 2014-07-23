@@ -24,7 +24,6 @@
                recommend-ids (take 4 (recommendation-ids db user (get-spec-id db spec)))]
                 (map #(recommendation-data db %) recommend-ids))))))
 
-
 (defn recommendations-completed [user]
   (query :recommendations-completed
     (fn [] (let [db (db)
