@@ -7,7 +7,7 @@
         clojure.data
         kmg.datomic-helpers))
 
-(declare in? user-goals-history media-backgrounds media-background-dataset)
+(declare in? user-goals-history media-backgrounds media-background-dataset is-media-complete?)
 
 (defn query [description f]
   (p/profile :info description
@@ -121,6 +121,7 @@
 
 ;;(media-id-by-recommendation-id (db) 17592186045434)
 
+;; This function very likely will be not useful inside domain logic
 #_(defn media-id-by-dbid [db dbid]
   (ffirst (d/q '[:find ?id
                  :in $ ?dbid
@@ -137,13 +138,15 @@
 
 ;;(media-id-by-dbid (db) 17592186045434)
 
-(defn recommendation-data [db rid]
+(defn background-data [db media-id user]
+  {:media (entity db media-id) :completed (is-media-complete? db media-id user)})
+
+(defn recommendation-data [db rid user]
   (let [media-dbid (media-id-by-recommendation-id db rid)
-        media-backgrounds (media-backgrounds db media-dbid)
-        #_(set (every-first (media-background-dataset db media-dbid)))]
+        media-backgrounds (media-backgrounds db media-dbid)]
     {:recommendation (entity db rid)
      :media (entity db media-dbid)
-     :backgrounds (vec (map #(entity db %) media-backgrounds))}))
+     :backgrounds (vec (map #(background-data db % user) media-backgrounds))}))
 
 ;;(recommendation-data (db) (recommendation-dbid db "spec1_book2"))
 ;;(recommendations "user1")
@@ -275,7 +278,7 @@
          [?fid :feedback/recommendation ?rid]
          [?fid :feedback/user ?user-id]
          [?fid :feedback/complete true]]
-       db [:media/id media] [:user/name user])
+       db media [:user/name user])
       every-first))
 
 

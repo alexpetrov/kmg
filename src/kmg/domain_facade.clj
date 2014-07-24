@@ -22,13 +22,13 @@
        (fn []
          (let [db (db)
                recommend-ids (take 4 (recommendation-ids db user (get-spec-id db spec)))]
-                (map #(recommendation-data db %) recommend-ids))))))
+                (map #(recommendation-data db % user) recommend-ids))))))
 
 (defn recommendations-completed [user]
   (query :recommendations-completed
     (fn [] (let [db (db)
                  recommend-ids (take 10 (recommendations-completed-by-user db user))]
-    (map #(recommendation-data db %) recommend-ids)))))
+    (map #(recommendation-data db % user) recommend-ids)))))
 
 
 (defn children-specializations

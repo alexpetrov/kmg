@@ -89,14 +89,27 @@
 
 (deftest test-is-media-complete
   (let [db (db)]
-    (is (= (is-media-complete? db "book1" "user2")
+    (is (= (is-media-complete? db (media-dbid-by-id db "book1") "user2")
            true))
-    (is (= (is-media-complete? db "book2" "user1")
+    (is (= (is-media-complete? db (media-dbid-by-id db "book2") "user1")
+           false))))
+
+(deftest test-background-data
+  (let [db (db)
+        background-data (background-data db (media-dbid-by-id db "book2") "user1")]
+    (is (= (:media/id (:media background-data))
+           "book2"))
+    (is (= (:completed background-data)
            false))))
 
 (deftest test-recommendation-data
-  (let [db (db)]
-    (is (= (:media/id (first (:backgrounds (recommendation-data db (recommendation-dbid db "spec1_book2")))))
+  (let [db (db)
+        recommendation-data (recommendation-data db (recommendation-dbid db "spec1_book2") "user1")]
+    (is (= (:media/id (:media recommendation-data))
+           "book2"))
+    (is (= (:recommendation/id (:recommendation recommendation-data))
+           "spec1_book2"))
+    (is (= (:media/id (:media (first (:backgrounds recommendation-data))))
         "book1"))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Commands tests
