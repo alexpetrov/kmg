@@ -84,8 +84,8 @@
 
 (deftest test-media-backgrounds
   (let [db (db)]
-    (is (= (media-backgrounds db "book2")
-           #{"book1"}))))
+    (is (= (media-backgrounds db (media-dbid-by-id db "book2"))
+           #{(media-dbid-by-id db "book1")}))))
 
 (deftest test-is-media-complete
   (let [db (db)]

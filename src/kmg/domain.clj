@@ -130,14 +130,17 @@
 
 (defn media-dbid-by-id [db id]
   (ffirst (d/q '[:find ?dbid
-                 :in $ ?dbid]
-                 db [:media/id id])))
+                 :in $ ?id
+                 :where
+                 [?dbid :media/id ?id]]
+                 db id)))
 
 ;;(media-id-by-dbid (db) 17592186045434)
 
 (defn recommendation-data [db rid]
   (let [media-dbid (media-id-by-recommendation-id db rid)
-        media-backgrounds (set (every-first (media-background-dataset db media-dbid)))]
+        media-backgrounds (media-backgrounds db media-dbid)
+        #_(set (every-first (media-background-dataset db media-dbid)))]
     {:recommendation (entity db rid)
      :media (entity db media-dbid)
      :backgrounds (vec (map #(entity db %) media-backgrounds))}))
@@ -261,9 +264,8 @@
        db media-id))
 
 (defn media-backgrounds
-  ([db media] (media-backgrounds db (media-dbid-by-id db media) "dummy"))
-  ([db media-id _] (let [media-prereq (set (every-first (media-background-dataset db media-id)))]
-    (set (map #(:media/id (d/entity db %)) media-prereq)))))
+    [db media-id]
+    (set (every-first (media-background-dataset db media-id))))
 
 (defn media-feedback-complete [db media user]
  (->> (d/q '[:find ?fid
