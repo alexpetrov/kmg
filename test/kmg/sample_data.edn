@@ -85,7 +85,19 @@
   :media.relationships [{:media.relationship/from [:media/id "book2"]
                    :media.relationship/to [:media/id "book1"]
                    :media.relationship/type :background
-                   :media.relationship/description "book2 requires book1 to be understandable"}]
+                   :media.relationship/description "book2 requires book1 to be understandable"}
+                        {:media.relationship/from [:media/id "book3"]
+                   :media.relationship/to [:media/id "book2"]
+                   :media.relationship/type :background
+                   :media.relationship/description "book3 requires book2 to be understandable"}
+                        {:media.relationship/from [:media/id "book4"]
+                   :media.relationship/to [:media/id "book3"]
+                   :media.relationship/type :background
+                   :media.relationship/description "book4 requires book3 to be understandable"}
+                        {:media.relationship/from [:media/id "book4"]
+                   :media.relationship/to [:media/id "book2"]
+                   :media.relationship/type :background
+                   :media.relationship/description "book4 requires book2 to be understandable"}]
   :recommendations [{:recommendation/specialization [:specialization/id "spec1"]
                      :recommendation/media [:media/id "book1"]
                      :recommendation/id "spec1_book1"

@@ -21,13 +21,19 @@
   ".user-option-id" (ef/do-> (ef/content user)
                              (ef/set-attr :value user)))
 
-(em/defsnippet recommendation tmpl ".recommendation" [{:keys [recommendation media user]}]
+(em/defsnippet background-media tmpl "#recommendation-background" [{:keys [media completed]}]
+  "#background-media-title" (ef/content (str (:media/title media)))
+  "#background-media-status" (ef/content (str "Is completed: " completed)))
+
+(em/defsnippet recommendation tmpl ".recommendation" [{:keys [recommendation media backgrounds]}]
   "#recommendation-title" (ef/content (:media/title media))
   "#recommendation-description" (ef/content
      (str (:recommendation/description recommendation)
           " Necessary: " (:recommendation/necessary recommendation) " Priority: " (:recommendation/priority recommendation))
      )
-  "#complete" (events/listen :click #(try-mark-as-completed recommendation)))
+  "#complete" (events/listen :click #(try-mark-as-completed recommendation))
+  "#recommendation-backgrounds-title" (if (empty? backgrounds) (ef/set-attr :hidden "hidden"))
+  ".recommendation-background" (ef/content (map background-media backgrounds)) (ef/set-attr :hidden "false"))
 
 (em/defsnippet recommendation-completed tmpl ".recommendation-completed" [{:keys [media]}]
   ".recommendation-completed-title" (ef/content (:media/title media)))
