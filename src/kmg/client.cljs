@@ -25,6 +25,9 @@
   "#background-media-title" (ef/content (str (:media/title media)))
   "#background-media-status" (ef/content (str "Is completed: " completed)))
 
+(defn not-all-backgrounds-completed? [backgrounds]
+  (some false? (for [b backgrounds] (:completed b))))
+
 (em/defsnippet recommendation tmpl ".recommendation" [{:keys [recommendation media backgrounds]}]
   "#recommendation-title" (ef/content (:media/title media))
   "#recommendation-description" (ef/content
@@ -32,8 +35,9 @@
           " Necessary: " (:recommendation/necessary recommendation) " Priority: " (:recommendation/priority recommendation))
      )
   "#complete" (events/listen :click #(try-mark-as-completed recommendation))
+  "#complete" (if (not-all-backgrounds-completed? backgrounds) (ef/set-attr :disabled "disabled"))
   "#recommendation-backgrounds-title" (if (empty? backgrounds) (ef/set-attr :hidden "hidden"))
-  ".recommendation-background" (ef/content (map background-media backgrounds)) (ef/set-attr :hidden "false"))
+  ".recommendation-background" (ef/content (map background-media backgrounds)))
 
 (em/defsnippet recommendation-completed tmpl ".recommendation-completed" [{:keys [media]}]
   ".recommendation-completed-title" (ef/content (:media/title media)))
