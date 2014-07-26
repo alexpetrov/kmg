@@ -49,7 +49,6 @@
           :media/type :media.type/book
           :media/title "book4_title"
           :media/essential false
-          :media/originality :original
 
           :media/experience 3}
          {:media/id "book5"
