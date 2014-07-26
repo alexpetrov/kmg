@@ -29,57 +29,76 @@
           :media/type :media.type/book
           :media/title "book1_title"
           :media/essential true
+
           :media/experience 0}
 
          {:media/id "book2"
           :media/type :media.type/book
           :media/title "book2_title"
           :media/essential true
+
           :media/experience 1}
 
          {:media/id "book3"
           :media/type :media.type/book
           :media/title "book3_title"
           :media/essential true
+
           :media/experience 2}
          {:media/id "book4"
           :media/type :media.type/book
           :media/title "book4_title"
           :media/essential false
+          :media/originality :original
+
           :media/experience 3}
          {:media/id "book5"
           :media/type :media.type/book
           :media/title "book5_title"
           :media/essential false
+
+
           :media/experience 0}
          {:media/id "book6"
           :media/type :media.type/book
           :media/title "book6_title"
           :media/essential false
+
+
           :media/experience 0}
          {:media/id "book7"
           :media/type :media.type/book
           :media/title "book7_title"
+
+
           :media/essential false
           :media/experience 0}
          {:media/id "book8"
           :media/type :media.type/book
           :media/title "book8_title"
+
+
           :media/essential false
           :media/experience 3}
          {:media/id "book9"
           :media/type :media.type/book
           :media/title "book9_title"
           :media/essential false
+
+
           :media/experience 2}
          {:media/id "book10"
           :media/type :media.type/book
           :media/title "book10_title"
           :media/essential false
+
+
           :media/experience 1}
          {:media/id "book11"
           :media/type :media.type/book
           :media/title "book11_title"
+
+
           :media/essential false
           :media/experience 1}]
   :media.relationships [{:media.relationship/from [:media/id "book2"]

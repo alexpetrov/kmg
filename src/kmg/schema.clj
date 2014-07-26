@@ -72,13 +72,6 @@
    :db/id (d/tempid :db.part/db)
    :db.install/_attribute :db.part/db}
 
-  {:db/ident :media/originality
-   :db/valueType :db.type/keyword
-   :db/cardinality :db.cardinality/one
-   :db/doc "Originality: is it :original or :translation"
-   :db/id (d/tempid :db.part/db)
-   :db.install/_attribute :db.part/db}
-
   {:db/ident :media/stats
    :db/valueType :db.type/long
    :db/cardinality :db.cardinality/one
