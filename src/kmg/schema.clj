@@ -68,7 +68,14 @@
   {:db/ident :media/locale
    :db/valueType :db.type/keyword
    :db/cardinality :db.cardinality/one
-   :db/doc "Locale of media. English :en by default if nothing is declared."
+   :db/doc "Locale of media."
+   :db/id (d/tempid :db.part/db)
+   :db.install/_attribute :db.part/db}
+
+  {:db/ident :media/originality
+   :db/valueType :db.type/keyword
+   :db/cardinality :db.cardinality/one
+   :db/doc "Originality: is it :original or :translation"
    :db/id (d/tempid :db.part/db)
    :db.install/_attribute :db.part/db}
 

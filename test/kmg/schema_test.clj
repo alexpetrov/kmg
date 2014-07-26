@@ -55,7 +55,10 @@
 
   (is (= (attr-spec :media/stats)
          [:db.type/long :db.cardinality/one]))
-  )
+
+  (is (= (attr-spec :media/originality)
+         [:db.type/keyword :db.cardinality/one]))
+)
 
 (deftest test-kmg-schema-for-media-relationship
   (is (= (attr-spec :media.relationship/from)
