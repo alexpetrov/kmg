@@ -5,6 +5,27 @@
 (def kmg-schema [
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Domain type
+  {:db/ident :domain/title
+   :db/valueType :db.type/string
+   :db/cardinality :db.cardinality/one
+   :db/doc "Title of domain."
+   :db/id (d/tempid :db.part/db)
+   :db.install/_attribute :db.part/db}
+  {:db/ident :domain/description
+   :db/valueType :db.type/string
+   :db/cardinality :db.cardinality/one
+   :db/doc "Description of domain."
+   :db/id (d/tempid :db.part/db)
+   :db.install/_attribute :db.part/db}
+  {:db/ident :domain/default-locale
+   :db/valueType :db.type/keyword
+   :db/cardinality :db.cardinality/one
+   :db/doc "Default locale for domain. For example, default locale for IT is English."
+   :db/id (d/tempid :db.part/db)
+   :db.install/_attribute :db.part/db}
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Media type
 
   {:db/ident :media/id

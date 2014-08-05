@@ -1,4 +1,7 @@
-{ :specializations [{:specialization/id "spec1"
+{ :domain [{:domain/title "sample_domain"
+            :domain/description "sample_domain_description"
+            :domain/default-locale :en}]
+  :specializations [{:specialization/id "spec1"
                      :specialization/title "spec1_title"
                      :specialization/annotation "spec1_annotation"}
 

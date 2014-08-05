@@ -150,3 +150,11 @@
          [:db.type/boolean :db.cardinality/one]))
   (is (= (attr-spec :feedback/complete)
          [:db.type/boolean :db.cardinality/one])))
+
+(deftest test-kmg-schema-for-domain
+  (is (= (attr-spec :domain/title)
+         [:db.type/string :db.cardinality/one]))
+  (is (= (attr-spec :domain/description)
+         [:db.type/string :db.cardinality/one]))
+  (is (= (attr-spec :domain/default-locale)
+         [:db.type/keyword :db.cardinality/one])))
