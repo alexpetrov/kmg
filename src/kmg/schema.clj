@@ -283,6 +283,14 @@
    :db/doc "Goal is current user specialization in progress. From history this field will be formed list off all specializations of user."
    :db/id (d/tempid :db.part/db)
    :db.install/_attribute :db.part/db}
+
+  {:db/ident :user/locale
+   :db/valueType :db.type/keyword
+   :db/cardinality :db.cardinality/one
+   :db/doc "Preferred locale. If there is translation of some recommended media in :user/locale, this media will be shown to user. If some not required recommended media is not in :user/locale, it will not be shown to user. Default domain language will be shown always. For IT domain default domain language is English, for example."
+   :db/id (d/tempid :db.part/db)
+   :db.install/_attribute :db.part/db}
+
 ;; TODO Add fields for authentication
 
 ;; End of User type

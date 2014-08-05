@@ -130,6 +130,8 @@
          [:db.type/string :db.cardinality/one]))
   (is (= (attr-spec :user/start-career-year)
          [:db.type/long :db.cardinality/one]))
+  (is (= (attr-spec :user/locale)
+         [:db.type/keyword :db.cardinality/one]))
   (is (= (attr-spec :user/goal)
          [:db.type/ref :db.cardinality/one])))
 
