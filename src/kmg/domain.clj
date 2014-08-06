@@ -136,6 +136,21 @@
                  [?dbid :media/id ?id]]
                  db id)))
 
+(defn media-translations-dataset [db media-id locale]
+  (d/q '[:find ?from
+         :in $ ?to ?locale
+         :where
+         [?rid :media.relationship/from ?from]
+         [?rid :media.relationship/to ?to]
+         [?rid :media.relationship/type :translation]
+         [?mfr :media/locale ?locale]]
+       db media-id locale))
+
+;;(media-translations-dataset (db) (media-dbid-by-id (db) "book1") :ru)
+
+(defn media-translations [db media-id locale]
+  (set (every-first (media-translations-dataset db media-id locale))))
+
 ;;(media-id-by-dbid (db) 17592186045434)
 
 (defn background-data [db media-id user]

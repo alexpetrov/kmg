@@ -87,6 +87,11 @@
     (is (= (media-backgrounds db (media-dbid-by-id db "book2"))
            #{(media-dbid-by-id db "book1")}))))
 
+(deftest test-media-translations
+  (let [db (db)]
+    (is (= (media-translations db (media-dbid-by-id db "book1") :ru)
+           #{(media-dbid-by-id db "book12")}))))
+
 (deftest test-is-media-complete
   (let [db (db)]
     (is (= (is-media-complete? db (media-dbid-by-id db "book1") "user2")
