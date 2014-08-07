@@ -23,8 +23,6 @@
 
 (defn entity [db id]
   (d/touch (d/entity db id)))
-;; (entity (db) 17592186045434)
-;; (entity (db) 17592186045429)
 
 (defn prepare-entity [data]
   (if (contains? data :db/id)

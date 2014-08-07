@@ -90,7 +90,9 @@
 (deftest test-media-translations
   (let [db (db)]
     (is (= (media-translations db (media-dbid-by-id db "book1") :ru)
-           #{(media-dbid-by-id db "book12")}))))
+           #{(media-dbid-by-id db "book12")}))
+    (is (= (media-translations db (media-dbid-by-id db "book2") :ru)
+           #{(media-dbid-by-id db "book13")}))))
 
 (deftest test-is-media-complete
   (let [db (db)]
@@ -115,7 +117,9 @@
     (is (= (:recommendation/id (:recommendation recommendation-data))
            "spec1_book2"))
     (is (= (:media/id (:media (first (:backgrounds recommendation-data))))
-        "book1"))))
+        "book1"))
+    #_(is (= (:media/id (:media (first (:translations recommendation-data))))
+        "book13"))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Commands tests
 

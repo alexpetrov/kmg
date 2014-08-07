@@ -88,6 +88,12 @@
           :media/title "книга12_название"
           :media/locale :ru
           :media/essential false
+          :media/experience 0}
+         {:media/id "book13"
+          :media/type :media.type/book
+          :media/title "книга13_название"
+          :media/locale :ru
+          :media/essential false
           :media/experience 0}]
   :media.relationships [{:media.relationship/from [:media/id "book2"]
                    :media.relationship/to [:media/id "book1"]
@@ -108,7 +114,11 @@
                         {:media.relationship/from [:media/id "book12"]
                    :media.relationship/to [:media/id "book1"]
                    :media.relationship/type :translation
-                   :media.relationship/description "book12 is translation of book1 russian language"}]
+                   :media.relationship/description "book12 is translation of book1 to russian language"}
+                        {:media.relationship/from [:media/id "book2"]
+                   :media.relationship/to [:media/id "book13"]
+                   :media.relationship/type :translation
+                   :media.relationship/description "book2 is translation of book13 to english language"}]
   :recommendations [{:recommendation/specialization [:specialization/id "spec1"]
                      :recommendation/media [:media/id "book1"]
                      :recommendation/id "spec1_book1"

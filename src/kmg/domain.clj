@@ -137,21 +137,34 @@
                  db id)))
 
 (defn media-translations-dataset [db media-id locale]
-  (d/q '[:find ?from
+  (clojure.set/union   (d/q '[:find ?from
          :in $ ?to ?locale
          :where
          [?rid :media.relationship/from ?from]
          [?rid :media.relationship/to ?to]
          [?rid :media.relationship/type :translation]
-         [?mfr :media/locale ?locale]]
-       db media-id locale))
+         [?from :media/locale ?locale]]
+       db media-id locale)
+           (d/q '[:find ?to
+         :in $ ?from ?locale
+         :where
+         [?rid :media.relationship/from ?from]
+         [?rid :media.relationship/to ?to]
+         [?rid :media.relationship/type :translation]
+         [?to :media/locale ?locale]]
+       db media-id locale)))
 
 ;;(media-translations-dataset (db) (media-dbid-by-id (db) "book1") :ru)
 
 (defn media-translations [db media-id locale]
   (set (every-first (media-translations-dataset db media-id locale))))
 
-;;(media-id-by-dbid (db) 17592186045434)
+;;(media-translations (db) (media-dbid-by-id (db) "book1") :ru)
+
+(defn media-translation-data [db media-id]
+  {:media (entity db media-id)})
+
+;;(media-translation-data (db) (media-dbid-by-id (db) "book2"))
 
 (defn background-data [db media-id user]
   {:media (entity db media-id) :completed (is-media-complete? db media-id user)})
@@ -159,9 +172,11 @@
 (defn recommendation-data [db rid user]
   (let [media-dbid (media-id-by-recommendation-id db rid)
         media-backgrounds (media-backgrounds db media-dbid)]
-    {:recommendation (entity db rid)
-     :media (entity db media-dbid)
-     :backgrounds (vec (map #(background-data db % user) media-backgrounds))}))
+    (-> {:recommendation (entity db rid)
+          :media (entity db media-dbid)
+          :backgrounds (vec (map #(background-data db % user) media-backgrounds))}
+         (conj [:something "something"]))
+    ))
 
 ;;(recommendation-data (db) (recommendation-dbid db "spec1_book2"))
 ;;(recommendations "user1")
