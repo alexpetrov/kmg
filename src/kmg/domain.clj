@@ -136,23 +136,25 @@
                  [?dbid :media/id ?id]]
                  db id)))
 
+(def translation-rule
+  '[[(translation ?mid1 ?mid2 ?locale)
+     [?rid :media.relationship/from ?mid1]
+     [?rid :media.relationship/to ?mid2]
+     [?rid :media.relationship/type :translation]
+     [?mid2 :media/locale ?locale]]
+    [(translation ?mid1 ?mid2 ?locale)
+     [?rid :media.relationship/from ?mid2]
+     [?rid :media.relationship/to ?mid1]
+     [?rid :media.relationship/type :translation]
+     [?mid2 :media/locale ?locale]]])
+
 (defn media-translations-dataset [db media-id locale]
-  (clojure.set/union   (d/q '[:find ?from
-         :in $ ?to ?locale
+  (d/q '[:find ?mid2
+         :in $ % ?mid ?locale
          :where
-         [?rid :media.relationship/from ?from]
-         [?rid :media.relationship/to ?to]
-         [?rid :media.relationship/type :translation]
-         [?from :media/locale ?locale]]
-       db media-id locale)
-           (d/q '[:find ?to
-         :in $ ?from ?locale
-         :where
-         [?rid :media.relationship/from ?from]
-         [?rid :media.relationship/to ?to]
-         [?rid :media.relationship/type :translation]
-         [?to :media/locale ?locale]]
-       db media-id locale)))
+         (translation ?mid ?mid2 ?locale)
+         [(< ?mid ?mid2)]]
+       db translation-rule media-id locale))
 
 ;;(media-translations-dataset (db) (media-dbid-by-id (db) "book1") :ru)
 
