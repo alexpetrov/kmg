@@ -118,7 +118,7 @@
            "spec1_book2"))
     (is (= (:media/id (:media (first (:backgrounds recommendation-data))))
         "book1"))
-    #_(is (= (:media/id (:media (first (:translations recommendation-data))))
+    (is (= (:media/id (:media (first (:translations recommendation-data))))
         "book13"))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Commands tests

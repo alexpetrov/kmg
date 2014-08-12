@@ -161,7 +161,7 @@
 
 ;;(media-translations (db) (media-dbid-by-id (db) "book1"))
 
-(defn media-translations-data [db media-id]
+(defn media-translation-data [db media-id]
   {:media (entity db media-id)})
 
 ;;(media-translation-data (db) (media-dbid-by-id (db) "book2"))
@@ -171,12 +171,12 @@
 
 (defn recommendation-data [db rid user]
   (let [media-dbid (media-id-by-recommendation-id db rid)
-        media-backgrounds (media-backgrounds db media-dbid)]
-    (-> {:recommendation (entity db rid)
-          :media (entity db media-dbid)
-          :backgrounds (vec (map #(background-data db % user) media-backgrounds))}
-         (conj [:something "something"]))
-    ))
+        media-backgrounds (media-backgrounds db media-dbid)
+        media-translations (media-translations db media-dbid)]
+    {:recommendation (entity db rid)
+     :media (entity db media-dbid)
+     :backgrounds (vec (map #(background-data db % user) media-backgrounds))
+     :translations (vec (map #(media-translation-data db %) media-translations))}))
 
 ;;(recommendation-data (db) (recommendation-dbid db "spec1_book2"))
 ;;(recommendations "user1")
