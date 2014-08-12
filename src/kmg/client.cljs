@@ -25,19 +25,27 @@
   "#background-media-title" (ef/content (str (:media/title media)))
   "#background-media-status" (ef/content (str "Is completed: " completed)))
 
+(em/defsnippet translation-media tmpl "#recommendation-translation" [{:keys [media]}]
+  "#translation-media-title" (ef/content (str (:media/title media)))
+  "#translation-media-language" (ef/content (str (:media/locale media))))
+
 (defn not-all-backgrounds-completed? [backgrounds]
   (some false? (for [b backgrounds] (:completed b))))
 
-(em/defsnippet recommendation tmpl ".recommendation" [{:keys [recommendation media backgrounds]}]
+(em/defsnippet recommendation tmpl ".recommendation" [{:keys [recommendation media backgrounds translations]}]
   "#recommendation-title" (ef/content (:media/title media))
   "#recommendation-description" (ef/content
      (str (:recommendation/description recommendation)
           " Necessary: " (:recommendation/necessary recommendation) " Priority: " (:recommendation/priority recommendation))
      )
+
   "#complete" (events/listen :click #(try-mark-as-completed recommendation))
   "#complete" (if (not-all-backgrounds-completed? backgrounds) (ef/set-attr :disabled "disabled"))
   "#recommendation-backgrounds-title" (if (empty? backgrounds) (ef/set-attr :hidden "hidden"))
-  ".recommendation-background" (ef/content (map background-media backgrounds)))
+  "#recommendation-translations-title" (if (empty? translations) (ef/set-attr :hidden "hidden"))
+
+  ".recommendation-backgrounds" (ef/content (map background-media backgrounds))
+  ".recommendation-translations" (ef/content (map translation-media translations)))
 
 (em/defsnippet recommendation-completed tmpl ".recommendation-completed" [{:keys [media]}]
   ".recommendation-completed-title" (ef/content (:media/title media)))
