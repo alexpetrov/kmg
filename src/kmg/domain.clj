@@ -137,33 +137,31 @@
                  db id)))
 
 (def translation-rule
-  '[[(translation ?mid1 ?mid2 ?locale)
+  '[[(translation ?mid1 ?mid2)
      [?rid :media.relationship/from ?mid1]
      [?rid :media.relationship/to ?mid2]
-     [?rid :media.relationship/type :translation]
-     [?mid2 :media/locale ?locale]]
-    [(translation ?mid1 ?mid2 ?locale)
+     [?rid :media.relationship/type :translation]]
+    [(translation ?mid1 ?mid2)
      [?rid :media.relationship/from ?mid2]
      [?rid :media.relationship/to ?mid1]
-     [?rid :media.relationship/type :translation]
-     [?mid2 :media/locale ?locale]]])
+     [?rid :media.relationship/type :translation]]])
 
-(defn media-translations-dataset [db media-id locale]
+(defn media-translations-dataset [db media-id]
   (d/q '[:find ?mid2
-         :in $ % ?mid ?locale
+         :in $ % ?mid
          :where
-         (translation ?mid ?mid2 ?locale)
+         (translation ?mid ?mid2)
          [(< ?mid ?mid2)]]
-       db translation-rule media-id locale))
+       db translation-rule media-id))
 
-;;(media-translations-dataset (db) (media-dbid-by-id (db) "book1") :ru)
+;;(media-translations-dataset (db) (media-dbid-by-id (db) "book1"))
 
-(defn media-translations [db media-id locale]
-  (set (every-first (media-translations-dataset db media-id locale))))
+(defn media-translations [db media-id]
+  (set (every-first (media-translations-dataset db media-id))))
 
-;;(media-translations (db) (media-dbid-by-id (db) "book1") :ru)
+;;(media-translations (db) (media-dbid-by-id (db) "book1"))
 
-(defn media-translation-data [db media-id]
+(defn media-translations-data [db media-id]
   {:media (entity db media-id)})
 
 ;;(media-translation-data (db) (media-dbid-by-id (db) "book2"))

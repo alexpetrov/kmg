@@ -89,9 +89,9 @@
 
 (deftest test-media-translations
   (let [db (db)]
-    (is (= (media-translations db (media-dbid-by-id db "book1") :ru)
-           #{(media-dbid-by-id db "book12")}))
-    (is (= (media-translations db (media-dbid-by-id db "book2") :ru)
+    (is (= (media-translations db (media-dbid-by-id db "book1"))
+           #{(media-dbid-by-id db "book12") (media-dbid-by-id db "book14")}))
+    (is (= (media-translations db (media-dbid-by-id db "book2"))
            #{(media-dbid-by-id db "book13")}))))
 
 (deftest test-is-media-complete
