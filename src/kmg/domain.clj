@@ -22,6 +22,15 @@
   ([coll] (sort-by-second - coll))
   ([order coll] (sort #(order (compare (last %1) (last %2))) coll)))
 
+(defn domain-data [db]
+  (->> (d/q '[:find ?did
+             :where
+             [?did :domain/id]]
+           db)
+      ffirst
+      (entity db)))
+;; (domain-data (db))
+
 ;; (sort-by-second + [[1 200] [3 400] [2 300]])
 (defn user-current-goal [db user]
   (ffirst (d/q '[:find ?sid

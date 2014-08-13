@@ -6,6 +6,12 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Domain type
+  {:db/ident :domain/id
+   :db/valueType :db.type/string
+   :db/cardinality :db.cardinality/one
+   :db/doc "Id of domain."
+   :db/id (d/tempid :db.part/db)
+   :db.install/_attribute :db.part/db}
   {:db/ident :domain/title
    :db/valueType :db.type/string
    :db/cardinality :db.cardinality/one

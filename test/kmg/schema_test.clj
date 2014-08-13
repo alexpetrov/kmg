@@ -152,6 +152,8 @@
          [:db.type/boolean :db.cardinality/one])))
 
 (deftest test-kmg-schema-for-domain
+  (is (= (attr-spec :domain/id)
+         [:db.type/string :db.cardinality/one]))
   (is (= (attr-spec :domain/title)
          [:db.type/string :db.cardinality/one]))
   (is (= (attr-spec :domain/description)

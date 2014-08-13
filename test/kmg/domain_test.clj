@@ -120,6 +120,10 @@
         "book1"))
     (is (= (:media/id (:media (first (:translations recommendation-data))))
         "book13"))))
+
+(deftest test-domain-data
+  (is (= (:domain/title (domain-data db))
+         "sample_domain")))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Commands tests
 

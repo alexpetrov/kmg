@@ -1,4 +1,5 @@
-{ :domain [{:domain/title "sample_domain"
+{ :domain [{:domain/id "sample_domain"
+            :domain/title "sample_domain"
             :domain/description "sample_domain_description"
             :domain/default-locale :en}]
   :specializations [{:specialization/id "spec1"
