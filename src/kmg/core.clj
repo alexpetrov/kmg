@@ -73,6 +73,7 @@
   (context "/recommendation" [] recommendation-routes)
   (context "/specialization" [] specialization-routes)
   (context "/user" [] user-routes)
+  (GET "/domain" [] (response (model/domain)))
   (GET "/req" request (str request))
   (route/resources "/")
   (route/not-found "Not found!"))

@@ -63,6 +63,10 @@
    :specializations-available (vec (specializations-available user))
    :specializations-completed (vec (specializations-completed user))}))
 
+(defn domain []
+  (domain-data (db)))
+;; (domain)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Commands
 
