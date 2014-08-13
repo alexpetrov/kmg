@@ -13,7 +13,8 @@
 
 (def tmpl "/html/kmg.html")
 
-(em/defsnippet kmg-header tmpl ".kmg-header" [])
+(em/defsnippet kmg-header tmpl ".kmg-header" []
+  )
 (em/defsnippet kmg-content tmpl "#content" [])
 (em/defsnippet kmg-sidebar tmpl "#sidebar" [])
 
@@ -28,6 +29,10 @@
 (em/defsnippet translation-media tmpl "#recommendation-translation" [{:keys [media]}]
   "#translation-media-title" (ef/content (str (:media/title media)))
   "#translation-media-language" (ef/content (str (:media/locale media))))
+
+(em/defsnippet domain-title tmpl "#domain-title" [domain]
+  "#domain-title" (ef/content (str (:domain/title domain))))
+
 
 (defn not-all-backgrounds-completed? [backgrounds]
   (some false? (for [b backgrounds] (:completed b))))
@@ -139,10 +144,16 @@
 (defn show-user-choose [users]
   (ef/at "#users-id" (ef/content (map user-choose-elem users))))
 
+(defn show-domain [domain]
+  (ef/at "#domain-title" (ef/content (:domain/title domain))))
+
+(defn try-load-domain []
+  (GET "/domain" {:handler show-domain
+                  :error-handler error-handler}))
+
 (defn try-get-users []
   (GET "/user/list" {:handler show-user-choose
                      :error-handler error-handler}))
-
 
 (em/defaction observe-change-user []
   ["#users-id"]
@@ -156,6 +167,7 @@
          (ef/do-> (ef/content (kmg-header))
                   (ef/append (kmg-content))
                   (ef/append (kmg-sidebar))))
+  (try-load-domain)
   (refresh)
   (try-get-users)
   (observe-change-user))
