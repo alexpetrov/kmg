@@ -1,249 +1,278 @@
-{ :domain [{:domain/id "sample_domain"
-            :domain/title "sample_domain"
-            :domain/description "sample_domain_description"
-            :domain/default-locale :en}]
-  :specializations [{:specialization/id "spec1"
-                     :specialization/title "spec1_title"
-                     :specialization/annotation "spec1_annotation"}
+[ ;;:domain
+ [{:domain/id "sample_domain"
+   :domain/title "sample_domain"
+   :domain/description "sample_domain_description"
+   :domain/default-locale :en}]
 
-                    {:specialization/id "spec2"
-                     :specialization/title "spec2_title"
-                     :specialization/annotation "spec2_annotation"}
 
-                    {:specialization/id "spec3"
-                     :specialization/title "spec3_title"
-                     :specialization/annotation "spec3_annotation"}
+ ;;  :specializations
+ [{:specialization/id "spec1"
+   :specialization/title "spec1_title"
+   :specialization/annotation "spec1_annotation"}
 
-                    {:specialization/id "spec4"
-                     :specialization/title "spec4_title"
-                     :specialization/annotation "spec4_annotation"}
-                    ]
- :specializations.relationships [{:specialization.relationship/from [:specialization/id "spec2"]
-                                  :specialization.relationship/to [:specialization/id "spec1"]
-                                  :specialization.relationship/description "spec2->spec1"}
+  {:specialization/id "spec2"
+   :specialization/title "spec2_title"
+   :specialization/annotation "spec2_annotation"}
 
-                                 {:specialization.relationship/from [:specialization/id "spec3"]
-                                  :specialization.relationship/to [:specialization/id "spec1"]
-                                  :specialization.relationship/description "spec3->spec1"}
+  {:specialization/id "spec3"
+   :specialization/title "spec3_title"
+   :specialization/annotation "spec3_annotation"}
 
-                                 {:specialization.relationship/from [:specialization/id "spec4"]
-                                  :specialization.relationship/to [:specialization/id "spec3"]
-                                  :specialization.relationship/description "spec4->spec3"}]
-  :media [{:media/id "book1"
-          :media/type :media.type/book
-          :media/title "book1_title"
-          :media/essential true
-          :media/experience 0}
-         {:media/id "book2"
-          :media/type :media.type/book
-          :media/title "book2_title"
-          :media/essential true
-          :media/experience 1}
-         {:media/id "book3"
-          :media/type :media.type/book
-          :media/title "book3_title"
-          :media/essential true
-          :media/experience 2}
-         {:media/id "book4"
-          :media/type :media.type/book
-          :media/title "book4_title"
-          :media/essential false
-          :media/experience 3}
-         {:media/id "book5"
-          :media/type :media.type/book
-          :media/title "book5_title"
-          :media/essential false
-          :media/experience 0}
-         {:media/id "book6"
-          :media/type :media.type/book
-          :media/title "book6_title"
-          :media/essential false
-          :media/experience 0}
-         {:media/id "book7"
-          :media/type :media.type/book
-          :media/title "book7_title"
-          :media/essential false
-          :media/experience 0}
-         {:media/id "book8"
-          :media/type :media.type/book
-          :media/title "book8_title"
-          :media/essential false
-          :media/experience 3}
-         {:media/id "book9"
-          :media/type :media.type/book
-          :media/title "book9_title"
-          :media/essential false
-          :media/experience 2}
-         {:media/id "book10"
-          :media/type :media.type/book
-          :media/title "book10_title"
-          :media/essential false
-          :media/experience 1}
-         {:media/id "book11"
-          :media/type :media.type/book
-          :media/title "book11_title"
-          :media/essential false
-          :media/experience 1}
-         {:media/id "book12"
-          :media/type :media.type/book
-          :media/title "книга12_название"
-          :media/locale :ru
-          :media/essential false
-          :media/experience 0}
-         {:media/id "book13"
-          :media/type :media.type/book
-          :media/title "книга13_название"
-          :media/locale :ru
-          :media/essential false
-          :media/experience 0}
-         {:media/id "book14"
-          :media/type :media.type/book
-          :media/title "libro_14_nombre"
-          :media/locale :es
-          :media/essential false
-          :media/experience 0}]
-  :media.relationships [{:media.relationship/from [:media/id "book2"]
-                   :media.relationship/to [:media/id "book1"]
-                   :media.relationship/type :background
-                   :media.relationship/description "book2 requires book1 to be understandable"}
-                        {:media.relationship/from [:media/id "book3"]
-                   :media.relationship/to [:media/id "book2"]
-                   :media.relationship/type :background
-                   :media.relationship/description "book3 requires book2 to be understandable"}
-                        {:media.relationship/from [:media/id "book4"]
-                   :media.relationship/to [:media/id "book3"]
-                   :media.relationship/type :background
-                   :media.relationship/description "book4 requires book3 to be understandable"}
-                        {:media.relationship/from [:media/id "book4"]
-                   :media.relationship/to [:media/id "book2"]
-                   :media.relationship/type :background
-                   :media.relationship/description "book4 requires book2 to be understandable"}
-                        {:media.relationship/from [:media/id "book12"]
-                   :media.relationship/to [:media/id "book1"]
-                   :media.relationship/type :translation
-                   :media.relationship/description "book12 is translation of book1 to russian language"}
-                        {:media.relationship/from [:media/id "book1"]
-                   :media.relationship/to [:media/id "book14"]
-                   :media.relationship/type :translation
-                   :media.relationship/description "book14 is translation of book1 to spanish language"}
-                        {:media.relationship/from [:media/id "book2"]
-                   :media.relationship/to [:media/id "book13"]
-                   :media.relationship/type :translation
-                   :media.relationship/description "book2 is translation of book13 to english language"}
-                        ]
-  :recommendations [{:recommendation/specialization [:specialization/id "spec1"]
-                     :recommendation/media [:media/id "book1"]
-                     :recommendation/id "spec1_book1"
-                     :recommendation/priority 1000
-                     :recommendation/necessary true
-                     :recommendation/description "spec1 book1"}
-                    {:recommendation/specialization [:specialization/id "spec1"]
-                     :recommendation/media [:media/id "book2"]
-                     :recommendation/id "spec1_book2"
-                     :recommendation/priority 900
-                     :recommendation/necessary false
-                     :recommendation/description "spec1 book2"}
-                    {:recommendation/specialization [:specialization/id "spec1"]
-                     :recommendation/media [:media/id "book3"]
-                     :recommendation/id "spec1_book3"
+  {:specialization/id "spec4"
+   :specialization/title "spec4_title"
+   :specialization/annotation "spec4_annotation"}
+  ]
+ ;; :specializations.relationships
+ [{:specialization.relationship/from [:specialization/id "spec2"]
+   :specialization.relationship/to [:specialization/id "spec1"]
+   :specialization.relationship/description "spec2->spec1"}
 
-                     :recommendation/priority 800
-                     :recommendation/necessary false
-                     :recommendation/description "spec1 book3"}
-                    {:recommendation/specialization [:specialization/id "spec1"]
-                     :recommendation/media [:media/id "book4"]
-                     :recommendation/id "spec1_book4"
-                     :recommendation/priority 700
-                     :recommendation/necessary false
-                     :recommendation/description "spec1 book4"}
-                    {:recommendation/specialization [:specialization/id "spec1"]
-                     :recommendation/media [:media/id "book5"]
-                     :recommendation/id "spec1_book5"
+  {:specialization.relationship/from [:specialization/id "spec3"]
+   :specialization.relationship/to [:specialization/id "spec1"]
+   :specialization.relationship/description "spec3->spec1"}
 
-                     :recommendation/priority 600
-                     :recommendation/necessary false
-                     :recommendation/description "spec1 book5"}
-                    {:recommendation/specialization [:specialization/id "spec4"]
-                     :recommendation/media [:media/id "book6"]
-                     :recommendation/id "spec4_book6"
+  {:specialization.relationship/from [:specialization/id "spec4"]
+   :specialization.relationship/to [:specialization/id "spec3"]
+   :specialization.relationship/description "spec4->spec3"}]
 
-                     :recommendation/priority 550
-                     :recommendation/necessary false
-                     :recommendation/description "spec4 book6"}
-                    {:recommendation/specialization [:specialization/id "spec4"]
-                     :recommendation/media [:media/id "book7"]
-                     :recommendation/id "spec4_book7"
-                     :recommendation/priority 500
-                     :recommendation/necessary false
-                     :recommendation/description "spec4 book7"}
-                    {:recommendation/specialization [:specialization/id "spec4"]
-                     :recommendation/media [:media/id "book8"]
-                     :recommendation/id "spec4_book8"
-                     :recommendation/priority 400
-                     :recommendation/necessary false
-                     :recommendation/description "spec4 book8"}
-                    {:recommendation/specialization [:specialization/id "spec4"]
-                     :recommendation/media [:media/id "book9"]
-                     :recommendation/id "spec4_book9"
-                     :recommendation/priority 300
-                     :recommendation/necessary false
-                     :recommendation/description "spec4 book9"}
 
-                    {:recommendation/specialization [:specialization/id "spec2"]
-                     :recommendation/media [:media/id "book3"]
-                     :recommendation/id "spec2_book3"
-                     :recommendation/priority 1000
-                     :recommendation/necessary true
-                     :recommendation/description "spec2 book3"}
-                    {:recommendation/specialization [:specialization/id "spec2"]
-                     :recommendation/media [:media/id "book4"]
-                     :recommendation/id "spec2_book4"
-                     :recommendation/priority 900
-                     :recommendation/necessary false
-                     :recommendation/description "spec2 book4"}
-                    {:recommendation/specialization [:specialization/id "spec2"]
-                     :recommendation/media [:media/id "book5"]
-                     :recommendation/id "spec5_book4"
-                     :recommendation/priority 800
-                     :recommendation/necessary false
-                     :recommendation/description "spec2 book5"}
-                    {:recommendation/specialization [:specialization/id "spec3"]
-                     :recommendation/media [:media/id "book10"]
-                     :recommendation/id "spec3_book10"
-                     :recommendation/priority 800
-                     :recommendation/necessary true
-                     :recommendation/description "spec3 book10"}
-                    {:recommendation/specialization [:specialization/id "spec3"]
-                     :recommendation/media [:media/id "book11"]
-                     :recommendation/id "spec3_book11"
-                     :recommendation/priority 700
-                     :recommendation/necessary false
-                     :recommendation/description "spec3 book11"}]
-  :users [{:user/name "user1"
-           :user/start-career-year 2014
-           :user/locale :en
-           :user/goal [:specialization/id "spec1"]}
-          {:user/name "user2"
-           :user/start-career-year 2013
-           :user/locale :ru
-           :user/goal [:specialization/id "spec1"]}]
+ ;;  :users
+ [{:user/name "user1"
+   :user/start-career-year 2014
+   :user/locale :en
+   :user/goal [:specialization/id "spec1"]}
+  {:user/name "user2"
+   :user/start-career-year 2013
+   :user/locale :ru
+   :user/goal [:specialization/id "spec1"]}]
 
-  :feedback [{:feedback/user [:user/name "user1"]
-              :feedback/recommendation [:recommendation/id "spec1_book1"]
-              :feedback/complete true
-              :feedback/relevant true
-              :feedback.comment/text "spec1_book1_is_awesome"
-              :feedback.comment/show true}
-             {:feedback/user [:user/name "user2"]
-              :feedback/recommendation [:recommendation/id "spec1_book1"]
-              :feedback/complete true
-              :feedback/relevant true
-              :feedback.comment/text "spec1_book1_is_valuable"
-              :feedback.comment/show true}
-             {:feedback/user [:user/name "user2"]
-              :feedback/recommendation [:recommendation/id "spec1_book2"]
-              :feedback/complete true
-              :feedback/relevant false
-              :feedback.comment/text "spec1_book2_is_irrelevant"
-              :feedback.comment/show true}]
-}
+ ;; :authors
+ [{:author/id "author1"
+   :author/name "author1_name"
+   :author/user [:user/name "user1"]}
+  {:author/id "author2"
+   :author/name "author2_name"
+   :author/user [:user/name "user2"]}
+  {:author/id "author3"
+   :author/name "author3_name"}]
+
+ ;;  :media
+ [{:media/id "book1"
+   :media/type :media.type/book
+   :media/title "book1_title"
+   :media/essential true
+   :media/experience 0}
+  {:media/id "book2"
+   :media/type :media.type/book
+   :media/title "book2_title"
+   :media/essential true
+   :media/experience 1}
+  {:media/id "book3"
+   :media/type :media.type/book
+   :media/title "book3_title"
+   :media/essential true
+   :media/experience 2}
+  {:media/id "book4"
+   :media/type :media.type/book
+   :media/title "book4_title"
+   :media/essential false
+   :media/experience 3}
+  {:media/id "book5"
+   :media/type :media.type/book
+   :media/title "book5_title"
+   :media/essential false
+   :media/experience 0}
+  {:media/id "book6"
+   :media/type :media.type/book
+   :media/title "book6_title"
+   :media/essential false
+   :media/experience 0}
+  {:media/id "book7"
+   :media/type :media.type/book
+   :media/title "book7_title"
+   :media/essential false
+   :media/experience 0}
+  {:media/id "book8"
+   :media/type :media.type/book
+   :media/title "book8_title"
+   :media/essential false
+   :media/experience 3}
+  {:media/id "book9"
+   :media/type :media.type/book
+   :media/title "book9_title"
+   :media/essential false
+   :media/experience 2}
+  {:media/id "book10"
+   :media/type :media.type/book
+   :media/title "book10_title"
+   :media/essential false
+   :media/experience 1}
+  {:media/id "book11"
+   :media/type :media.type/book
+   :media/title "book11_title"
+   :media/essential false
+   :media/experience 1}
+  {:media/id "book12"
+   :media/type :media.type/book
+   :media/title "книга12_название"
+   :media/locale :ru
+   :media/essential false
+   :media/experience 0}
+  {:media/id "book13"
+   :media/type :media.type/book
+   :media/title "книга13_название"
+   :media/locale :ru
+   :media/essential false
+   :media/experience 0}
+  {:media/id "book14"
+   :media/type :media.type/book
+   :media/title "libro_14_nombre"
+   :media/locale :es
+   :media/essential false
+   :media/experience 0}
+  {:media/id "book15"
+   :media/type :media.type/book
+   :media/title "libro_15_nombre"
+   :media/locale :es
+   :media/essential false
+   :media/experience 0}]
+ ;;  :media.relationships
+ [{:media.relationship/from [:media/id "book2"]
+   :media.relationship/to [:media/id "book1"]
+   :media.relationship/type :background
+   :media.relationship/description "book2 requires book1 to be understandable"}
+  {:media.relationship/from [:media/id "book3"]
+   :media.relationship/to [:media/id "book2"]
+   :media.relationship/type :background
+   :media.relationship/description "book3 requires book2 to be understandable"}
+  {:media.relationship/from [:media/id "book4"]
+   :media.relationship/to [:media/id "book3"]
+   :media.relationship/type :background
+   :media.relationship/description "book4 requires book3 to be understandable"}
+  {:media.relationship/from [:media/id "book4"]
+   :media.relationship/to [:media/id "book2"]
+   :media.relationship/type :background
+   :media.relationship/description "book4 requires book2 to be understandable"}
+  {:media.relationship/from [:media/id "book12"]
+   :media.relationship/to [:media/id "book1"]
+   :media.relationship/type :translation
+   :media.relationship/description "book12 is translation of book1 to russian language"}
+  {:media.relationship/from [:media/id "book1"]
+   :media.relationship/to [:media/id "book14"]
+   :media.relationship/type :translation
+   :media.relationship/description "book14 is translation of book1 to spanish language"}
+  {:media.relationship/from [:media/id "book2"]
+   :media.relationship/to [:media/id "book13"]
+   :media.relationship/type :translation
+   :media.relationship/description "book2 is translation of book13 to english language"}
+  ]
+ ;;  :recommendations
+ [{:recommendation/specialization [:specialization/id "spec1"]
+   :recommendation/media [:media/id "book1"]
+   :recommendation/id "spec1_book1"
+   :recommendation/priority 1000
+   :recommendation/necessary true
+   :recommendation/description "spec1 book1"}
+  {:recommendation/specialization [:specialization/id "spec1"]
+   :recommendation/media [:media/id "book2"]
+   :recommendation/id "spec1_book2"
+   :recommendation/priority 900
+   :recommendation/necessary false
+   :recommendation/description "spec1 book2"}
+  {:recommendation/specialization [:specialization/id "spec1"]
+   :recommendation/media [:media/id "book3"]
+   :recommendation/id "spec1_book3"
+
+   :recommendation/priority 800
+   :recommendation/necessary false
+   :recommendation/description "spec1 book3"}
+  {:recommendation/specialization [:specialization/id "spec1"]
+   :recommendation/media [:media/id "book4"]
+   :recommendation/id "spec1_book4"
+   :recommendation/priority 700
+   :recommendation/necessary false
+   :recommendation/description "spec1 book4"}
+  {:recommendation/specialization [:specialization/id "spec1"]
+   :recommendation/media [:media/id "book5"]
+   :recommendation/id "spec1_book5"
+
+   :recommendation/priority 600
+   :recommendation/necessary false
+   :recommendation/description "spec1 book5"}
+  {:recommendation/specialization [:specialization/id "spec4"]
+   :recommendation/media [:media/id "book6"]
+   :recommendation/id "spec4_book6"
+
+   :recommendation/priority 550
+   :recommendation/necessary false
+   :recommendation/description "spec4 book6"}
+  {:recommendation/specialization [:specialization/id "spec4"]
+   :recommendation/media [:media/id "book7"]
+   :recommendation/id "spec4_book7"
+   :recommendation/priority 500
+   :recommendation/necessary false
+   :recommendation/description "spec4 book7"}
+  {:recommendation/specialization [:specialization/id "spec4"]
+   :recommendation/media [:media/id "book8"]
+   :recommendation/id "spec4_book8"
+   :recommendation/priority 400
+   :recommendation/necessary false
+   :recommendation/description "spec4 book8"}
+  {:recommendation/specialization [:specialization/id "spec4"]
+   :recommendation/media [:media/id "book9"]
+   :recommendation/id "spec4_book9"
+   :recommendation/priority 300
+   :recommendation/necessary false
+   :recommendation/description "spec4 book9"}
+
+  {:recommendation/specialization [:specialization/id "spec2"]
+   :recommendation/media [:media/id "book3"]
+   :recommendation/id "spec2_book3"
+   :recommendation/priority 1000
+   :recommendation/necessary true
+   :recommendation/description "spec2 book3"}
+  {:recommendation/specialization [:specialization/id "spec2"]
+   :recommendation/media [:media/id "book4"]
+   :recommendation/id "spec2_book4"
+   :recommendation/priority 900
+   :recommendation/necessary false
+   :recommendation/description "spec2 book4"}
+  {:recommendation/specialization [:specialization/id "spec2"]
+   :recommendation/media [:media/id "book5"]
+   :recommendation/id "spec5_book4"
+   :recommendation/priority 800
+   :recommendation/necessary false
+   :recommendation/description "spec2 book5"}
+  {:recommendation/specialization [:specialization/id "spec3"]
+   :recommendation/media [:media/id "book10"]
+   :recommendation/id "spec3_book10"
+   :recommendation/priority 800
+   :recommendation/necessary true
+   :recommendation/description "spec3 book10"}
+  {:recommendation/specialization [:specialization/id "spec3"]
+   :recommendation/media [:media/id "book11"]
+   :recommendation/id "spec3_book11"
+   :recommendation/priority 700
+   :recommendation/necessary false
+   :recommendation/description "spec3 book11"}]
+
+ ;;  :feedback
+ [{:feedback/user [:user/name "user1"]
+   :feedback/recommendation [:recommendation/id "spec1_book1"]
+   :feedback/complete true
+   :feedback/relevant true
+   :feedback.comment/text "spec1_book1_is_awesome"
+   :feedback.comment/show true}
+  {:feedback/user [:user/name "user2"]
+   :feedback/recommendation [:recommendation/id "spec1_book1"]
+   :feedback/complete true
+   :feedback/relevant true
+   :feedback.comment/text "spec1_book1_is_valuable"
+   :feedback.comment/show true}
+  {:feedback/user [:user/name "user2"]
+   :feedback/recommendation [:recommendation/id "spec1_book2"]
+   :feedback/complete true
+   :feedback/relevant false
+   :feedback.comment/text "spec1_book2_is_irrelevant"
+   :feedback.comment/show true}]
+ ]
