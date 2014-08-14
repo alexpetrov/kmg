@@ -13,8 +13,7 @@
 
 (def tmpl "/html/kmg.html")
 
-(em/defsnippet kmg-header tmpl ".kmg-header" []
-  )
+(em/defsnippet kmg-header tmpl ".kmg-header" [])
 (em/defsnippet kmg-content tmpl "#content" [])
 (em/defsnippet kmg-sidebar tmpl "#sidebar" [])
 
@@ -106,21 +105,6 @@
   ([specialization] (GET (str "/recommendation/list/" (:username @user) "/" (:specialization/id specialization))
        {:handler recommendation-list
         :error-handler error-handler})))
-
-#_(defn try-load-recommendations-completed []
-  (GET (str "/recommendation/completed/" (:username @user))
-       {:handler recommendation-completed-list
-        :error-handler error-handler}))
-
-#_(defn try-load-specializations-available []
-  (GET (str "/specialization/available/" (:username @user))
-       {:handler specialization-available-list
-        :error-hadler error-handler}))
-
-#_(defn try-load-specializations-completed []
-  (GET (str "/specialization/completed/" (:username @user))
-       {:handler specialization-completed-list
-        :error-handler error-handler}))
 
 (defn try-load-whole-user-data []
   (GET (str "/data/" (:username @user))
