@@ -11,8 +11,7 @@
 
 (defn query [description f]
   (p/profile :info description
-             (do (p/p :sync @(d/sync (conn)))
-                 (p/p :call-domain-query (f)))))
+             (p/p :call-domain-query (f))))
 
 (defn command [description f]
   (p/profile :info description

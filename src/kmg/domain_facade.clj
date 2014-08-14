@@ -58,10 +58,12 @@
 ;;(available-specializations "user2")
 
 (defn whole-user-data [user]
-  (p/profile :info :whole-user-data {:recommendations (vec (recommendations user))
-   :recommendations-completed (vec (recommendations-completed user))
-   :specializations-available (vec (specializations-available user))
-   :specializations-completed (vec (specializations-completed user))}))
+  (p/profile :info :whole-user-data
+             (do (p/p :sync @(d/sync (conn)))
+                 {:recommendations (vec (recommendations user))
+                  :recommendations-completed (vec (recommendations-completed user))
+                  :specializations-available (vec (specializations-available user))
+                  :specializations-completed (vec (specializations-completed user))})))
 
 (defn domain []
   (domain-data (db)))
