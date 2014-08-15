@@ -27,7 +27,7 @@
 (defn prepare-entity [data]
   (if (contains? data :db/id)
     data
-    (merge data {:db/id (d/tempid :db.part/user)})))
+    (assoc data :db/id (d/tempid :db.part/user))))
 
 (defn prepare-entities [data]
   (map prepare-entity data))
