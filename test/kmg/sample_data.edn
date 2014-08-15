@@ -60,8 +60,10 @@
  [{:media/id "book1"
    :media/type :media.type/book
    :media/title "book1_title"
+
    :media/essential true
-   :media/experience 0}
+   :media/experience 0
+   :media/author [:author/id "author1"]}
   {:media/id "book2"
    :media/type :media.type/book
    :media/title "book2_title"

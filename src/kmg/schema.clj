@@ -65,7 +65,7 @@
 
   {:db/ident :media/author
    :db/valueType :db.type/ref
-   :db/cardinality :db.cardinality/many
+   :db/cardinality :db.cardinality/one
    :db/doc "Media authors. Reference to Author entity."
    :db/id (d/tempid :db.part/db)
    :db.install/_attribute :db.part/db}

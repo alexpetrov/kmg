@@ -36,7 +36,8 @@
   (let [sample-data (read-string (slurp data-path))]
     (d/transact conn kmg-schema)
     (doseq [data sample-data]
-      @(d/transact conn (prepare-entities data)))))
+      (do #_(print data)
+          @(d/transact conn (prepare-entities data))))))
 
 (defn reset []
   (d/release (conn))

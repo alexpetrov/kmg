@@ -39,7 +39,7 @@
          [:db.type/string :db.cardinality/one]))
 
   (is (= (attr-spec :media/author)
-         [:db.type/ref :db.cardinality/many]))
+         [:db.type/ref :db.cardinality/one]))
 
   (is (= (attr-spec :media/annotation)
          [:db.type/string :db.cardinality/one]))
