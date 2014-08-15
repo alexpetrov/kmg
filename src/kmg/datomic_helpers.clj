@@ -19,7 +19,7 @@
 (defn db [] (d/db (conn)))
 
 (defn every-first [v]
-  (for [elem v] (first elem)))
+  (map first v))
 
 (defn entity [db id]
   (d/touch (d/entity db id)))
