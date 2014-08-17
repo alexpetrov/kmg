@@ -164,6 +164,8 @@
 
 ;;(media-translations-dataset (db) (media-dbid-by-id (db) "book1"))
 
+
+
 (defn media-translations [db media-id]
   (set (every-first (media-translations-dataset db media-id))))
 
@@ -174,19 +176,36 @@
 
 ;;(media-translation-data (db) (media-dbid-by-id (db) "book2"))
 
+(defn authors-dataset [db media-id]
+  (d/q '[:find ?aid
+         :in $ ?media-id
+         :where
+         [?media-id :media/author ?aid]]
+       db media-id))
+;; (authors-dataset (db) (media-dbid-by-id (db) "book1"))
+
+(defn media-authors [db media-id]
+  (set (every-first (authors-dataset db media-id))))
+
+(defn author-data [db author-id]
+  {:author (entity db author-id)})
+
 (defn background-data [db media-id user]
   {:media (entity db media-id) :completed (is-media-complete? db media-id user)})
 
 (defn recommendation-data [db rid user]
   (let [media-dbid (media-id-by-recommendation-id db rid)
         media-backgrounds (media-backgrounds db media-dbid)
-        media-translations (media-translations db media-dbid)]
+        media-translations (media-translations db media-dbid)
+        media-authors (media-authors db media-dbid)
+]
     {:recommendation (entity db rid)
      :media (entity db media-dbid)
+     :authors (vec (map #(author-data db %) media-authors))
      :backgrounds (vec (map #(background-data db % user) media-backgrounds))
      :translations (vec (map #(media-translation-data db %) media-translations))}))
 
-;;(recommendation-data (db) (recommendation-dbid db "spec1_book2"))
+;;(recommendation-data (db) (recommendation-dbid db "spec1_book1") "user1")
 ;;(recommendations "user1")
 ;;(recommendations "user2")
 

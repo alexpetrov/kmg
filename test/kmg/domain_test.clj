@@ -116,6 +116,8 @@
            "book2"))
     (is (= (:recommendation/id (:recommendation recommendation-data))
            "spec1_book2"))
+    (is (= (:author/name (:author (first (:authors recommendation-data))))
+           "author1_name"))
     (is (= (:media/id (:media (first (:backgrounds recommendation-data))))
         "book1"))
     (is (= (:media/id (:media (first (:translations recommendation-data))))

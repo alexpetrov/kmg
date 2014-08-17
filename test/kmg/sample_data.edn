@@ -63,12 +63,13 @@
 
    :media/essential true
    :media/experience 0
-   :media/author [[:author/id "author1"] [:author/id "author2"]]}
+   :media/author [[:author/id "author1"] [:author/id "author2"] [:author/id "author3"]]}
   {:media/id "book2"
    :media/type :media.type/book
    :media/title "book2_title"
    :media/essential true
-   :media/experience 1}
+   :media/experience 1
+   :media/author [[:author/id "author1"] [:author/id "author2"] [:author/id "author3"]]}
   {:media/id "book3"
    :media/type :media.type/book
    :media/title "book3_title"
