@@ -63,7 +63,7 @@
 
    :media/essential true
    :media/experience 0
-   :media/author [:author/id "author1"]}
+   :media/author [[:author/id "author1"] [:author/id "author2"]]}
   {:media/id "book2"
    :media/type :media.type/book
    :media/title "book2_title"
