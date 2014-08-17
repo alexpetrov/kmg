@@ -277,4 +277,4 @@
    :feedback/relevant false
    :feedback.comment/text "spec1_book2_is_irrelevant"
    :feedback.comment/show true}]
- ]
+]
