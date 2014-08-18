@@ -36,8 +36,14 @@
 (defn not-all-backgrounds-completed? [backgrounds]
   (some false? (for [b backgrounds] (:completed b))))
 
-(em/defsnippet recommendation tmpl ".recommendation" [{:keys [recommendation media backgrounds translations]}]
+(defn authors-string [authors]
+  (->> (map :author authors)
+     (map :author/name)
+     (clojure.string/join ", ")))
+
+(em/defsnippet recommendation tmpl ".recommendation" [{:keys [recommendation media backgrounds translations authors]}]
   "#recommendation-title" (ef/content (:media/title media))
+  "#recommendation-authors" (ef/content (authors-string authors))
   "#recommendation-description" (ef/content
      (str (:recommendation/description recommendation)
           " Necessary: " (:recommendation/necessary recommendation) " Priority: " (:recommendation/priority recommendation))
