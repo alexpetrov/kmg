@@ -148,6 +148,8 @@
          [:db.type/boolean :db.cardinality/one]))
   (is (= (attr-spec :feedback/relevant)
          [:db.type/boolean :db.cardinality/one]))
+  (is (= (attr-spec :feedback/comprehensible)
+         [:db.type/boolean :db.cardinality/one]))
   (is (= (attr-spec :feedback/complete)
          [:db.type/boolean :db.cardinality/one])))
 

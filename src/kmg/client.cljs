@@ -42,7 +42,7 @@
      (clojure.string/join ", ")))
 
 (em/defsnippet recommendation tmpl ".recommendation" [{:keys [recommendation media backgrounds translations authors]}]
-  "#recommendation-title" (ef/content (:media/title media))
+  "#recommendation-title" (ef/content (str (:media/title media) " " (:media/type media)))
   "#recommendation-authors" (ef/content (authors-string authors))
   "#recommendation-description" (ef/content
      (str (:recommendation/description recommendation)
