@@ -146,3 +146,11 @@
     (let [db-after (db)]
           (is (= (spec-ids db-after #(vector (user-current-goal db-after "user2")))
            #{"spec1"})))))
+
+(deftest test-mark-as-completed
+  (let [db-before (db)]
+    (is (not (is-media-complete? db-before (media-dbid-by-id db-before "book5") "user1")))
+    )
+    (mark-as-completed-command "user1" "spec1_book5")
+    (let [db-after (db)]
+      (is (is-media-complete? db-after (media-dbid-by-id db-after "book5") "user1"))))
