@@ -1,0 +1,29 @@
+[
+ [{:domain/id "it"
+   :domain/title "Information Technology"
+   :domain/description "Information Technology"
+   :domain/default-locale :en}]
+
+
+ ;;  :specializations
+ [{:specialization/id "basic"
+   :specialization/title "Basic"
+   :specialization/annotation "Basic specialization"}
+
+  {:specialization/id "developer"
+   :specialization/title "Developer"
+   :specialization/annotation "Developer"}
+  ]
+
+;;  :users
+ [{:user/name "user1"
+   :user/start-career-year 2014
+   :user/locale :en
+   :user/goal [:specialization/id "basic"]}
+  {:user/name "user2"
+   :user/start-career-year 2013
+   :user/locale :ru
+   :user/goal [:specialization/id "basic"]
+}
+]
+]

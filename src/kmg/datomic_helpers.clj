@@ -44,6 +44,16 @@
   (d/delete-database (db-url))
   (d/create-database (db-url)))
 
+(defn create-db-and-import-knowledge-base-4-it
+  "This function creates schema and imports knowledge base data and users sample data
+It needs only for prototype"
+  []
+  (let [data-path (config :real-data-path)]
+    #_(reset)
+    (import-knowledge-base-data data-path (fresh-conn))))
+;;(time (create-db-and-import-knowledge-base-4-it))
+
+
 (defn create-db-and-import-sample-data-for-prototype
   "This function creates schema and imports knowledge base data and users sample data
 It needs only for prototype"
