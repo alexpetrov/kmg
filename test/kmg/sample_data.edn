@@ -267,19 +267,22 @@
  [{:feedback/user [:user/name "user1"]
    :feedback/recommendation [:recommendation/id "spec1_book1"]
    :feedback/complete true
-   :feedback/relevant true
+   :feedback/irrelevant false
+   :feedback/incomprehensible false
    :feedback.comment/text "spec1_book1_is_awesome"
    :feedback.comment/show true}
   {:feedback/user [:user/name "user2"]
    :feedback/recommendation [:recommendation/id "spec1_book1"]
    :feedback/complete true
-   :feedback/relevant true
+   :feedback/irrelevant false
+   :feedback/incomprehensible false
    :feedback.comment/text "spec1_book1_is_valuable"
    :feedback.comment/show true}
   {:feedback/user [:user/name "user2"]
    :feedback/recommendation [:recommendation/id "spec1_book2"]
    :feedback/complete true
-   :feedback/relevant false
+   :feedback/irrelevant true
+   :feedback/incomprehensible false
    :feedback.comment/text "spec1_book2_is_irrelevant"
    :feedback.comment/show true}]
 ]

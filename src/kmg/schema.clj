@@ -339,17 +339,17 @@
    :db/id (d/tempid :db.part/db)
    :db.install/_attribute :db.part/db}
 
-  {:db/ident :feedback/relevant
+  {:db/ident :feedback/irrelevant
    :db/valueType :db.type/boolean
    :db/cardinality :db.cardinality/one
-   :db/doc "Is this recommendation relevant."
+   :db/doc "Is this recommendation irrelevant."
    :db/id (d/tempid :db.part/db)
    :db.install/_attribute :db.part/db}
 
-  {:db/ident :feedback/comprehensible
+  {:db/ident :feedback/incomprehensible
    :db/valueType :db.type/boolean
    :db/cardinality :db.cardinality/one
-   :db/doc "Is this recommendation comprehensible."
+   :db/doc "Is this recommendation incomprehensible."
    :db/id (d/tempid :db.part/db)
    :db.install/_attribute :db.part/db}
 
