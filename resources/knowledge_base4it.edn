@@ -12,8 +12,7 @@
 
   {:specialization/id "developer"
    :specialization/title "Developer"
-   :specialization/annotation "Developer"}
-  ]
+   :specialization/annotation "Developer"}]
 
 ;;  :users
  [{:user/name "user1"
@@ -23,7 +22,89 @@
   {:user/name "user2"
    :user/start-career-year 2013
    :user/locale :ru
-   :user/goal [:specialization/id "basic"]
-}
-]
+   :user/goal [:specialization/id "basic"]}]
+
+;; Authors
+ [{:author/id "dave_thomas"
+   :author/name "Dave Thomas"}
+  {:author/id "andy_hunt"
+   :author/name "Andy Hunt"}
+  {:author/id "martin_fowler"
+   :author/name "Martin Fowler"}
+  {:author/id "kent_beck"
+   :author/name "Kent Beck"}
+  {:author/id "eric_evans"
+   :author/name "Eric Evans"}
+  {:author/id "bob_martin"
+   :author/name "Bob Martin"}
+  {:author/id "eric_freeman"
+   :author/name "Eric Freeman"}
+  {:author/id "bert_bates"
+   :author/name "Bert Bates"}
+  {:author/id "kathy_sierra"
+   :author/name "Kathy Sierra"}
+  {:author/id "elisabeth_robson"
+   :author/name "Elisabeth Robson"}]
+
+ [{:media/id "pragmatic_programmer"
+   :media/type :media.type/book
+   :media/title "Pragmatic Programmer. From Journeyman to Master."
+   :media/essential true
+   :media/experience 0
+   :media/author [[:author/id "dave_thomas"] [:author/id "andy_hunt"]]}
+  {:media/id "refactoring"
+   :media/type :media.type/book
+   :media/title "Refactoring: Improving the Design of Existing Code."
+   :media/essential true
+   :media/experience 0
+   :media/author [[:author/id "martin_fowler"] [:author/id "kent_beck"]]}
+  {:media/id "clean_code"
+   :media/type :media.type/book
+   :media/title "Clean Code: A Handbook of Agile Software Craftsmanship."
+   :media/essential true
+   :media/experience 0
+   :media/author [[:author/id "bob_martin"]]}
+  {:media/id "domain_driven_design"
+   :media/type :media.type/book
+   :media/title "Domain-Driven Design: Tackling Complexity in the Heart of Software."
+   :media/essential true
+   :media/experience 0
+   :media/author [[:author/id "eric_evans"]]}
+  {:media/id "head_first_design_patterns"
+   :media/type :media.type/book
+   :media/title "Head First Design Patterns."
+   :media/essential true
+   :media/experience 0
+   :media/author [[:author/id "eric_freeman"] [:author/id "bert_bates"] [:author/id "kathy_sierra"] [:author/id "elisabeth_robson"]]}]
+;; Recommendations
+ [{:recommendation/specialization [:specialization/id "basic"]
+   :recommendation/media [:media/id "pragmatic_programmer"]
+   :recommendation/id "basic_pragmatic_programmer"
+   :recommendation/priority 1000
+   :recommendation/necessary true
+   :recommendation/description "Pragmatic Programmer is must for every IT specialist, because... //TBD"}
+  {:recommendation/specialization [:specialization/id "basic"]
+   :recommendation/media [:media/id "refactoring"]
+   :recommendation/id "basic_refactoring"
+   :recommendation/priority 900
+   :recommendation/necessary true
+   :recommendation/description "Refacotring is must for every IT specialist, because... //TBD"}
+  {:recommendation/specialization [:specialization/id "basic"]
+   :recommendation/media [:media/id "head_first_design_patterns"]
+   :recommendation/id "basic_head_first_design_patterns"
+   :recommendation/priority 800
+   :recommendation/necessary true
+   :recommendation/description "Head First Design Patterns is must for every IT specialist, because... //TBD"}
+  {:recommendation/specialization [:specialization/id "basic"]
+   :recommendation/media [:media/id "domain_driven_design"]
+   :recommendation/id "basic_domain_driven_design"
+   :recommendation/priority 800
+   :recommendation/necessary true
+   :recommendation/description "Domain Driven Design is must for every IT specialist, because... //TBD"}
+  {:recommendation/specialization [:specialization/id "basic"]
+   :recommendation/media [:media/id "clean_code"]
+   :recommendation/id "basic_clean_code"
+   :recommendation/priority 700
+   :recommendation/necessary true
+   :recommendation/description "Clean Code is must for every IT specialist, because... //TBD"}]
 ]
