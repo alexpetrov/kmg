@@ -42,11 +42,12 @@
      (clojure.string/join ", ")))
 
 (em/defsnippet recommendation tmpl ".recommendation" [{:keys [recommendation media backgrounds translations authors]}]
-  "#recommendation-title" (ef/content (str (:media/title media) " " (:media/type media)))
+  "#recommendation-title" (ef/content (str (:media/title media) " " ))
   "#recommendation-authors" (ef/content (authors-string authors))
   "#recommendation-description" (ef/content
-     (str (:recommendation/description recommendation)
-          " Necessary: " (:recommendation/necessary recommendation) " Priority: " (:recommendation/priority recommendation))
+     (str (:recommendation/description recommendation) " <br/> "
+          " Necessary: " (:recommendation/necessary recommendation) " Priority: " (:recommendation/priority recommendation)
+          " Type: " (:media/type media))
      )
 
   "#complete" (events/listen :click #(try-mark-as-completed recommendation))
