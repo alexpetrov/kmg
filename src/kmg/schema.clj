@@ -108,7 +108,7 @@
    :db.install/_attribute :db.part/db}
 
   {:db/ident :media/isbn
-   :db/valueType :db.type/keyword
+   :db/valueType :db.type/string
    :db/cardinality :db.cardinality/one
    :db/doc "ISBN for book."
    :db/id (d/tempid :db.part/db)

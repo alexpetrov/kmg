@@ -57,7 +57,7 @@
          [:db.type/long :db.cardinality/one]))
 
   (is (= (attr-spec :media/isbn)
-         [:db.type/keyword :db.cardinality/one])))
+         [:db.type/string :db.cardinality/one])))
 
 (deftest test-kmg-schema-for-media-relationship
   (is (= (attr-spec :media.relationship/from)

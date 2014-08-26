@@ -114,6 +114,8 @@
         recommendation-data (recommendation-data db (recommendation-dbid db "spec1_book2") "user1")]
     (is (= (:media/id (:media recommendation-data))
            "book2"))
+    (is (= (:media/isbn (:media recommendation-data))
+           "ISBN 978-5-98227-708-4"))
     (is (= (:recommendation/id (:recommendation recommendation-data))
            "spec1_book2"))
     (is (= (:author/name (:author (first (:authors recommendation-data))))

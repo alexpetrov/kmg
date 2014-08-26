@@ -46,6 +46,7 @@
   "#recommendation-authors" (ef/content (authors-string authors))
   "#recommendation-description" (ef/content
      (str (:recommendation/description recommendation) " <br/> "
+          (:media/isbn media)
           " Necessary: " (:recommendation/necessary recommendation) " Priority: " (:recommendation/priority recommendation)
           " Type: " (:media/type media))
      )
