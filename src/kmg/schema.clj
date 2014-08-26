@@ -107,6 +107,13 @@
    :db/id (d/tempid :db.part/db)
    :db.install/_attribute :db.part/db}
 
+  {:db/ident :media/isbn
+   :db/valueType :db.type/keyword
+   :db/cardinality :db.cardinality/one
+   :db/doc "ISBN for book."
+   :db/id (d/tempid :db.part/db)
+   :db.install/_attribute :db.part/db}
+
 ;; End of Media type declaration
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

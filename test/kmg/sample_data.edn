@@ -60,13 +60,14 @@
  [{:media/id "book1"
    :media/type :media.type/book
    :media/title "book1_title"
-
+   :media/isbn "ISBN 978-5-9775-0294-8"
    :media/essential true
    :media/experience 0
    :media/author [[:author/id "author1"] [:author/id "author2"] [:author/id "author3"]]}
   {:media/id "book2"
    :media/type :media.type/book
    :media/title "book2_title"
+   :media/isbn "ISBN 978-5-98227-708-4"
    :media/essential true
    :media/experience 1
    :media/author [[:author/id "author1"] [:author/id "author2"] [:author/id "author3"]]}
