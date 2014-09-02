@@ -51,6 +51,10 @@
    :author/name "Gerald Jay Sussman"}
   {:author/id "julie_sussman"
    :author/name "Julie Sussman"}
+  {:author/id "mary_poppendieck"
+   :author/name "Mary Poppendieck"}
+  {:author/id "tom_poppendieck"
+   :author/name "Tom Poppendieck"}
 
 ]
 
@@ -91,8 +95,28 @@
    :media/experience 0
    :media/isbn "ISBN-13: 978-0262510875"
    :media/author [[:author/id "harold_abelson"] [:author/id "gerald_jay_sussman"] [:author/id "julie_sussman"]]}
+  {:media/id "ilsd"
+   :media/type :media.type/book
+   :media/title "Implementing Lean Software Development: From Concept to Cash"
+   :media/essential true
+   :media/experience 0
+   :media/isbn "ISBN-13: 978-0321437389 ISBN-10: 0321437381 Edition: 1st"
+   :media/author [[:author/id "mary_poppendieck"] [:author/id "tom_poppendieck"]]}
+  {:media/id "ilsd_ru"
+   :media/type :media.type/book
+   :media/title "Бережливое производство программного обеспечения. От идеи до прибыли"
+   :media/essential true
+   :media/experience 0
+   :media/isbn "ISBN 978-5-8459-1538-2, 0-321-43738-1; 2010 г."
+   :media/author [[:author/id "mary_poppendieck"] [:author/id "tom_poppendieck"]]}
 
 ]
+;; Media-relationships
+ [  {:media.relationship/from [:media/id "ilsd_ru"]
+     :media.relationship/to [:media/id "ilsd"]
+     :media.relationship/type :translation
+     :media.relationship/description "Перевод на русский язык"}
+    ]
 ;; Recommendations
  [{:recommendation/specialization [:specialization/id "basic"]
    :recommendation/media [:media/id "pragmatic_programmer"]
@@ -129,5 +153,13 @@
    :recommendation/id "basic_sicp"
    :recommendation/priority 600
    :recommendation/necessary false
-   :recommendation/description "SICP is optional recommendation for basic specialization, because... //TBD"}]
+   :recommendation/description "SICP is optional recommendation for basic specialization, because... //TBD"}
+  {:recommendation/specialization [:specialization/id "basic"]
+   :recommendation/media [:media/id "ilsd"]
+   :recommendation/id "basic_ilsd"
+   :recommendation/priority 500
+   :recommendation/necessary false
+   :recommendation/description "Implementing Lean Software Develpment is optional recommendation for basic specialization, because... //TBD"}
+
+]
 ]
