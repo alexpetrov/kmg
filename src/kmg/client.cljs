@@ -72,9 +72,9 @@
   (ef/content (:specialization/title specialization))
   "#show-recommendations" (events/listen :click #(try-load-recommendations specialization)))
 
-(defn error-handler [{:keys [status status-text]}]
-  (js/alert (str "somthing bad happened: " status " " status-text))
-  #_(.log js/console (str "something bad happened: " status " " status-text)))
+(defn error-handler [{:keys [status status-text response]}]
+  (js/alert (str "something bad happened: " status " " status-text))
+  (println  (str "Something bad happened: " status "; Status text: " status-text "; Response: " response)))
 
 (defn recommendation-list [data]
   (ef/at "#inner-content"
