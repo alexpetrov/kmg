@@ -7,6 +7,7 @@
 
 (declare try-mark-as-completed try-change-goal try-load-recommendations try-load-recommendations-completed start)
 
+(enable-console-print!)
 
 (def user (atom {:username "user2"}))
 (def user-data (atom {}))
@@ -140,8 +141,9 @@
   (ef/at "#domain-title" (ef/content (:domain/title domain))))
 
 (defn try-load-domain []
-  (GET "/domain" {:handler show-domain
-                  :error-handler error-handler}))
+  (println "Going to load all domain data")
+  (time (GET "/domain" {:handler show-domain
+                  :error-handler error-handler})))
 
 (defn try-get-users []
   (GET "/user/list" {:handler show-user-choose

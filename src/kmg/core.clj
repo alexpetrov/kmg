@@ -1,17 +1,27 @@
 (ns kmg.core
+  (:import (java.io ByteArrayOutputStream))
   (:require [compojure.route :as route]
             [clojure.java.io :as io]
             [kmg.domain-facade :as model]
-            [taoensso.timbre :as log])
+            [taoensso.timbre :as log]
+            [cognitect.transit :as transit])
   (:use compojure.core
         compojure.handler
         ring.middleware.edn
         carica.core))
 
+(defn write [x]
+  (let [baos (ByteArrayOutputStream.)
+        w    (transit/writer baos :json)
+        _    (transit/write w x)
+        ret  (.toString baos)]
+    (.reset baos)
+    ret))
+
 (defn response [data & [status]]
   {:status (or status 200)
-   :headers {"Content-Type" "application/edn"}
-   :body (pr-str data)})
+   :headers {"Content-Type" "application/transit+json; charset=utf-8"}
+   :body (write data)})
 
 (defn recommendations
   ([user]
