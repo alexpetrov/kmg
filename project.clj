@@ -6,7 +6,6 @@
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [org.clojure/clojurescript "0.0-2371"]
                  [com.cognitect/transit-clj "0.8.259"]
-                 [com.cognitect/transit-cljs "0.8.188"]
                  [com.datomic/datomic-free "0.9.4956"]
                  [datomic-schema-grapher "0.0.1"]
                  [enfocus "2.1.0"]
