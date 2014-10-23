@@ -7,7 +7,7 @@
 
 (defn db-url [] (config :db :url))
 
-#_(d/create-database (db-url))
+(d/create-database (db-url))
 
 (defn conn [] (d/connect (db-url)))
 
@@ -24,7 +24,7 @@
 (defn entity [db id]
   (->> (d/touch (d/entity db id))
          (remove #(or (set? (val %))
-                      (= (.getClass (val %)) datomic.query.EntityMap)))
+                      (= (type (val %)) datomic.query.EntityMap)))
          (into {})))
 
 (defn prepare-entity [data]
