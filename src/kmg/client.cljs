@@ -44,6 +44,7 @@
 
 (em/defsnippet recommendation tmpl ".recommendation" [{:keys [recommendation media backgrounds translations authors]}]
   "#recommendation-title" (ef/content (str (:media/title media) " " ))
+  "#recommendation-subtitle" (ef/content (str (:media/subtitle media) " " ))
   "#recommendation-authors" (ef/content (authors-string authors))
   "#recommendation-description" (ef/content
      (str (:recommendation/description recommendation) " <br/> "

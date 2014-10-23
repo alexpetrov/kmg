@@ -60,33 +60,42 @@
 
  [{:media/id "pragmatic_programmer"
    :media/type :media.type/book
-   :media/title "Pragmatic Programmer. From Journeyman to Master"
+   :media/title "Pragmatic Programmer"
+   :media/subtitle "From Journeyman to Master"
    :media/essential true
    :media/experience 0
+   :media/isbn "ISBN-13: 978-0201616224 ISBN-10: 020161622X"
    :media/author [[:author/id "dave_thomas"] [:author/id "andy_hunt"]]}
   {:media/id "refactoring"
    :media/type :media.type/book
-   :media/title "Refactoring: Improving the Design of Existing Code"
+   :media/title "Refactoring"
+   :media/subtitle "Improving the Design of Existing Code"
    :media/essential true
    :media/experience 0
+   :media/isbn "ISBN-13: 978-0201485677 ISBN-10: 0201485672"
    :media/author [[:author/id "martin_fowler"] [:author/id "kent_beck"]]}
   {:media/id "clean_code"
    :media/type :media.type/book
-   :media/title "Clean Code: A Handbook of Agile Software Craftsmanship"
+   :media/title "Clean Code"
+   :media/subtitle "A Handbook of Agile Software Craftsmanship"
    :media/essential true
    :media/experience 0
+   :media/isbn "ISBN-13: 000-0132350882 ISBN-10: 0132350882"
    :media/author [[:author/id "bob_martin"]]}
   {:media/id "domain_driven_design"
    :media/type :media.type/book
-   :media/title "Domain-Driven Design: Tackling Complexity in the Heart of Software"
+   :media/title "Domain-Driven Design"
+   :media/subtitle "Tackling Complexity in the Heart of Software"
    :media/essential true
    :media/experience 0
+   :media/isbn "ISBN-13: 978-0321125217 ISBN-10: 0321125215"
    :media/author [[:author/id "eric_evans"]]}
   {:media/id "head_first_design_patterns"
    :media/type :media.type/book
    :media/title "Head First: Design Patterns"
    :media/essential true
    :media/experience 0
+   :media/isbn "Print ISBN: 978-0-596-00712-6 | ISBN 10:0-596-00712-4 Ebook ISBN: 978-0-596-55656-3 | ISBN 10:0-596-55656-X"
    :media/author [[:author/id "eric_freeman"] [:author/id "bert_bates"] [:author/id "kathy_sierra"] [:author/id "elisabeth_robson"]]}
   {:media/id "sicp"
    :media/type :media.type/book
@@ -97,14 +106,16 @@
    :media/author [[:author/id "harold_abelson"] [:author/id "gerald_jay_sussman"] [:author/id "julie_sussman"]]}
   {:media/id "ilsd"
    :media/type :media.type/book
-   :media/title "Implementing Lean Software Development: From Concept to Cash"
+   :media/title "Implementing Lean Software Development"
+   :media/subtitle "From Concept to Cash"
    :media/essential true
    :media/experience 0
    :media/isbn "ISBN-13: 978-0321437389 ISBN-10: 0321437381 Edition: 1st"
    :media/author [[:author/id "mary_poppendieck"] [:author/id "tom_poppendieck"]]}
   {:media/id "ilsd_ru"
    :media/type :media.type/book
-   :media/title "Бережливое производство программного обеспечения. От идеи до прибыли"
+   :media/title "Бережливое производство программного обеспечения"
+   :media/subtitle "От идеи до прибыли"
    :media/essential true
    :media/experience 0
    :media/isbn "ISBN 978-5-8459-1538-2, 0-321-43738-1; 2010 г."

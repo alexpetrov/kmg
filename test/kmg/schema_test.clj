@@ -35,6 +35,9 @@
   (is (= (attr-spec :media/title)
          [:db.type/string :db.cardinality/one]))
 
+  (is (= (attr-spec :media/subtitle)
+         [:db.type/string :db.cardinality/one]))
+
   (is (= (attr-spec :media/url)
          [:db.type/string :db.cardinality/one]))
 
