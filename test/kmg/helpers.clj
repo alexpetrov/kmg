@@ -11,17 +11,13 @@
 
 (defn before [f]
   (with-redefs [config (override-config :db {:url "datomic:mem://test"})]
-    (dh/create-db-and-import-sample-data-for-prototype)
+    (dh/create-db-and-import-sample-data-for-test)
     (f)))
 
 (defn show-schema []
   (before
    #(graph-datomic (dh/db-url) :save-as "kmg-schema.dot")))
 ;; (show-schema)
-
-(defn reset-database []
-  (before #(dh/reset)))
-;; (reset-database)
 
 (defn db []
   (d/db (d/connect (dh/db-url))))

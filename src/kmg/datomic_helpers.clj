@@ -7,7 +7,7 @@
 
 (defn db-url [] (config :db :url))
 
-(d/create-database (db-url))
+;;(d/create-database (db-url))
 
 (defn conn [] (d/connect (db-url)))
 
@@ -35,34 +35,41 @@
 (defn prepare-entities [data]
   (map prepare-entity data))
 
-(defn import-knowledge-base-data [data-path conn]
+(defn import-kb-data [data-path conn]
   (let [sample-data (read-string (slurp data-path))]
     (d/transact conn kmg-schema)
     (doseq [data sample-data]
       (do #_(print data)
           @(d/transact conn (prepare-entities data))))))
 
-(defn reset []
-  (d/release (conn))
+(defn import-knowledge-base-data
+  ([data-path]
+     (d/create-database (db-url))
+     (import-kb-data data-path (conn)))
+  ([data-path conn]
+     (import-kb-data data-path conn)))
+
+(defn delete-database []
   (d/delete-database (db-url))
-  (d/create-database (db-url)))
+  (println "Database successfully deleted"))
 
 (defn create-db-and-import-knowledge-base-4-it
-  "This function creates schema and imports knowledge base data and users sample data
-It needs only for prototype"
+  "This function creates schema and imports knowledge base for IT data and users sample data"
   []
   (let [data-path (config :real-data-path)]
-    #_(reset)
-    (import-knowledge-base-data data-path (fresh-conn))))
+    (import-knowledge-base-data data-path)))
 ;;(time (create-db-and-import-knowledge-base-4-it))
 
-
-(defn create-db-and-import-sample-data-for-prototype
-  "This function creates schema and imports knowledge base data and users sample data
-It needs only for prototype"
+(defn create-db-and-import-sample-data
+  "This function creates schema and imports knowledge base data and users sample data"
   []
   (let [data-path (config :sample-data-path)]
-    #_(reset)
+    (import-knowledge-base-data data-path)))
+;; (time (create-db-and-import-sample-data))
+
+(defn create-db-and-import-sample-data-for-test
+  "This function creates schema and imports knowledge base data and users sample data
+It needs only for test in memory database. Does not work with real database, for some reason"
+  []
+  (let [data-path (config :sample-data-path)]
     (import-knowledge-base-data data-path (fresh-conn))))
-;; (reset)
-;; (time (create-db-and-import-sample-data-for-prototype))
