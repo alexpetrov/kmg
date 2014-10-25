@@ -11,13 +11,14 @@
                  [enfocus "2.1.0"]
                  [compojure "1.2.0"]
                  [javax.servlet/servlet-api "2.5"]
-                 [sonian/carica "1.1.0" :exclusions [[cheshire]]]
+                 [environ "1.0.0"]
                  [fogus/ring-edn "0.2.0"]
                  [cljs-ajax "0.3.3"]
                  [com.taoensso/timbre "3.3.1"]
                  ]
   :profiles {:dev {:plugins [[lein-cljsbuild "1.0.3"]]}}
-  :plugins [[datomic-schema-grapher "0.0.1"]]
+  :plugins [[datomic-schema-grapher "0.0.1"]
+            [lein-environ "1.0.0"]]
   :cljsbuild {
     :builds [{
         :source-paths ["src"]

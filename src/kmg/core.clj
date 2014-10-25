@@ -7,8 +7,7 @@
             [cognitect.transit :as transit])
   (:use compojure.core
         compojure.handler
-        ring.middleware.edn
-        carica.core))
+        ring.middleware.edn))
 
 (defn write [x]
   (let [baos (ByteArrayOutputStream.)

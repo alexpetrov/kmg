@@ -1,10 +1,8 @@
 (ns kmg.domain
   (:require
     [datomic.api :as d]
-    [taoensso.timbre.profiling :as p]
-    )
-  (:use carica.core
-        clojure.data
+    [taoensso.timbre.profiling :as p])
+  (:use clojure.data
         kmg.datomic-helpers))
 
 (declare in? user-goals-history media-backgrounds media-background-dataset is-media-complete?)

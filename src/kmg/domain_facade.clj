@@ -2,8 +2,7 @@
   (:require
     [datomic.api :as d]
     [taoensso.timbre.profiling :as p])
-  (:use carica.core
-        clojure.data
+  (:use clojure.data
         kmg.domain
         kmg.datomic-helpers))
 

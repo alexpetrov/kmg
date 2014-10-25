@@ -6,13 +6,11 @@
    [clojure.test :refer :all]
    [kmg.datomic-helpers :as dh])
   (:use
-   carica.core
    clojure.test))
 
 (defn before [f]
-  (with-redefs [config (override-config :db {:url "datomic:mem://test"})]
-    (dh/create-db-and-import-sample-data-for-test)
-    (f)))
+  (dh/create-db-and-import-sample-data-for-test)
+  (f))
 
 (defn show-schema []
   (before

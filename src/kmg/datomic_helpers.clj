@@ -1,11 +1,11 @@
 (ns kmg.datomic-helpers
   (:require
-   [datomic.api :as d])
+   [datomic.api :as d]
+   [environ.core :refer [env]])
   (:use
-   kmg.schema
-   carica.core))
+   kmg.schema))
 
-(defn db-url [] (config :db :url))
+(defn db-url [] (env :database-url))
 
 ;;(d/create-database (db-url))
 
@@ -56,14 +56,14 @@
 (defn create-db-and-import-knowledge-base-4-it
   "This function creates schema and imports knowledge base for IT data and users sample data"
   []
-  (let [data-path (config :real-data-path)]
+  (let [data-path (env :real-data-path)]
     (import-knowledge-base-data data-path)))
 ;;(time (create-db-and-import-knowledge-base-4-it))
 
 (defn create-db-and-import-sample-data
   "This function creates schema and imports knowledge base data and users sample data"
   []
-  (let [data-path (config :sample-data-path)]
+  (let [data-path (env :sample-data-path)]
     (import-knowledge-base-data data-path)))
 ;; (time (create-db-and-import-sample-data))
 
@@ -71,5 +71,5 @@
   "This function creates schema and imports knowledge base data and users sample data
 It needs only for test in memory database. Does not work with real database, for some reason"
   []
-  (let [data-path (config :sample-data-path)]
+  (let [data-path (env :sample-data-path)]
     (import-knowledge-base-data data-path (fresh-conn))))
