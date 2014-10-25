@@ -14,6 +14,11 @@
    :specialization/title "Developer"
    :specialization/annotation "Developer"}]
 
+ ;; :specializations.relationships
+ [{:specialization.relationship/from [:specialization/id "developer"]
+   :specialization.relationship/to [:specialization/id "basic"]
+   :specialization.relationship/description "developer->basic"}]
+
 ;;  :users
  [{:user/name "user1"
    :user/start-career-year 2014
@@ -125,7 +130,7 @@
   {:media/id "xunit"
    :media/type :media.type/book
    :media/title "xUnit Test Patterns"
-   :media/subtitle "Refactoring Test CodeImplementing Lean Software Development"
+   :media/subtitle "Refactoring Test Code"
    :media/essential true
    :media/experience 0
    :media/isbn "ISBN 978-5-8459-1448-4, 978-0-13-149505-0;"
@@ -169,12 +174,12 @@
    :recommendation/necessary true
    :recommendation/description "Clean Code is must for every IT specialist, because... //TBD"}
 
-  {:recommendation/specialization [:specialization/id "basic"]
+  {:recommendation/specialization [:specialization/id "developer"]
    :recommendation/media [:media/id "xunit"]
    :recommendation/id "basic_xunit"
-   :recommendation/priority 600
+   :recommendation/priority 1000
    :recommendation/necessary true
-   :recommendation/description "XUnit is must recommendation for basic specialization, because... //TBD"}
+   :recommendation/description "XUnit is must recommendation for developer specialization, because... //TBD"}
   {:recommendation/specialization [:specialization/id "basic"]
    :recommendation/media [:media/id "ilsd"]
    :recommendation/id "basic_ilsd"
