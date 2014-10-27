@@ -225,6 +225,13 @@
    :media/experience 1
    :media/isbn "ISBN-13: 007-6092025986 ISBN-10: 0131177052"
    :media/author [[:author/id "michael_feathers"]]}
+  {:media/id "pofeaa"
+   :media/type :media.type/book
+   :media/title "Patterns of Enterprise Application Architecture"
+   :media/essential true
+   :media/experience 1
+   :media/isbn "ISBN-13: 978-0321127426 ISBN-10: 0321127420"
+   :media/author [[:author/id "martin_fowler"]]}
 ]
 ;; Media-relationships
  [  {:media.relationship/from [:media/id "ilsd_ru"]
@@ -295,7 +302,13 @@
    :recommendation/media [:media/id "weflc"]
    :recommendation/id "developer_weflc"
    :recommendation/priority 800
-   :recommendation/necessary true
-   :recommendation/description "Working Effectively with legacy code is must recommendation for developer specialization, because... //TBD @alexpetrov"}
+   :recommendation/necessary false
+   :recommendation/description "Working Effectively with legacy code is optional recommendation for developer specialization, because... //TBD @alexpetrov"}
+  {:recommendation/specialization [:specialization/id "developer"]
+   :recommendation/media [:media/id "pofeaa"]
+   :recommendation/id "developer_pofeaa"
+   :recommendation/priority 700
+   :recommendation/necessary false
+   :recommendation/description "Patterns of Enterprise Application Architecture is optional recommendation for developer specialization, because... //TBD @alexpetrov"}
 ]
 ]
