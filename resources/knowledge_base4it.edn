@@ -12,12 +12,84 @@
 
   {:specialization/id "developer"
    :specialization/title "Developer"
-   :specialization/annotation "Developer"}]
+   :specialization/annotation "Developer"}
+
+  {:specialization/id "java_developer"
+   :specialization/title "Java Developer"
+   :specialization/annotation "Java Developer"}
+
+  {:specialization/id "dot_net_developer"
+   :specialization/title ".Net Developer"
+   :specialization/annotation ".Net Developer"}
+
+  {:specialization/id "architect"
+   :specialization/title "Enterprise Software Architect"
+   :specialization/annotation "Enterprise Software Architect"}
+
+  {:specialization/id "software_engineer"
+   :specialization/title "Software Engineer"
+   :specialization/annotation "Software Engineer"}
+
+  {:specialization/id "clojure_engineer"
+   :specialization/title "Clojure Engineer"
+   :specialization/annotation "Clojure Engineer"}
+
+  {:specialization/id "frontend_engineer"
+   :specialization/title "Frontend Engineer"
+   :specialization/annotation "Frontend Engineer"}
+
+  {:specialization/id "testing_engineer"
+   :specialization/title "Testing Engineer"
+   :specialization/annotation "Testing Engineer"}
+
+  {:specialization/id "operations_engineer"
+   :specialization/title "Operations Engineer"
+   :specialization/annotation "Operations Engineer"}
+
+  {:specialization/id "ux_engineer"
+   :specialization/title "UX Engineer"
+   :specialization/annotation "User eXperience Engineer"}]
 
  ;; :specializations.relationships
  [{:specialization.relationship/from [:specialization/id "developer"]
    :specialization.relationship/to [:specialization/id "basic"]
-   :specialization.relationship/description "developer->basic"}]
+   :specialization.relationship/description "developer->basic"}
+
+  {:specialization.relationship/from [:specialization/id "java_developer"]
+   :specialization.relationship/to [:specialization/id "developer"]
+   :specialization.relationship/description "java_developer->developer"}
+
+  {:specialization.relationship/from [:specialization/id "dot_net_developer"]
+   :specialization.relationship/to [:specialization/id "developer"]
+   :specialization.relationship/description "dot_net_developer->developer"}
+
+  {:specialization.relationship/from [:specialization/id "architect"]
+   :specialization.relationship/to [:specialization/id "developer"]
+   :specialization.relationship/description "architect->developer"}
+
+  {:specialization.relationship/from [:specialization/id "software_engineer"]
+   :specialization.relationship/to [:specialization/id "developer"]
+   :specialization.relationship/description "software_engineer->developer"}
+
+  {:specialization.relationship/from [:specialization/id "clojure_engineer"]
+   :specialization.relationship/to [:specialization/id "software_engineer"]
+   :specialization.relationship/description "clojure_engineer->software_engineer"}
+
+  {:specialization.relationship/from [:specialization/id "frontend_engineer"]
+   :specialization.relationship/to [:specialization/id "developer"]
+   :specialization.relationship/description "frontend_engineer->developer"}
+
+  {:specialization.relationship/from [:specialization/id "testing_engineer"]
+   :specialization.relationship/to [:specialization/id "basic"]
+   :specialization.relationship/description "testing_engineer->basic"}
+
+  {:specialization.relationship/from [:specialization/id "operations_engineer"]
+   :specialization.relationship/to [:specialization/id "basic"]
+   :specialization.relationship/description "operations_engineer->basic"}
+
+  {:specialization.relationship/from [:specialization/id "ux_engineer"]
+   :specialization.relationship/to [:specialization/id "basic"]
+   :specialization.relationship/description "ux_engineer->basic"}]
 
 ;;  :users
  [{:user/name "user1"
