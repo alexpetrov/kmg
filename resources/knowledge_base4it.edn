@@ -136,6 +136,9 @@
    :author/name "Gerard Meszaros"}
   {:author/id "joshua_kerievsky"
    :author/name "Joshua Kerievsky"}
+  {:author/id "michael_feathers"
+   :author/name "Michael Feathers"}
+;;Michael Feathers
 ]
 
  [{:media/id "pragmatic_programmer"
@@ -215,6 +218,13 @@
    :media/experience 1
    :media/isbn "ISBN: 0321213351 ISBN13: 0785342213355;"
    :media/author [[:author/id "gerard_meszaros"]]}
+  {:media/id "weflc"
+   :media/type :media.type/book
+   :media/title "Working Effectively with legacy code"
+   :media/essential true
+   :media/experience 1
+   :media/isbn "ISBN-13: 007-6092025986 ISBN-10: 0131177052"
+   :media/author [[:author/id "michael_feathers"]]}
 ]
 ;; Media-relationships
  [  {:media.relationship/from [:media/id "ilsd_ru"]
@@ -281,5 +291,11 @@
    :recommendation/priority 900
    :recommendation/necessary true
    :recommendation/description "XUnit is must recommendation for developer specialization, because... //TBD @alexpetrov"}
+  {:recommendation/specialization [:specialization/id "developer"]
+   :recommendation/media [:media/id "weflc"]
+   :recommendation/id "developer_weflc"
+   :recommendation/priority 800
+   :recommendation/necessary true
+   :recommendation/description "Working Effectively with legacy code is must recommendation for developer specialization, because... //TBD @alexpetrov"}
 ]
 ]
