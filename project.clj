@@ -10,6 +10,7 @@
                  [datomic-schema-grapher "0.0.1"]
                  [enfocus "2.1.0"]
                  [compojure "1.2.0"]
+                 [ring/ring-jetty-adapter "1.3.1"]
                  [javax.servlet/servlet-api "2.5"]
                  [environ "1.0.0"]
                  [fogus/ring-edn "0.2.0"]
@@ -26,4 +27,6 @@
           :output-to "resources/public/js/main.js"
           :optimizations :advanced
           :pretty-print false}}]}
-  :ring {:handler kmg.core/app})
+  :ring {:handler kmg.core/app}
+  :main kmg.core
+  :aot [kmg.core])

@@ -1,13 +1,15 @@
 (ns kmg.core
   (:import (java.io ByteArrayOutputStream))
   (:require [compojure.route :as route]
+            [ring.adapter.jetty :as jetty]
             [clojure.java.io :as io]
             [kmg.domain-facade :as model]
             [taoensso.timbre :as log]
             [cognitect.transit :as transit])
   (:use compojure.core
         compojure.handler
-        ring.middleware.edn))
+        ring.middleware.edn)
+  (:gen-class))
 
 (defn write [x]
   (let [baos (ByteArrayOutputStream.)
@@ -91,3 +93,9 @@
   (-> compojure-handler
       site
       wrap-edn-params))
+
+(defn start []
+  (jetty/run-jetty #'app {:port 3000 :join? false}))
+
+(defn -main [& args]
+  (start))
