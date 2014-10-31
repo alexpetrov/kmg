@@ -138,8 +138,12 @@
    :author/name "Joshua Kerievsky"}
   {:author/id "michael_feathers"
    :author/name "Michael Feathers"}
-;;Michael Feathers
-]
+  {:author/id "stuart_halloway"
+   :author/name "Stuart Halloway"}
+  {:author/id "aaron_bedra"
+   :author/name "Aaron Bedra"}
+
+  ]
 
  [{:media/id "pragmatic_programmer"
    :media/type :media.type/book
@@ -232,6 +236,13 @@
    :media/experience 1
    :media/isbn "ISBN-13: 978-0321127426 ISBN-10: 0321127420"
    :media/author [[:author/id "martin_fowler"]]}
+  {:media/id "prclj"
+   :media/type :media.type/book
+   :media/title "Programming Clojure (2nd edition)"
+   :media/essential true
+   :media/experience 2
+   :media/isbn "ISBN: 978-1-93435-686-9"
+   :media/author [[:author/id "stuart_halloway"][:author/id "aaron_bedra"]]}
 ]
 ;; Media-relationships
  [  {:media.relationship/from [:media/id "ilsd_ru"]
@@ -310,5 +321,11 @@
    :recommendation/priority 700
    :recommendation/necessary false
    :recommendation/description "Patterns of Enterprise Application Architecture is optional recommendation for developer specialization, because... //TBD @alexpetrov"}
+  {:recommendation/specialization [:specialization/id "developer"]
+   :recommendation/media [:media/id "prclj"]
+   :recommendation/id "developer_prclj"
+   :recommendation/priority 600
+   :recommendation/necessary false
+   :recommendation/description "Programming Clojure is optional recommendation for developer specialization, because... //TBD @alexpetrov"}
 ]
 ]
