@@ -151,6 +151,7 @@
    :media/subtitle "From Journeyman to Master"
    :media/essential true
    :media/experience 0
+   :media/year 1999
    :media/isbn "ISBN-13: 978-0201616224 ISBN-10: 020161622X"
    :media/author [[:author/id "dave_thomas"] [:author/id "andy_hunt"]]}
   {:media/id "refactoring"
@@ -159,6 +160,7 @@
    :media/subtitle "Improving the Design of Existing Code"
    :media/essential true
    :media/experience 0
+   :media/year 1999
    :media/isbn "ISBN-13: 978-0201485677 ISBN-10: 0201485672"
    :media/author [[:author/id "martin_fowler"] [:author/id "kent_beck"]]}
   {:media/id "clean_code"
@@ -234,6 +236,7 @@
    :media/title "Patterns of Enterprise Application Architecture"
    :media/essential true
    :media/experience 1
+   :media/year 2002
    :media/isbn "ISBN-13: 978-0321127426 ISBN-10: 0321127420"
    :media/author [[:author/id "martin_fowler"]]}
   {:media/id "prclj"
@@ -242,6 +245,7 @@
    :media/essential true
    :media/experience 2
    :media/isbn "ISBN: 978-1-93435-686-9"
+   :media/year 2012
    :media/author [[:author/id "stuart_halloway"][:author/id "aaron_bedra"]]}
 ]
 ;; Media-relationships

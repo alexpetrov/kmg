@@ -49,6 +49,7 @@
   "#recommendation-description" (ef/content
      (str (:recommendation/description recommendation) " <br/> "
           (:media/isbn media)
+          " Year of issue: " (:media/year media)
           " Necessary: " (:recommendation/necessary recommendation) " Priority: " (:recommendation/priority recommendation)
           " Type: " (:media/type media))
      )

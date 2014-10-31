@@ -121,6 +121,14 @@
    :db/id (d/tempid :db.part/db)
    :db.install/_attribute :db.part/db}
 
+  {:db/ident :media/year
+   :db/valueType :db.type/long
+   :db/cardinality :db.cardinality/one
+   :db/doc "Issue year of media."
+   :db/id (d/tempid :db.part/db)
+   :db.install/_attribute :db.part/db}
+
+
 ;; End of Media type declaration
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

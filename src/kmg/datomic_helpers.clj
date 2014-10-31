@@ -58,6 +58,7 @@
   []
   (let [data-path (env :real-data-path)]
     (import-knowledge-base-data data-path)))
+;;(delete-database)
 ;;(time (create-db-and-import-knowledge-base-4-it))
 
 (defn create-db-and-import-sample-data
