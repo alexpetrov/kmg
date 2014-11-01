@@ -17,9 +17,10 @@
                  [cljs-ajax "0.3.3"]
                  [com.taoensso/timbre "3.3.1"]
                  ]
-  :profiles {:dev {:plugins [[lein-cljsbuild "1.0.3"]]}}
-  :plugins [[datomic-schema-grapher "0.0.1"]
+  :plugins [[lein-cljsbuild "1.0.3"]
+            [datomic-schema-grapher "0.0.1"]
             [lein-environ "1.0.0"]]
+
   :cljsbuild {
     :builds [{
         :source-paths ["src"]
