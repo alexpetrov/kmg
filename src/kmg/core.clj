@@ -98,4 +98,6 @@
   (jetty/run-jetty #'app {:port 3000 :join? false}))
 
 (defn -main [& args]
-  (start))
+  (if (model/db-connection-healthy?)
+    (start)
+    (System/exit 1)))

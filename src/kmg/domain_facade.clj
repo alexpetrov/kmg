@@ -1,10 +1,24 @@
 (ns kmg.domain-facade
   (:require
     [datomic.api :as d]
-    [taoensso.timbre.profiling :as p])
+    [taoensso.timbre.profiling :as p]
+    [taoensso.timbre :as log])
   (:use clojure.data
         kmg.domain
         kmg.datomic-helpers))
+
+(defn db-connection-healthy? []
+  (log/info "Going to check database connection health.")
+  (log/info (str "Database URL: '" (db-url) "'"))
+  (try
+    (db)
+    (log/info "Database connection is healthy!")
+    true
+    (catch Exception ex
+      (log/info (str "Connection is broken: " (.getMessage ex)))
+           false)))
+
+;;(ensure-db-connectivity)
 
 (defn users []
   (->> (d/q '[:find ?username
