@@ -5,11 +5,15 @@
             [clojure.java.io :as io]
             [kmg.domain-facade :as model]
             [taoensso.timbre :as log]
-            [cognitect.transit :as transit])
+            [cognitect.transit :as transit]
+            [environ.core :refer [env]])
   (:use compojure.core
         compojure.handler
         ring.middleware.edn)
   (:gen-class))
+
+(log/set-config! [:appenders :spit :enabled?] true)
+(log/set-config! [:shared-appender-config :spit-filename] (env :log-file-path))
 
 (defn write [x]
   (let [baos (ByteArrayOutputStream.)
