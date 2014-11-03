@@ -5,7 +5,7 @@
             [ajax.core :refer [GET POST]])
   (:require-macros [enfocus.macros :as em]))
 
-(declare try-mark-as-completed try-change-goal try-load-recommendations try-load-recommendations-completed start)
+(declare try-mark-as-completed try-change-goal try-load-recommendations try-load-recommendations-completed start media-title)
 
 (enable-console-print!)
 
@@ -23,11 +23,11 @@
                              (ef/set-attr :value user)))
 
 (em/defsnippet background-media tmpl "#recommendation-background" [{:keys [media completed]}]
-  "#background-media-title" (ef/content (str (:media/title media)))
+  "#background-media-title" (ef/content (str (media-title media)))
   "#background-media-status" (ef/content (str "Is completed: " completed)))
 
 (em/defsnippet translation-media tmpl "#recommendation-translation" [{:keys [media]}]
-  "#translation-media-title" (ef/content (str (:media/title media)))
+  "#translation-media-title" (ef/content (str (media-title media)))
   "#translation-media-language" (ef/content (str (:media/locale media))))
 
 (em/defsnippet domain-title tmpl "#domain-title" [domain]
@@ -42,8 +42,21 @@
      (map :author/name)
      (clojure.string/join ", ")))
 
+(def type->icon {:media.type/book "book"
+                 :media.type/article "file"
+                 :media.type/video "film"
+                 :media.type/podcast "headphones"
+                 :media.type/course "book"
+                 :media.type/blog "book"})
+
+(defn media-icon-span [media]
+  (str "<span class=\"glyphicon glyphicon-" (type->icon (:media/type media)) "\"></span> "))
+
+(defn media-title [media]
+  (str (media-icon-span media) (:media/title media) " " ))
+
 (em/defsnippet recommendation tmpl ".recommendation" [{:keys [recommendation media backgrounds translations authors]}]
-  "#recommendation-title" (ef/content (str (:media/title media) " " ))
+  "#recommendation-title" (ef/content (media-title media))
   "#recommendation-subtitle" (ef/content (str (:media/subtitle media) " " ))
   "#recommendation-authors" (ef/content (authors-string authors))
   "#recommendation-description" (ef/content
@@ -51,8 +64,7 @@
           (:media/isbn media)
           " Year of issue: " (:media/year media)
           " Necessary: " (:recommendation/necessary recommendation) " Priority: " (:recommendation/priority recommendation)
-          " Type: " (:media/type media))
-     )
+          " Type: " (:media/type media)))
 
   "#complete" (events/listen :click #(try-mark-as-completed recommendation))
   "#complete" (if (not-all-backgrounds-completed? backgrounds) (ef/set-attr :disabled "disabled"))
@@ -63,7 +75,7 @@
   ".recommendation-translations" (ef/content (map translation-media translations)))
 
 (em/defsnippet recommendation-completed tmpl ".recommendation-completed" [{:keys [media]}]
-  ".recommendation-completed-title" (ef/content (:media/title media)))
+  ".recommendation-completed-title" (ef/content (media-title media)))
 
 (em/defsnippet specialization-available tmpl ".specialization-available" [specialization]
   ".specialization-available-title" (ef/content (:specialization/title specialization))

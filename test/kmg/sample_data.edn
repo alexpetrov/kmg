@@ -66,7 +66,7 @@
    :media/experience 0
    :media/author [[:author/id "author1"] [:author/id "author2"] [:author/id "author3"]]}
   {:media/id "book2"
-   :media/type :media.type/book
+   :media/type :media.type/article
    :media/title "book2_title"
    :media/subtitle "book2_subtitle"
    :media/isbn "ISBN 978-5-98227-708-4"
@@ -74,28 +74,28 @@
    :media/experience 1
    :media/author [[:author/id "author1"] [:author/id "author2"] [:author/id "author3"]]}
   {:media/id "book3"
-   :media/type :media.type/book
+   :media/type :media.type/video
    :media/title "book3_title"
    :media/subtitle "book3_subtitle"
    :media/essential true
    :media/experience 2
    :media/author [[:author/id "author1"] [:author/id "author2"] [:author/id "author3"]]}
   {:media/id "book4"
-   :media/type :media.type/book
+   :media/type :media.type/podcast
    :media/title "book4_title"
    :media/subtitle "book4_subtitle"
    :media/essential false
    :media/experience 3
    :media/author [[:author/id "author1"] [:author/id "author2"] [:author/id "author3"]]}
   {:media/id "book5"
-   :media/type :media.type/book
+   :media/type :media.type/course
    :media/title "book5_title"
    :media/subtitle "book5_subtitle"
    :media/essential false
    :media/experience 0
    :media/author [[:author/id "author1"] [:author/id "author2"] [:author/id "author3"]]}
   {:media/id "book6"
-   :media/type :media.type/book
+   :media/type :media.type/blog
    :media/title "book6_title"
    :media/subtitle "book6_subtitle"
    :media/essential false
