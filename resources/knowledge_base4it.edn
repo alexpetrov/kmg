@@ -34,6 +34,10 @@
    :specialization/title "Clojure Engineer"
    :specialization/annotation "Clojure Engineer"}
 
+  {:specialization/id "erlang_engineer"
+   :specialization/title "Erlang Engineer"
+   :specialization/annotation "Erlang Engineer"}
+
   {:specialization/id "frontend_engineer"
    :specialization/title "Frontend Engineer"
    :specialization/annotation "Frontend Engineer"}
@@ -74,6 +78,10 @@
   {:specialization.relationship/from [:specialization/id "clojure_engineer"]
    :specialization.relationship/to [:specialization/id "software_engineer"]
    :specialization.relationship/description "clojure_engineer->software_engineer"}
+
+  {:specialization.relationship/from [:specialization/id "erlang_engineer"]
+   :specialization.relationship/to [:specialization/id "software_engineer"]
+   :specialization.relationship/description "erlang_engineer->software_engineer"}
 
   {:specialization.relationship/from [:specialization/id "frontend_engineer"]
    :specialization.relationship/to [:specialization/id "developer"]
