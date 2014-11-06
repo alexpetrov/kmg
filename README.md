@@ -26,7 +26,7 @@ To run web application do:
 lein ring server
 ```
 
-## Run web application with Knowledge Base for IT Domain
+### Run web application with Knowledge Base for IT Domain
 
 To check current state of Knowledge Base for IT Domain:
 
