@@ -57,7 +57,8 @@
   "This function creates schema and imports knowledge base for IT data and users sample data"
   []
   (let [data-path (env :real-data-path)]
-    (import-knowledge-base-data data-path)))
+    (import-knowledge-base-data data-path)
+    (println "Knowledge base for IT imported. Press Ctrl+c to exit.")))
 ;;(delete-database)
 ;;(time (create-db-and-import-knowledge-base-4-it))
 
@@ -65,7 +66,8 @@
   "This function creates schema and imports knowledge base data and users sample data"
   []
   (let [data-path (env :sample-data-path)]
-    (import-knowledge-base-data data-path)))
+    (import-knowledge-base-data data-path)
+    (println "Sample data imported. Press Ctrl+c to exit.")))
 ;; (time (create-db-and-import-sample-data))
 
 (defn create-db-and-import-sample-data-for-test
