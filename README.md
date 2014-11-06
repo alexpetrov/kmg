@@ -6,6 +6,7 @@ Systematization and recommendation service on professional knowledge media
 
 ## Installation
 
+
 ### Run tests
 
 To be able to run tests do the following
@@ -23,6 +24,7 @@ To run web application do:
 ```
 ./run-transactor.sh
 ./import-sample-data.sh
+lein cljsbuild once
 lein ring server
 ```
 
@@ -33,8 +35,13 @@ To check current state of Knowledge Base for IT Domain:
 ```
 ./run-transactor.sh
 ./import-knowledge-base-4-it.sh
+lein cljsbuild once
 lein ring server
 ```
+
+### Installation roadmap
+
+Making Docker containers for application and transactor.
 
 ## License
 
