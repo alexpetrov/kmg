@@ -6,7 +6,7 @@ Systematization and recommendation service on professional knowledge media
 
 This is a prototype of Knowledge Media systematization and recommendation service,
 supposed to be driven by community of experts.
-The basic idea is to represent knowledge base as easily editable and plain text.
+The basic idea is to represent knowledge base as easily editable plain text.
 It is possible thanks to representation of entities as clojure EDN maps with meaningful references.
 These maps are loadable Datomic entities, but with some tricks.
 
