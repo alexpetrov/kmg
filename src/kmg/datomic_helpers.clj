@@ -1,6 +1,7 @@
 (ns kmg.datomic-helpers
   (:require
    [datomic.api :as d]
+   [datomic-schema-grapher.core :refer (graph-datomic)]
    [environ.core :refer [env]])
   (:use
    kmg.schema))
@@ -76,3 +77,8 @@ It needs only for test in memory database. Does not work with real database, for
   []
   (let [data-path (env :sample-data-path)]
     (import-knowledge-base-data data-path (fresh-conn))))
+
+(defn show-schema []
+  (graph-datomic (db-url) :save-as "kmg-schema.dot"))
+
+;;(show-schema)

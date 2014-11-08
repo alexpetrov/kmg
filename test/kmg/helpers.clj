@@ -1,8 +1,6 @@
 (ns kmg.helpers
   (:require
    [datomic.api :as d]
-   [datomic-schema-grapher.dot :as dot]
-   [datomic-schema-grapher.core :refer (graph-datomic)]
    [clojure.test :refer :all]
    [kmg.datomic-helpers :as dh])
   (:use
@@ -11,11 +9,6 @@
 (defn before [f]
   (dh/create-db-and-import-sample-data-for-test)
   (f))
-
-(defn show-schema []
-  (before
-   #(graph-datomic (dh/db-url) :save-as "kmg-schema.dot")))
-;; (show-schema)
 
 (defn db []
   (d/db (d/connect (dh/db-url))))
