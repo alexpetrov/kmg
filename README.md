@@ -7,21 +7,21 @@ Systematization and recommendation service on professional *knowledge media*, su
 ## Problem description
 
 To be a good specialists we have to know a lot about our profession and it's history.
-Otherwise we will reproduce all mistakes and reinvent all wheels and biсycles.
+Otherwise we will reproduce all mistakes and reinvent all wheels and biсycles over and over again.
 
-We have to read, listen, watch a lot, but as I can see there is too little people do it.
-And I understand why. It is not so trivial to come up with in what to invest first and in any particular time of a career.
+We have to read, listen, watch a lot, but as I can see, there are not so much people doing it.
+And I understand why. It is not so trivial to come up with what to invest first and in any particular time of a career. Especially in the beginning of your path.
 
 From my practice of being trainer of software developers I know that you can read some essential books to accelerate your professional growth.
 
-So I come up with the idea of Knowledge Media Guide.
+And I come up with the idea of Knowledge Media Guide.
 It is obviously possible to systematize all *Knowledge Medium* by *Specialization* and recommend it to professionals just in time they need it most.
 
 So the problem is to make platform easy to use by *Experts* and quite *simple* to implement.
 
 ## Solution overview
 
-When I come up with this idea my main technologies were JavaEE and Ruby On Rails. I felt like there is too much accidental complexity even with Rails.
+When I come up with this idea my main technologies were JavaEE and Ruby On Rails. But I felt like there is too much accidental complexity even with Rails.
 I couldn't start implementing it until I mastered [Clojure](http://clojure.org) and especially [Datomic](http://www.datomic.com/) database.
 It impressed me so much and "puzzle was solved".
 
