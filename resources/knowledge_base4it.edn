@@ -272,6 +272,10 @@
      :media.relationship/to [:media/id "ilsd"]
      :media.relationship/type :translation
      :media.relationship/description "Перевод на русский язык"}
+    {:media.relationship/from [:media/id "prclj"]
+     :media.relationship/to [:media/id "domain_driven_design"]
+     :media.relationship/type :background
+     :media.relationship/description "Programming Clojure requires Domain Driven Design to be understandable"}
     ]
 ;; Recommendations
  [{:recommendation/specialization [:specialization/id "basic"]
