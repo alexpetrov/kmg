@@ -152,6 +152,8 @@
    :author/name "Aaron Bedra"}
   {:author/id "paul_butcher"
    :author/name "Paul Butcher"}
+  {:author/id "fred_brooks"
+   :author/name "Frederick P. Brooks Jr."}
 
   ]
 
@@ -219,6 +221,14 @@
    :media/experience 0
    :media/isbn "ISBN 978-5-8459-1538-2, 0-321-43738-1; 2010 г."
    :media/author [[:author/id "mary_poppendieck"] [:author/id "tom_poppendieck"]]}
+  {:media/id "mymamo"
+   :media/type :media.type/book
+   :media/title "The Mythical Man-Month"
+   :media/subtitle "Essays on Software Engineering"
+   :media/essential true
+   :media/experience 0
+   :media/isbn "ISBN-13: 858-0001065793 ISBN-10: 0201835959"
+   :media/author [[:author/id "fred_brooks"]]}
   {:media/id "xunit"
    :media/type :media.type/book
    :media/title "xUnit Test Patterns"
@@ -322,6 +332,12 @@
    :recommendation/priority 400
    :recommendation/necessary false
    :recommendation/description "SICP is optional recommendation for basic specialization, because... //TBD @alexpetrov"}
+  {:recommendation/specialization [:specialization/id "basic"]
+   :recommendation/media [:media/id "mymamo"]
+   :recommendation/id "basic_mymamo"
+   :recommendation/priority 300
+   :recommendation/necessary false
+   :recommendation/description "The Mythical Man-Month is optional recommendation for basic specialization, because... //TBD @alexpetrov"}
 
 ;; Recommendations for Developer specialization
   {:recommendation/specialization [:specialization/id "developer"]
