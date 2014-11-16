@@ -154,7 +154,10 @@
    :author/name "Paul Butcher"}
   {:author/id "fred_brooks"
    :author/name "Frederick P. Brooks Jr."}
-
+  {:author/id "tom_demarco"
+   :author/name "Tom DeMarco"}
+  {:author/id "timothy_lister"
+   :author/name "Timothy Lister"}
   ]
 
  [{:media/id "pragmatic_programmer"
@@ -181,6 +184,7 @@
    :media/subtitle "A Handbook of Agile Software Craftsmanship"
    :media/essential true
    :media/experience 0
+   :media/year 2007
    :media/isbn "ISBN-13: 000-0132350882 ISBN-10: 0132350882"
    :media/author [[:author/id "bob_martin"]]}
   {:media/id "domain_driven_design"
@@ -189,6 +193,7 @@
    :media/subtitle "Tackling Complexity in the Heart of Software"
    :media/essential true
    :media/experience 0
+   :media/year 2003
    :media/isbn "ISBN-13: 978-0321125217 ISBN-10: 0321125215"
    :media/author [[:author/id "eric_evans"]]}
   {:media/id "head_first_design_patterns"
@@ -196,6 +201,7 @@
    :media/title "Head First: Design Patterns"
    :media/essential true
    :media/experience 0
+   :media/year 2004
    :media/isbn "Print ISBN: 978-0-596-00712-6 | ISBN 10:0-596-00712-4 Ebook ISBN: 978-0-596-55656-3 | ISBN 10:0-596-55656-X"
    :media/author [[:author/id "eric_freeman"] [:author/id "bert_bates"] [:author/id "kathy_sierra"] [:author/id "elisabeth_robson"]]}
   {:media/id "sicp"
@@ -203,6 +209,7 @@
    :media/title "Structure And Interpretation Of Computer Programs"
    :media/essential true
    :media/experience 0
+   :media/year 1996
    :media/isbn "ISBN-13: 978-0262510875"
    :media/author [[:author/id "harold_abelson"] [:author/id "gerald_jay_sussman"] [:author/id "julie_sussman"]]}
   {:media/id "ilsd"
@@ -211,6 +218,7 @@
    :media/subtitle "From Concept to Cash"
    :media/essential true
    :media/experience 0
+   :media/year 2006
    :media/isbn "ISBN-13: 978-0321437389 ISBN-10: 0321437381 Edition: 1st"
    :media/author [[:author/id "mary_poppendieck"] [:author/id "tom_poppendieck"]]}
   {:media/id "ilsd_ru"
@@ -219,6 +227,7 @@
    :media/subtitle "От идеи до прибыли"
    :media/essential true
    :media/experience 0
+   :media/year 2010
    :media/isbn "ISBN 978-5-8459-1538-2, 0-321-43738-1; 2010 г."
    :media/author [[:author/id "mary_poppendieck"] [:author/id "tom_poppendieck"]]}
   {:media/id "mymamo"
@@ -227,21 +236,32 @@
    :media/subtitle "Essays on Software Engineering"
    :media/essential true
    :media/experience 0
+   :media/year 1975
    :media/isbn "ISBN-13: 858-0001065793 ISBN-10: 0201835959"
    :media/author [[:author/id "fred_brooks"]]}
+  {:media/id "peopleware"
+   :media/type :media.type/book
+   :media/title "Peopleware"
+   :media/subtitle "Productive Projects and Teams"
+   :media/essential true
+   :media/experience 0
+   :media/year 1987
+   :media/isbn "ISBN-13: 978-0321934116 ISBN-10: 0321934113"
+   :media/author [[:author/id "tom_demarco"][:author/id "timothy_lister"]]}
   {:media/id "xunit"
    :media/type :media.type/book
    :media/title "xUnit Test Patterns"
    :media/subtitle "Refactoring Test Code"
    :media/essential true
    :media/experience 1
+   :media/year 2007
    :media/isbn "ISBN 978-5-8459-1448-4, 978-0-13-149505-0;"
    :media/author [[:author/id "gerard_meszaros"]]}
   {:media/id "rftg2ptns"
    :media/type :media.type/book
    :media/title "Refactoring To Patterns"
    :media/essential true
-   :media/experience 1
+   :media/experience 2004
    :media/isbn "ISBN: 0321213351 ISBN13: 0785342213355;"
    :media/author [[:author/id "gerard_meszaros"]]}
   {:media/id "weflc"
@@ -249,6 +269,7 @@
    :media/title "Working Effectively with legacy code"
    :media/essential true
    :media/experience 1
+   :media/year 2004
    :media/isbn "ISBN-13: 007-6092025986 ISBN-10: 0131177052"
    :media/author [[:author/id "michael_feathers"]]}
   {:media/id "pofeaa"
@@ -338,6 +359,13 @@
    :recommendation/priority 300
    :recommendation/necessary false
    :recommendation/description "The Mythical Man-Month is optional recommendation for basic specialization, because... //TBD @alexpetrov"}
+
+  {:recommendation/specialization [:specialization/id "basic"]
+   :recommendation/media [:media/id "peopleware"]
+   :recommendation/id "basic_peopleware"
+   :recommendation/priority 200
+   :recommendation/necessary false
+   :recommendation/description "Peopleware is optional recommendation for basic specialization, because... //TBD @alexpetrov"}
 
 ;; Recommendations for Developer specialization
   {:recommendation/specialization [:specialization/id "developer"]
