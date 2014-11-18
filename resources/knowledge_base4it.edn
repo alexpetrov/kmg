@@ -164,8 +164,8 @@
    :author/name "Robert Riemann"}
   {:author/id "david_cronin"
    :author/name "David Cronin"}
-  {:author/id "christopher_noessel"
-   :author/name "Christopher Noessel"}
+  {:author/id "bruce_tate"
+   :author/name "Bruce A. Tate"}
   ]
 
  [{:media/id "pragmatic_programmer"
@@ -305,6 +305,15 @@
    :media/isbn "ISBN: 978-1-93435-686-9"
    :media/year 2014
    :media/author [[:author/id "paul_butcher"]]}
+  {:media/id "7l7w"
+   :media/type :media.type/book
+   :media/title "Seven Languages in Seven Weeks:"
+   :media/subtitle "A Pragmatic Guide to Learning Programming Languages"
+   :media/essential false
+   :media/experience 1
+   :media/isbn "ISBN: 978-1-93435-659-3"
+   :media/year 2010
+   :media/author [[:author/id "bruce_tate"]]}
   {:media/id "about_face"
    :media/type :media.type/book
    :media/title "About Face:"
@@ -425,12 +434,26 @@
    :recommendation/priority 600
    :recommendation/necessary false
    :recommendation/description "Programming Clojure is optional recommendation for developer specialization, because... //TBD @alexpetrov"}
+  {:recommendation/specialization [:specialization/id "developer"]
+   :recommendation/media [:media/id "7l7w"]
+   :recommendation/id "developer_7l7w"
+   :recommendation/priority 500
+   :recommendation/necessary false
+   :recommendation/description "Seven Languages in Seven Weeks is optional recommendation for software engineer specialization, because... //TBD @alexpetrov"}
+
+;; Recommendations for Software Engineer
   {:recommendation/specialization [:specialization/id "software_engineer"]
    :recommendation/media [:media/id "7cm7w"]
    :recommendation/id "software_engineer_7cm7w"
    :recommendation/priority 1000
    :recommendation/necessary true
    :recommendation/description "Seven Concurrency Models in Seven Weeks is must recommendation for software engineer specialization, because... //TBD @alexpetrov"}
+  {:recommendation/specialization [:specialization/id "software_engineer"]
+   :recommendation/media [:media/id "7l7w"]
+   :recommendation/id "software_engineer_7l7w"
+   :recommendation/priority 900
+   :recommendation/necessary true
+   :recommendation/description "Seven Languages in Seven Weeks is must recommendation for software engineer specialization, because... //TBD @alexpetrov"}
 
 ;; Recommendations for UX Engineer
   {:recommendation/specialization [:specialization/id "ux_engineer"]
