@@ -166,6 +166,10 @@
    :author/name "David Cronin"}
   {:author/id "bruce_tate"
    :author/name "Bruce A. Tate"}
+  {:author/id "eric_redmond"
+   :author/name "Eric Redmond"}
+  {:author/id "jim_wilson"
+   :author/name "Jim R. Wilson"}
   ]
 
  [{:media/id "pragmatic_programmer"
@@ -314,6 +318,15 @@
    :media/isbn "ISBN: 978-1-93435-659-3"
    :media/year 2010
    :media/author [[:author/id "bruce_tate"]]}
+  {:media/id "7db7w"
+   :media/type :media.type/book
+   :media/title "Seven Databases in Seven Weeks:"
+   :media/subtitle "A Guide to Modern Databases and NoSQL Movement"
+   :media/essential false
+   :media/experience 1
+   :media/isbn "ISBN: 978-1-93435-692-0"
+   :media/year 2013
+   :media/author [[:author/id "eric_freeman"][:author/id "jim_wilson"]]}
   {:media/id "about_face"
    :media/type :media.type/book
    :media/title "About Face:"
@@ -440,6 +453,12 @@
    :recommendation/priority 500
    :recommendation/necessary false
    :recommendation/description "Seven Languages in Seven Weeks is optional recommendation for software engineer specialization, because... //TBD @alexpetrov"}
+  {:recommendation/specialization [:specialization/id "developer"]
+   :recommendation/media [:media/id "7db7w"]
+   :recommendation/id "developer_7db7w"
+   :recommendation/priority 400
+   :recommendation/necessary false
+   :recommendation/description "Seven Databases in Seven Weeks is optional recommendation for software engineer specialization, because... //TBD @alexpetrov"}
 
 ;; Recommendations for Software Engineer
   {:recommendation/specialization [:specialization/id "software_engineer"]
@@ -454,6 +473,12 @@
    :recommendation/priority 900
    :recommendation/necessary true
    :recommendation/description "Seven Languages in Seven Weeks is must recommendation for software engineer specialization, because... //TBD @alexpetrov"}
+  {:recommendation/specialization [:specialization/id "software_engineer"]
+   :recommendation/media [:media/id "7db7w"]
+   :recommendation/id "software_engineer_7db7w"
+   :recommendation/priority 800
+   :recommendation/necessary true
+   :recommendation/description "Seven Databases in Seven Weeks is must recommendation for software engineer specialization, because... //TBD @alexpetrov"}
 
 ;; Recommendations for UX Engineer
   {:recommendation/specialization [:specialization/id "ux_engineer"]
