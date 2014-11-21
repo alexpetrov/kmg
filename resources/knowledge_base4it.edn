@@ -170,6 +170,12 @@
    :author/name "Eric Redmond"}
   {:author/id "jim_wilson"
    :author/name "Jim R. Wilson"}
+  {:author/id "jack_moffitt"
+   :author/name "Jack Moffit"}
+  {:author/id "fred_daoud"
+   :author/name "Fred Daoud"}
+  {:author/id "ian_dees"
+   :author/name "Ian_Dees"}
   ]
 
  [{:media/id "pragmatic_programmer"
@@ -318,6 +324,18 @@
    :media/isbn "ISBN: 978-1-93435-659-3"
    :media/year 2010
    :media/author [[:author/id "bruce_tate"]]}
+  {:media/id "7ml7w"
+   :media/type :media.type/book
+   :media/title "Seven More Languages in Seven Weeks:"
+   :media/subtitle "Languages That Are Shaping the Future"
+   :media/essential false
+   :media/experience 3
+   :media/isbn " ISBN: 978-1-94122-215-7"
+   :media/year 2014
+   :media/author [[:author/id "bruce_tate"]
+                  [:author/id "fred_daoud"]
+                  [:author/id "jack_moffitt"]
+                  [:author/id "ian_dees"]]}
   {:media/id "7db7w"
    :media/type :media.type/book
    :media/title "Seven Databases in Seven Weeks:"
@@ -327,6 +345,15 @@
    :media/isbn "ISBN: 978-1-93435-692-0"
    :media/year 2013
    :media/author [[:author/id "eric_freeman"][:author/id "jim_wilson"]]}
+  {:media/id "7wf7w"
+   :media/type :media.type/book
+   :media/title "Seven Web Frameworks in Seven Weeks:"
+   :media/subtitle "Adventures in Better Web Apps"
+   :media/essential false
+   :media/experience 2
+   :media/isbn "ISBN: 978-1-93778-563-5"
+   :media/year 2013
+   :media/author [[:author/id "jack_moffitt"][:author/id "fred_daoud"]]}
   {:media/id "about_face"
    :media/type :media.type/book
    :media/title "About Face:"
@@ -459,6 +486,12 @@
    :recommendation/priority 400
    :recommendation/necessary false
    :recommendation/description "Seven Databases in Seven Weeks is optional recommendation for software engineer specialization, because... //TBD @alexpetrov"}
+  {:recommendation/specialization [:specialization/id "developer"]
+   :recommendation/media [:media/id "7wf7w"]
+   :recommendation/id "developer_7wf7w"
+   :recommendation/priority 300
+   :recommendation/necessary false
+   :recommendation/description "Seven Web Frameworks in Seven Weeks is optional recommendation for software engineer specialization, because... //TBD @alexpetrov"}
 
 ;; Recommendations for Software Engineer
   {:recommendation/specialization [:specialization/id "software_engineer"]
@@ -479,6 +512,18 @@
    :recommendation/priority 800
    :recommendation/necessary true
    :recommendation/description "Seven Databases in Seven Weeks is must recommendation for software engineer specialization, because... //TBD @alexpetrov"}
+  {:recommendation/specialization [:specialization/id "software_engineer"]
+   :recommendation/media [:media/id "7wf7w"]
+   :recommendation/id "software_engineer_7wf7w"
+   :recommendation/priority 700
+   :recommendation/necessary true
+   :recommendation/description "Seven Web Frameworks in Seven Weeks is must recommendation for software engineer specialization, because... //TBD @alexpetrov"}
+  {:recommendation/specialization [:specialization/id "software_engineer"]
+   :recommendation/media [:media/id "7ml7w"]
+   :recommendation/id "software_engineer_7ml7w"
+   :recommendation/priority 100
+   :recommendation/necessary false
+   :recommendation/description "Seven More Languages in Seven Weeks is optional recommendation for software engineer specialization, because... //TBD @alexpetrov"}
 
 ;; Recommendations for UX Engineer
   {:recommendation/specialization [:specialization/id "ux_engineer"]
