@@ -176,6 +176,8 @@
    :author/name "Fred Daoud"}
   {:author/id "ian_dees"
    :author/name "Ian_Dees"}
+  {:author/id "daniel_kahneman"
+   :author/name "Daniel Kahneman"}
   ]
 
  [{:media/id "pragmatic_programmer"
@@ -354,6 +356,14 @@
    :media/isbn "ISBN: 978-1-93778-563-5"
    :media/year 2013
    :media/author [[:author/id "jack_moffitt"][:author/id "fred_daoud"]]}
+  {:media/id "thfsl"
+   :media/type :media.type/book
+   :media/title "Thinking Fast and Slow"
+   :media/essential true
+   :media/experience 0
+   :media/isbn "ISBN13: 9780374275631"
+   :media/year 2010
+   :media/author [[:author/id "daniel_kahneman"]]}
   {:media/id "about_face"
    :media/type :media.type/book
    :media/title "About Face:"
@@ -518,6 +528,12 @@
    :recommendation/priority 700
    :recommendation/necessary true
    :recommendation/description "Seven Web Frameworks in Seven Weeks is must recommendation for software engineer specialization, because... //TBD @alexpetrov"}
+  {:recommendation/specialization [:specialization/id "software_engineer"]
+   :recommendation/media [:media/id "thfsl"]
+   :recommendation/id "software_engineer_thfsl"
+   :recommendation/priority 600
+   :recommendation/necessary false
+   :recommendation/description "Thinking Fast and Slow is optional recommendation for software engineer specialization, because... //TBD @alexpetrov"}
   {:recommendation/specialization [:specialization/id "software_engineer"]
    :recommendation/media [:media/id "7ml7w"]
    :recommendation/id "software_engineer_7ml7w"
