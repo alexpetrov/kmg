@@ -55,12 +55,18 @@
 (defn media-title [media]
   (str (media-icon-span media) (:media/title media) " " ))
 
+(defn media-url [media]
+  (if (:media/url media)
+    (str "<a href='" (:media/url media) "'>" (:media/url media) "</a> <br/> ")
+    ""))
+
 (em/defsnippet recommendation tmpl ".recommendation" [{:keys [recommendation media backgrounds translations authors]}]
   "#recommendation-title" (ef/content (media-title media))
   "#recommendation-subtitle" (ef/content (str (:media/subtitle media) " " ))
   "#recommendation-authors" (ef/content (authors-string authors))
   "#recommendation-description" (ef/content
-     (str (:recommendation/description recommendation) " <br/> "
+     (str (media-url media)
+          (:recommendation/description recommendation) " <br/> "
           (:media/isbn media)
           " Year of issue: " (:media/year media)
           " Necessary: " (:recommendation/necessary recommendation) " Priority: " (:recommendation/priority recommendation)
