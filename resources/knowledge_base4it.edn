@@ -383,7 +383,7 @@
 ;; Podcasts
   {:media/id "cognicast"
    :media/type :media.type/podcast
-   :media/title "Cognicast"
+   :media/title "The Cognicast"
    :media/essential false
    :media/experience 2
    :media/url "http://blog.cognitect.com/cognicast/"
