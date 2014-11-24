@@ -180,6 +180,8 @@
    :author/name "Daniel Kahneman"}
   {:author/id "craig_andera"
    :author/name "Craig Andera"}
+  {:author/id "steven_proctor"
+   :author/name "Steven Proctor"}
 
   ]
 
@@ -388,6 +390,14 @@
    :media/experience 2
    :media/url "http://blog.cognitect.com/cognicast/"
    :media/author [[:author/id "craig_andera"]]}
+  {:media/id "functional_geekery"
+   :media/type :media.type/podcast
+   :media/title "Functional Geekery"
+   :media/subtitle "Functional Geeks, Geeking Functionality"
+   :media/essential false
+   :media/experience 2
+   :media/url "http://www.functionalgeekery.com/"
+   :media/author [[:author/id "steven_proctor"]]}
 ]
 ;; Media-relationships
  [  {:media.relationship/from [:media/id "ilsd_ru"]
@@ -547,6 +557,12 @@
    :recommendation/necessary false
    :recommendation/description "Thinking Fast and Slow is optional recommendation for software engineer specialization, because... //TBD @alexpetrov"}
   {:recommendation/specialization [:specialization/id "software_engineer"]
+   :recommendation/media [:media/id "functional_geekery"]
+   :recommendation/id "software_engineer_functional_geekery"
+   :recommendation/priority 250
+   :recommendation/necessary false
+   :recommendation/description "Functional Geekery podcast is optional recommendation for software engineer specialization, because... //TBD @alexpetrov"}
+  {:recommendation/specialization [:specialization/id "software_engineer"]
    :recommendation/media [:media/id "cognicast"]
    :recommendation/id "software_engineer_cognicast"
    :recommendation/priority 200
@@ -559,13 +575,20 @@
    :recommendation/necessary false
    :recommendation/description "Seven More Languages in Seven Weeks is optional recommendation for software engineer specialization, because... //TBD @alexpetrov"}
 
+
 ;; Clojure Engineer
   {:recommendation/specialization [:specialization/id "clojure_engineer"]
    :recommendation/media [:media/id "cognicast"]
    :recommendation/id "clojure_engineer_cognicast"
    :recommendation/priority 200
    :recommendation/necessary false
-   :recommendation/description "Cognicast podcast is optional recommendation for clojure engineer specialization, because... //TBD @alexpetrov"}
+   :recommendation/description "Cognicast podcast is optional recommendation for Clojure Engineer specialization, because... //TBD @alexpetrov"}
+  {:recommendation/specialization [:specialization/id "clojure_engineer"]
+   :recommendation/media [:media/id "functional_geekery"]
+   :recommendation/id "clojure_engineer_functional_geekery"
+   :recommendation/priority 150
+   :recommendation/necessary false
+   :recommendation/description "Functional Geekery podcast is optional recommendation for Clojure Engineer specialization, because... //TBD @alexpetrov"}
 ;; Recommendations for UX Engineer
   {:recommendation/specialization [:specialization/id "ux_engineer"]
    :recommendation/media [:media/id "about_face"]
