@@ -182,6 +182,8 @@
    :author/name "Craig Andera"}
   {:author/id "steven_proctor"
    :author/name "Steven Proctor"}
+  {:author/id "yakov_fain"
+   :author/name "Yakov Fain"}
 
   ]
 
@@ -369,6 +371,16 @@
    :media/isbn "ISBN13: 9780374275631"
    :media/year 2010
    :media/author [[:author/id "daniel_kahneman"]]}
+  {:media/id "jp24ht"
+   :media/type :media.type/book
+   :media/title "Java Programming"
+   :media/subtitle "24-Hour Trainer"
+   :media/essential false
+   :media/experience 0
+   :media/isbn "ISBN: 978-1-118-95145-3"
+   :media/year 2015
+   :media/url "http://www.wrox.com/WileyCDA/WroxTitle/Java-Programming-24-Hour-Trainer.productCd-111895145X.html"
+   :media/author [[:author/id "yakov_fain"]]}
   {:media/id "about_face"
    :media/type :media.type/book
    :media/title "About Face:"
@@ -524,6 +536,14 @@
    :recommendation/priority 300
    :recommendation/necessary false
    :recommendation/description "Seven Web Frameworks in Seven Weeks is optional recommendation for software engineer specialization, because... //TBD @alexpetrov"}
+
+;; Recommendations for Java Developer
+  {:recommendation/specialization [:specialization/id "java_developer"]
+   :recommendation/media [:media/id "jp24ht"]
+   :recommendation/id "java_developer_jp24ht"
+   :recommendation/priority 1000
+   :recommendation/necessary true
+   :recommendation/description "Java Programming 24-Hour Trainer is must recommendation for java_developer specialization, because it gives shortest and very concentrated picture of all enterprise java development netscape."}
 
 ;; Recommendations for Software Engineer
   {:recommendation/specialization [:specialization/id "software_engineer"]
