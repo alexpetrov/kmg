@@ -1,7 +1,6 @@
 (ns kmg.core
   (:import (java.io ByteArrayOutputStream))
   (:require [compojure.route :as route]
-            [ring.adapter.jetty :as jetty]
             [clojure.java.io :as io]
             [kmg.domain-facade :as model]
             [taoensso.timbre :as log]
@@ -9,7 +8,8 @@
             [environ.core :refer [env]])
   (:use compojure.core
         compojure.handler
-        ring.middleware.edn)
+        ring.middleware.edn
+        org.httpkit.server)
   (:gen-class))
 
 (log/set-config! [:appenders :spit :enabled?] true)
@@ -99,8 +99,9 @@
       wrap-edn-params))
 
 (defn start []
-  (jetty/run-jetty #'app {:port 3000 :join? false}))
+  (run-server app {:port 3000 :join? false}))
 
+;; (start)
 (defn -main [& args]
   (if (model/db-connection-healthy?)
     (start)
