@@ -178,6 +178,8 @@
    :author/name "Ian_Dees"}
   {:author/id "daniel_kahneman"
    :author/name "Daniel Kahneman"}
+  {:author/id "christopher_noessel"
+   :author/name "Christopher Noessel"}
   {:author/id "craig_andera"
    :author/name "Craig Andera"}
   {:author/id "steven_proctor"

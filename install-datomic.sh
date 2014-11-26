@@ -1,5 +1,5 @@
 #!/bin/bash
-export DATOMIC_VERSION=0.9.5052
+export DATOMIC_VERSION=0.9.5078
 
 echo Downloading version ${DATOMIC_VERSION}
 
