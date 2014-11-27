@@ -186,7 +186,12 @@
    :author/name "Steven Proctor"}
   {:author/id "yakov_fain"
    :author/name "Yakov Fain"}
-
+  {:author/id "chas_emerick"
+   :author/name "Chas Emerick"}
+  {:author/id "brian_carper"
+   :author/name "Brian Carper"}
+  {:author/id "christophe_grand"
+   :author/name "Christophe Grand"}
   ]
 
  [{:media/id "pragmatic_programmer"
@@ -309,17 +314,33 @@
    :media/year 2002
    :media/isbn "ISBN-13: 978-0321127426 ISBN-10: 0321127420"
    :media/author [[:author/id "martin_fowler"]]}
+;; Clojure Books
   {:media/id "prclj"
    :media/type :media.type/book
-   :media/title "Programming Clojure (2nd edition)"
+   :media/title "Programming Clojure"
+   :media/subtitle "Second Edition"
    :media/essential true
    :media/experience 2
+   :media/url "https://pragprog.com/book/shcloj2/programming-clojure"
    :media/isbn "ISBN: 978-1-93435-686-9"
    :media/year 2012
    :media/author [[:author/id "stuart_halloway"][:author/id "aaron_bedra"]]}
+
+  {:media/id "cljpr_cemerick"
+   :media/type :media.type/book
+   :media/title "Clojure Programming"
+   :media/subtitle "Practical Lisp for the Java World"
+   :media/essential true
+   :media/experience 2
+   :media/url "http://shop.oreilly.com/product/0636920013754.do"
+   :media/isbn "Print ISBN: 978-1-4493-9470-7 | ISBN 10: 1-4493-9470-1</br>
+Ebook ISBN: 978-1-4493-9474-5 | ISBN 10: 1-4493-9474-4"
+   :media/year 2012
+   :media/author [[:author/id "chas_emerick"][:author/id "brian_carper"][:author/id "christophe_grand"]]}
+;; Clojure Books end
   {:media/id "7cm7w"
    :media/type :media.type/book
-   :media/title "Seven Concurrency Models in Seven Weeks:"
+   :media/title "Seven Concurrency Models in Seven Weeks"
    :media/subtitle "When Threads Unravel"
    :media/essential false
    :media/experience 2
@@ -328,7 +349,7 @@
    :media/author [[:author/id "paul_butcher"]]}
   {:media/id "7l7w"
    :media/type :media.type/book
-   :media/title "Seven Languages in Seven Weeks:"
+   :media/title "Seven Languages in Seven Weeks"
    :media/subtitle "A Pragmatic Guide to Learning Programming Languages"
    :media/essential false
    :media/experience 1
@@ -337,7 +358,7 @@
    :media/author [[:author/id "bruce_tate"]]}
   {:media/id "7ml7w"
    :media/type :media.type/book
-   :media/title "Seven More Languages in Seven Weeks:"
+   :media/title "Seven More Languages in Seven Weeks"
    :media/subtitle "Languages That Are Shaping the Future"
    :media/essential false
    :media/experience 3
@@ -349,7 +370,7 @@
                   [:author/id "ian_dees"]]}
   {:media/id "7db7w"
    :media/type :media.type/book
-   :media/title "Seven Databases in Seven Weeks:"
+   :media/title "Seven Databases in Seven Weeks"
    :media/subtitle "A Guide to Modern Databases and NoSQL Movement"
    :media/essential false
    :media/experience 1
@@ -358,7 +379,7 @@
    :media/author [[:author/id "eric_freeman"][:author/id "jim_wilson"]]}
   {:media/id "7wf7w"
    :media/type :media.type/book
-   :media/title "Seven Web Frameworks in Seven Weeks:"
+   :media/title "Seven Web Frameworks in Seven Weeks"
    :media/subtitle "Adventures in Better Web Apps"
    :media/essential false
    :media/experience 2
@@ -385,7 +406,7 @@
    :media/author [[:author/id "yakov_fain"]]}
   {:media/id "about_face"
    :media/type :media.type/book
-   :media/title "About Face:"
+   :media/title "About Face"
    :media/subtitle "The Essentials of Interaction Design"
    :media/essential true
    :media/experience 1
@@ -599,6 +620,12 @@
 
 
 ;; Clojure Engineer
+  {:recommendation/specialization [:specialization/id "clojure_engineer"]
+   :recommendation/media [:media/id "cljpr_cemerick"]
+   :recommendation/id "clojure_engineer_cljpr_cemerick"
+   :recommendation/priority 1000
+   :recommendation/necessary false
+   :recommendation/description "Clojure Programming is optional recommendation for Clojure Engineer specialization, because... //TBD @alexpetrov"}
   {:recommendation/specialization [:specialization/id "clojure_engineer"]
    :recommendation/media [:media/id "cognicast"]
    :recommendation/id "clojure_engineer_cognicast"
