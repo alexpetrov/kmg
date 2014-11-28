@@ -192,6 +192,10 @@
    :author/name "Brian Carper"}
   {:author/id "christophe_grand"
    :author/name "Christophe Grand"}
+  {:author/id "michael_fogus"
+   :author/name "Michael Fogus"}
+  {:author/id "chris_houser"
+   :author/name "Chris Houser"}
   ]
 
  [{:media/id "pragmatic_programmer"
@@ -337,7 +341,18 @@
 Ebook ISBN: 978-1-4493-9474-5 | ISBN 10: 1-4493-9474-4"
    :media/year 2012
    :media/author [[:author/id "chas_emerick"][:author/id "brian_carper"][:author/id "christophe_grand"]]}
+  {:media/id "joy.clj"
+   :media/type :media.type/book
+   :media/title "The Joy of Clojure"
+   :media/subtitle "Second Edition"
+   :media/essential true
+   :media/experience 2
+   :media/url "http://www.manning.com/fogus2/"
+   :media/isbn "ISBN: 9781617291418"
+   :media/year 2014
+   :media/author [[:author/id "michael_fogus"][:author/id "chris_houser"]]}
 ;; Clojure Books end
+
   {:media/id "7cm7w"
    :media/type :media.type/book
    :media/title "Seven Concurrency Models in Seven Weeks"
@@ -621,9 +636,15 @@ Ebook ISBN: 978-1-4493-9474-5 | ISBN 10: 1-4493-9474-4"
 
 ;; Clojure Engineer
   {:recommendation/specialization [:specialization/id "clojure_engineer"]
+   :recommendation/media [:media/id "joy.clj"]
+   :recommendation/id "clojure_engineer_joy.clj"
+   :recommendation/priority 1000
+   :recommendation/necessary true
+   :recommendation/description "Joy Of Clojure is must recommendation for Clojure Engineer specialization, because it answers not only to question \"How?\" but also \"Why?\" and it is the most recent among essential Clojure books and covers Clojure 1.6"}
+  {:recommendation/specialization [:specialization/id "clojure_engineer"]
    :recommendation/media [:media/id "cljpr_cemerick"]
    :recommendation/id "clojure_engineer_cljpr_cemerick"
-   :recommendation/priority 1000
+   :recommendation/priority 900
    :recommendation/necessary false
    :recommendation/description "Clojure Programming is optional recommendation for Clojure Engineer specialization, because... //TBD @alexpetrov"}
   {:recommendation/specialization [:specialization/id "clojure_engineer"]
