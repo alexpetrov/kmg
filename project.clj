@@ -24,7 +24,7 @@
 
   :cljsbuild {
               :builds [{:id "dev"
-                        :source-paths ["src"]
+                        :source-paths ["src" "src-cljs-dev"]
                         :compiler {:output-to "resources/public/js/compiled/main.js"
                                    :output-dir "resources/public/js/compiled/out"
                                    :optimizations :none

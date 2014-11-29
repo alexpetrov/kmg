@@ -186,13 +186,6 @@
   (try-get-users)
   (observe-change-user))
 
-(fw/watch-and-reload
- :jsload-callback (fn []
-;;                    (start) ;; (stop-and-start-my app)
-                    (refresh)
-                    ))
-
-
 (set! (.-onload js/window) #(em/wait-for-load (start)))
 
 ;;(set! (.-onload js/window) (js/alert "Hello, world"))
