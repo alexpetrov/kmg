@@ -68,6 +68,22 @@ lein cljsbuild once
 lein ring server
 ```
 
+### Run interactive ClojureScript environent
+
+Run [lein-figwheel](https://github.com/bhauman/lein-figwheel) Leiningen plugin in console:
+
+```
+lein figwheel
+```
+
+Open browser on this page:
+
+```
+http://localhost:3449/html/development.html
+```
+
+and enjoy hacking by editing kmg/client.cljs file and see immediate result!
+
 ### Installation roadmap
 
 Making Docker containers for application and transactor.
