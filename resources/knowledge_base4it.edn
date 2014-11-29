@@ -196,6 +196,10 @@
    :author/name "Michael Fogus"}
   {:author/id "chris_houser"
    :author/name "Chris Houser"}
+  {:author/id "luke_vanderhart"
+   :author/name "Luke VanderHart"}
+  {:author/id "ryan_neufeld"
+   :author/name "Ryan Neufeld"}
   ]
 
  [{:media/id "pragmatic_programmer"
@@ -351,6 +355,17 @@ Ebook ISBN: 978-1-4493-9474-5 | ISBN 10: 1-4493-9474-4"
    :media/isbn "ISBN: 9781617291418"
    :media/year 2014
    :media/author [[:author/id "michael_fogus"][:author/id "chris_houser"]]}
+  {:media/id "cookbook.clj"
+   :media/type :media.type/book
+   :media/title "Clojure Cookbook"
+   :media/subtitle "Recipes for Functional Programming"
+   :media/essential false
+   :media/experience 2
+   :media/url "http://clojure-cookbook.com/"
+   :media/isbn "Print ISBN: 978-1-4493-6617-9 | ISBN 10: 1-4493-6617-1
+Ebook ISBN: 978-1-4493-6616-2 | ISBN 10: 1-4493-6616-3"
+   :media/year 2014
+   :media/author [[:author/id "luke_vanderhart"][:author/id "ryan_neufeld"]]}
 ;; Clojure Books end
 
   {:media/id "7cm7w"
@@ -647,6 +662,12 @@ Ebook ISBN: 978-1-4493-9474-5 | ISBN 10: 1-4493-9474-4"
    :recommendation/priority 900
    :recommendation/necessary false
    :recommendation/description "Clojure Programming is optional recommendation for Clojure Engineer specialization, because... //TBD @alexpetrov"}
+  {:recommendation/specialization [:specialization/id "clojure_engineer"]
+   :recommendation/media [:media/id "cookbook.clj"]
+   :recommendation/id "clojure_engineer_cookbook.clj"
+   :recommendation/priority 800
+   :recommendation/necessary false
+   :recommendation/description "Clojure Cookbook is optional recommendation for Clojure Engineer specialization, because... //TBD @alexpetrov"}
   {:recommendation/specialization [:specialization/id "clojure_engineer"]
    :recommendation/media [:media/id "cognicast"]
    :recommendation/id "clojure_engineer_cognicast"
