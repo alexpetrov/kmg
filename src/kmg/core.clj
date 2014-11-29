@@ -8,7 +8,6 @@
             [environ.core :refer [env]])
   (:use compojure.core
         compojure.handler
-        ring.middleware.edn
         org.httpkit.server)
   (:gen-class))
 
@@ -95,8 +94,7 @@
 
 (def app
   (-> compojure-handler
-      site
-      wrap-edn-params))
+      site))
 
 (defn start []
   (run-server app {:port 3000 :join? false}))

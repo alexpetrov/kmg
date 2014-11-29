@@ -10,3 +10,4 @@ pom.xml.asc
 /.nrepl-port
 
 /resources/public/js/main.js
+/resources/public/js/compiled

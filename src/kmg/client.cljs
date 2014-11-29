@@ -2,7 +2,8 @@
   (:require [enfocus.core :as ef :refer (set-attr from at get-prop do-> after
                                                   remove-node content substitute)]
             [enfocus.events :as events :refer (listen)]
-            [ajax.core :refer [GET POST]])
+            [ajax.core :refer [GET POST]]
+            [figwheel.client :as fw])
   (:require-macros [enfocus.macros :as em]))
 
 (declare try-mark-as-completed try-change-goal try-load-recommendations try-load-recommendations-completed start media-title)
@@ -47,7 +48,7 @@
                  :media.type/video "film"
                  :media.type/podcast "headphones"
                  :media.type/course "book"
-                 :media.type/blog "book"})
+                 :media.type/blog "file"})
 
 (defn media-icon-span [media]
   (str "<span class=\"glyphicon glyphicon-" (type->icon (:media/type media)) "\"></span> "))
@@ -161,9 +162,8 @@
   (ef/at "#domain-title" (ef/content (:domain/title domain))))
 
 (defn try-load-domain []
-  (println "Going to load all domain data")
-  (time (GET "/domain" {:handler show-domain
-                  :error-handler error-handler})))
+  (GET "/domain" {:handler show-domain
+                  :error-handler error-handler}))
 
 (defn try-get-users []
   (GET "/user/list" {:handler show-user-choose
@@ -185,6 +185,13 @@
   (refresh)
   (try-get-users)
   (observe-change-user))
+
+(fw/watch-and-reload
+ :jsload-callback (fn []
+;;                    (start) ;; (stop-and-start-my app)
+                    (refresh)
+                    ))
+
 
 (set! (.-onload js/window) #(em/wait-for-load (start)))
 
