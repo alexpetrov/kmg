@@ -200,6 +200,8 @@
    :author/name "Luke VanderHart"}
   {:author/id "ryan_neufeld"
    :author/name "Ryan Neufeld"}
+  {:author/id "eric_rochester"
+   :author/name "Eric Rochester"}
   ]
 
  [{:media/id "pragmatic_programmer"
@@ -366,6 +368,16 @@ Ebook ISBN: 978-1-4493-9474-5 | ISBN 10: 1-4493-9474-4"
 Ebook ISBN: 978-1-4493-6616-2 | ISBN 10: 1-4493-6616-3"
    :media/year 2014
    :media/author [[:author/id "luke_vanderhart"][:author/id "ryan_neufeld"]]}
+  {:media/id "data_analysis_cookbook.clj"
+   :media/type :media.type/book
+   :media/title "Clojure Data Analysis Cookbook"
+   :media/subtitle "Quick answers to common problems"
+   :media/essential false
+   :media/experience 2
+   :media/url "https://www.packtpub.com/big-data-and-business-intelligence/clojure-data-analysis-cookbook"
+   :media/isbn "ISBN 139781782162643"
+   :media/year 2013
+   :media/author [[:author/id "eric_rochester"]]}
 ;; Clojure Books end
 
   {:media/id "7cm7w"
@@ -668,6 +680,12 @@ Ebook ISBN: 978-1-4493-6616-2 | ISBN 10: 1-4493-6616-3"
    :recommendation/priority 800
    :recommendation/necessary false
    :recommendation/description "Clojure Cookbook is optional recommendation for Clojure Engineer specialization, because... //TBD @alexpetrov"}
+  {:recommendation/specialization [:specialization/id "clojure_engineer"]
+   :recommendation/media [:media/id "data_analysis_cookbook.clj"]
+   :recommendation/id "clojure_engineer_data_analysis_cookbook.clj"
+   :recommendation/priority 300
+   :recommendation/necessary false
+   :recommendation/description "Clojure Data Analysis Cookbook is optional recommendation for Clojure Engineer specialization, because... //TBD @alexpetrov"}
   {:recommendation/specialization [:specialization/id "clojure_engineer"]
    :recommendation/media [:media/id "cognicast"]
    :recommendation/id "clojure_engineer_cognicast"
