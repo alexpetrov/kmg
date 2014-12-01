@@ -9,7 +9,7 @@
                  [com.datomic/datomic-free "0.9.5078"]
                  [datomic-schema-grapher "0.0.1"]
                  [enfocus "2.1.0"]
-                 [compojure "1.2.0"]
+                 [compojure "1.2.2"]
                  [http-kit "2.1.18"]
                  [javax.servlet/servlet-api "2.5"]
                  [environ "1.0.0"]
