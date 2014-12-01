@@ -202,6 +202,10 @@
    :author/name "Ryan Neufeld"}
   {:author/id "eric_rochester"
    :author/name "Eric Rochester"}
+  {:author/id "cay_horstmann"
+   :author/name "Cay Horstmann"}
+  {:author/id "gary_cornell"
+   :author/name "Gary Cornell"}
   ]
 
  [{:media/id "pragmatic_programmer"
@@ -436,6 +440,7 @@ Ebook ISBN: 978-1-4493-6616-2 | ISBN 10: 1-4493-6616-3"
    :media/isbn "ISBN13: 9780374275631"
    :media/year 2010
    :media/author [[:author/id "daniel_kahneman"]]}
+;; Java Books
   {:media/id "jp24ht"
    :media/type :media.type/book
    :media/title "Java Programming"
@@ -446,6 +451,31 @@ Ebook ISBN: 978-1-4493-6616-2 | ISBN 10: 1-4493-6616-3"
    :media/year 2015
    :media/url "http://www.wrox.com/WileyCDA/WroxTitle/Java-Programming-24-Hour-Trainer.productCd-111895145X.html"
    :media/author [[:author/id "yakov_fain"]]}
+
+  {:media/id "core_java_1"
+   :media/type :media.type/book
+   :media/title "Core Java"
+   :media/subtitle "Volume 1 - Fundamentals (9th Edition)"
+   :media/essential true
+   :media/experience 0
+   :media/isbn "ISBN-13: 978-0137081899 ISBN-10: 0137081898"
+   :media/year 2012
+   :media/url "http://www.horstmann.com/corejava.html"
+   :media/author [[:author/id "cay_horstmann"][:author/id "gary_cornell"]]}
+
+  {:media/id "core_java_2"
+   :media/type :media.type/book
+   :media/title "Core Java"
+   :media/subtitle "Volume 2 - Advanced Features (9th Edition)"
+   :media/essential true
+   :media/experience 0
+   :media/isbn "ISBN-13: 978-0137081608"
+   :media/year 2013
+   :media/url "http://www.horstmann.com/corejava.html"
+   :media/author [[:author/id "cay_horstmann"][:author/id "gary_cornell"]]}
+;; Java Books end
+
+
   {:media/id "about_face"
    :media/type :media.type/book
    :media/title "About Face"
@@ -609,6 +639,19 @@ Ebook ISBN: 978-1-4493-6616-2 | ISBN 10: 1-4493-6616-3"
    :recommendation/priority 1000
    :recommendation/necessary true
    :recommendation/description "Java Programming 24-Hour Trainer is must recommendation for java_developer specialization, because it gives shortest and very concentrated picture of all enterprise java development netscape."}
+
+  {:recommendation/specialization [:specialization/id "java_developer"]
+   :recommendation/media [:media/id "core_java_1"]
+   :recommendation/id "java_developer_core_java_1"
+   :recommendation/priority 900
+   :recommendation/necessary true
+   :recommendation/description "Core Java Fundamentals is must recommendation for java_developer specialization, because it gives deep detailed knowledge how java works."}
+  {:recommendation/specialization [:specialization/id "java_developer"]
+   :recommendation/media [:media/id "core_java_2"]
+   :recommendation/id "java_developer_core_java_2"
+   :recommendation/priority 899
+   :recommendation/necessary false
+   :recommendation/description "Core Java Advanced Features is optional recommendation for java_developer specialization, because it gives deep detailed knowledge how java works. //TBD @alexpetrov"}
 
 ;; Recommendations for Software Engineer
   {:recommendation/specialization [:specialization/id "software_engineer"]
