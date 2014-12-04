@@ -206,6 +206,11 @@
    :author/name "Cay Horstmann"}
   {:author/id "gary_cornell"
    :author/name "Gary Cornell"}
+  {:author/id "benjamin_evans"
+   :author/name "Benjamin J. Evans"}
+  {:author/id "martijn_verburg"
+   :author/name "Martijn Verburg"}
+
   ]
 
  [{:media/id "pragmatic_programmer"
@@ -441,6 +446,7 @@ Ebook ISBN: 978-1-4493-6616-2 | ISBN 10: 1-4493-6616-3"
    :media/year 2010
    :media/author [[:author/id "daniel_kahneman"]]}
 ;; Java Books
+
   {:media/id "jp24ht"
    :media/type :media.type/book
    :media/title "Java Programming"
@@ -473,6 +479,17 @@ Ebook ISBN: 978-1-4493-6616-2 | ISBN 10: 1-4493-6616-3"
    :media/year 2013
    :media/url "http://www.horstmann.com/corejava.html"
    :media/author [[:author/id "cay_horstmann"][:author/id "gary_cornell"]]}
+
+  {:media/id "wgjd"
+   :media/type :media.type/book
+   :media/title "The Well-Grounded Java Developer"
+   :media/subtitle "Vital techniques of Java 7 and polyglot programming"
+   :media/essential true
+   :media/experience 1
+   :media/isbn "ISBN: 9781617290060"
+   :media/year 2012
+   :media/url "http://www.manning.com/evans/"
+   :media/author [[:author/id "benjamin_evans"][:author/id "martijn_verburg"]]}
 ;; Java Books end
 
 
@@ -652,6 +669,12 @@ Ebook ISBN: 978-1-4493-6616-2 | ISBN 10: 1-4493-6616-3"
    :recommendation/priority 899
    :recommendation/necessary false
    :recommendation/description "Core Java Advanced Features is optional recommendation for java_developer specialization, because it gives deep detailed knowledge how java works. //TBD @alexpetrov"}
+  {:recommendation/specialization [:specialization/id "java_developer"]
+   :recommendation/media [:media/id "wgjd"]
+   :recommendation/id "java_developer_wgjd"
+   :recommendation/priority 800
+   :recommendation/necessary true
+   :recommendation/description "Well Grounded Java Developer is must recommendation for java_developer specialization, because.. //TBD @alexpetrov"}
 
 ;; Recommendations for Software Engineer
   {:recommendation/specialization [:specialization/id "software_engineer"]
