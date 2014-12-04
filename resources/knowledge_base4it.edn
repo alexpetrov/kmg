@@ -210,6 +210,8 @@
    :author/name "Benjamin J. Evans"}
   {:author/id "martijn_verburg"
    :author/name "Martijn Verburg"}
+  {:author/id "joshua_bloch"
+   :author/name "Joshua Bloch"}
 
   ]
 
@@ -445,6 +447,7 @@ Ebook ISBN: 978-1-4493-6616-2 | ISBN 10: 1-4493-6616-3"
    :media/isbn "ISBN13: 9780374275631"
    :media/year 2010
    :media/author [[:author/id "daniel_kahneman"]]}
+
 ;; Java Books
 
   {:media/id "jp24ht"
@@ -490,6 +493,16 @@ Ebook ISBN: 978-1-4493-6616-2 | ISBN 10: 1-4493-6616-3"
    :media/year 2012
    :media/url "http://www.manning.com/evans/"
    :media/author [[:author/id "benjamin_evans"][:author/id "martijn_verburg"]]}
+  {:media/id "effective.java"
+   :media/type :media.type/book
+   :media/title "Effective Java"
+   :media/subtitle "Second Edition"
+   :media/essential true
+   :media/experience 2
+   :media/url "http://www.amazon.com/Effective-Java-Edition-Joshua-Bloch/dp/0321356683"
+   :media/isbn "ISBN-13: 860-1300201986 ISBN-10: 0321356683"
+   :media/year 2008
+   :media/author [[:author/id "joshua_bloch"]]}
 ;; Java Books end
 
 
@@ -675,6 +688,12 @@ Ebook ISBN: 978-1-4493-6616-2 | ISBN 10: 1-4493-6616-3"
    :recommendation/priority 800
    :recommendation/necessary true
    :recommendation/description "Well Grounded Java Developer is must recommendation for java_developer specialization, because.. //TBD @alexpetrov"}
+  {:recommendation/specialization [:specialization/id "java_developer"]
+   :recommendation/media [:media/id "effective.java"]
+   :recommendation/id "java_developer_effective.java"
+   :recommendation/priority 700
+   :recommendation/necessary false
+   :recommendation/description "Effective Java is optional recommendation for java_developer specialization, because... //TBD @alexpetrov"}
 
 ;; Recommendations for Software Engineer
   {:recommendation/specialization [:specialization/id "software_engineer"]
