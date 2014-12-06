@@ -212,6 +212,8 @@
    :author/name "Martijn Verburg"}
   {:author/id "joshua_bloch"
    :author/name "Joshua Bloch"}
+  {:author/id "bruce_eckel"
+   :author/name "Bruce Eckel"}
 
   ]
 
@@ -503,6 +505,16 @@ Ebook ISBN: 978-1-4493-6616-2 | ISBN 10: 1-4493-6616-3"
    :media/isbn "ISBN-13: 860-1300201986 ISBN-10: 0321356683"
    :media/year 2008
    :media/author [[:author/id "joshua_bloch"]]}
+  {:media/id "thinking_in.java"
+   :media/type :media.type/book
+   :media/title "Thinking in Java"
+   :media/subtitle "Fourth Edition"
+   :media/essential true
+   :media/experience 0
+   :media/url "http://www.amazon.com/Thinking-Java-Edition-Bruce-Eckel/dp/0131872486"
+   :media/isbn "ISBN-13: 978-0131872486 ISBN-10: 0131872486"
+   :media/year 2006
+   :media/author [[:author/id "bruce_eckel"]]}
 ;; Java Books end
 
 
@@ -694,6 +706,12 @@ Ebook ISBN: 978-1-4493-6616-2 | ISBN 10: 1-4493-6616-3"
    :recommendation/priority 700
    :recommendation/necessary false
    :recommendation/description "Effective Java is optional recommendation for java_developer specialization, because... //TBD @alexpetrov"}
+  {:recommendation/specialization [:specialization/id "java_developer"]
+   :recommendation/media [:media/id "thinking_in.java"]
+   :recommendation/id "java_developer_thinking_in.java"
+   :recommendation/priority 600
+   :recommendation/necessary false
+   :recommendation/description "Thinking in Java is optional recommendation for java_developer specialization, because it is quite old, but still relevant since Java is very conservative language. Book is not only about language but also about Software Design."}
 
 ;; Recommendations for Software Engineer
   {:recommendation/specialization [:specialization/id "software_engineer"]
