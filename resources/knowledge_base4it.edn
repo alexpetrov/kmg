@@ -214,6 +214,16 @@
    :author/name "Joshua Bloch"}
   {:author/id "bruce_eckel"
    :author/name "Bruce Eckel"}
+  {:author/id "brian_goetz"
+   :author/name "Brian Goetz"}
+  {:author/id "tim_peierls"
+   :author/name "Tim Peierls"}
+  {:author/id "joseph_bowbeer"
+   :author/name "Joseph Bowbeer"}
+  {:author/id "david_holmes"
+   :author/name "David Holmes"}
+  {:author/id "doug_lea"
+   :author/name "Doug Lea"}
 
   ]
 
@@ -515,6 +525,20 @@ Ebook ISBN: 978-1-4493-6616-2 | ISBN 10: 1-4493-6616-3"
    :media/isbn "ISBN-13: 978-0131872486 ISBN-10: 0131872486"
    :media/year 2006
    :media/author [[:author/id "bruce_eckel"]]}
+  {:media/id "concurrency.java"
+   :media/type :media.type/book
+   :media/title "Java Concurrency in Practice"
+   :media/essential false
+   :media/experience 2
+   :media/url "http://www.amazon.com/Java-Concurrency-Practice-Brian-Goetz/dp/0321349601"
+   :media/isbn "ISBN-13: 978-0321349606 ISBN-10: 0321349601"
+   :media/year 2006
+   :media/author [[:author/id "brian_goetz"]
+                  [:author/id "tim_peierls"]
+                  [:author/id "joshua_bloch"]
+                  [:author/id "joseph_bowbeer"]
+                  [:author/id "david_holmes"]
+                  [:author/id "doug_lea"]]}
 ;; Java Books end
 
 
@@ -712,6 +736,12 @@ Ebook ISBN: 978-1-4493-6616-2 | ISBN 10: 1-4493-6616-3"
    :recommendation/priority 600
    :recommendation/necessary false
    :recommendation/description "Thinking in Java is optional recommendation for java_developer specialization, because it is quite old, but still relevant since Java is very conservative language. Book is not only about language but also about Software Design."}
+  {:recommendation/specialization [:specialization/id "java_developer"]
+   :recommendation/media [:media/id "concurrency.java"]
+   :recommendation/id "java_developer_concurrency.java"
+   :recommendation/priority 500
+   :recommendation/necessary false
+   :recommendation/description "Java Concurrency in Practice is optional recommendation for java_developer specialization, because... //TBD @alexpetrov"}
 
 ;; Recommendations for Software Engineer
   {:recommendation/specialization [:specialization/id "software_engineer"]
