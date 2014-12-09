@@ -234,6 +234,7 @@
    :media/essential true
    :media/experience 0
    :media/year 1999
+   :media/url "https://pragprog.com/book/tpp/the-pragmatic-programmer"
    :media/isbn "ISBN-13: 978-0201616224 ISBN-10: 020161622X"
    :media/author [[:author/id "dave_thomas"] [:author/id "andy_hunt"]]}
   {:media/id "refactoring"
@@ -243,6 +244,7 @@
    :media/essential true
    :media/experience 0
    :media/year 1999
+   :media/url "http://martinfowler.com/books/refactoring.html"
    :media/isbn "ISBN-13: 978-0201485677 ISBN-10: 0201485672"
    :media/author [[:author/id "martin_fowler"] [:author/id "kent_beck"]]}
   {:media/id "clean_code"
@@ -251,7 +253,8 @@
    :media/subtitle "A Handbook of Agile Software Craftsmanship"
    :media/essential true
    :media/experience 0
-   :media/year 2007
+   :media/year 2008
+   :media/url "http://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882"
    :media/isbn "ISBN-13: 000-0132350882 ISBN-10: 0132350882"
    :media/author [[:author/id "bob_martin"]]}
   {:media/id "domain_driven_design"
@@ -261,6 +264,7 @@
    :media/essential true
    :media/experience 0
    :media/year 2003
+   :media/url "http://dddcommunity.org/book/evans_2003/"
    :media/isbn "ISBN-13: 978-0321125217 ISBN-10: 0321125215"
    :media/author [[:author/id "eric_evans"]]}
   {:media/id "head_first_design_patterns"
@@ -269,6 +273,7 @@
    :media/essential true
    :media/experience 0
    :media/year 2004
+   :media/url "http://www.headfirstlabs.com/books/hfdp/"
    :media/isbn "Print ISBN: 978-0-596-00712-6 | ISBN 10:0-596-00712-4 Ebook ISBN: 978-0-596-55656-3 | ISBN 10:0-596-55656-X"
    :media/author [[:author/id "eric_freeman"] [:author/id "bert_bates"] [:author/id "kathy_sierra"] [:author/id "elisabeth_robson"]]}
   {:media/id "sicp"
@@ -277,6 +282,7 @@
    :media/essential true
    :media/experience 0
    :media/year 1996
+   :media/url "http://www.amazon.com/Structure-Interpretation-Computer-Programs-Engineering/dp/0262510871"
    :media/isbn "ISBN-13: 978-0262510875"
    :media/author [[:author/id "harold_abelson"] [:author/id "gerald_jay_sussman"] [:author/id "julie_sussman"]]}
   {:media/id "ilsd"
@@ -286,6 +292,7 @@
    :media/essential true
    :media/experience 0
    :media/year 2006
+   :media/url "http://www.amazon.com/exec/obidos/ASIN/0321437381/poppendieckco-20"
    :media/isbn "ISBN-13: 978-0321437389 ISBN-10: 0321437381 Edition: 1st"
    :media/author [[:author/id "mary_poppendieck"] [:author/id "tom_poppendieck"]]}
   {:media/id "ilsd_ru"
@@ -295,6 +302,7 @@
    :media/essential true
    :media/experience 0
    :media/year 2010
+   :media/url "http://www.ozon.ru/context/detail/id/4571528/"
    :media/isbn "ISBN 978-5-8459-1538-2, 0-321-43738-1; 2010 г."
    :media/author [[:author/id "mary_poppendieck"] [:author/id "tom_poppendieck"]]}
   {:media/id "mymamo"
@@ -304,6 +312,7 @@
    :media/essential true
    :media/experience 0
    :media/year 1975
+   :media/url "http://www.amazon.com/The-Mythical-Man-Month-Engineering-Anniversary/dp/0201835959"
    :media/isbn "ISBN-13: 858-0001065793 ISBN-10: 0201835959"
    :media/author [[:author/id "fred_brooks"]]}
   {:media/id "peopleware"
@@ -313,6 +322,7 @@
    :media/essential true
    :media/experience 0
    :media/year 1987
+   :media/url "http://www.amazon.com/Peopleware-Productive-Projects-Teams-Edition/dp/0321934113"
    :media/isbn "ISBN-13: 978-0321934116 ISBN-10: 0321934113"
    :media/author [[:author/id "tom_demarco"][:author/id "timothy_lister"]]}
   {:media/id "xunit"
@@ -322,13 +332,16 @@
    :media/essential true
    :media/experience 1
    :media/year 2007
+   :media/url "http://xunitpatterns.com/"
    :media/isbn "ISBN 978-5-8459-1448-4, 978-0-13-149505-0;"
    :media/author [[:author/id "gerard_meszaros"]]}
   {:media/id "rftg2ptns"
    :media/type :media.type/book
    :media/title "Refactoring To Patterns"
    :media/essential true
-   :media/experience 2004
+   :media/year 2004
+   :media/experience 1
+   :media/url "http://www.amazon.com/Refactoring-Patterns-Joshua-Kerievsky/dp/0321213351"
    :media/isbn "ISBN: 0321213351 ISBN13: 0785342213355;"
    :media/author [[:author/id "gerard_meszaros"]]}
   {:media/id "weflc"
@@ -337,6 +350,7 @@
    :media/essential true
    :media/experience 1
    :media/year 2004
+   :media/url "http://www.amazon.com/Working-Effectively-Legacy-Michael-Feathers/dp/0131177052"
    :media/isbn "ISBN-13: 007-6092025986 ISBN-10: 0131177052"
    :media/author [[:author/id "michael_feathers"]]}
   {:media/id "pofeaa"
@@ -345,6 +359,7 @@
    :media/essential true
    :media/experience 1
    :media/year 2002
+   :media/url "www.amazon.com/Patterns-Enterprise-Application-Architecture-Martin/dp/0321127420"
    :media/isbn "ISBN-13: 978-0321127426 ISBN-10: 0321127420"
    :media/author [[:author/id "martin_fowler"]]}
 ;; Clojure Books
@@ -411,6 +426,7 @@ Ebook ISBN: 978-1-4493-6616-2 | ISBN 10: 1-4493-6616-3"
    :media/experience 2
    :media/isbn "ISBN: 978-1-93435-686-9"
    :media/year 2014
+   :media/url "https://pragprog.com/book/pb7con/seven-concurrency-models-in-seven-weeks"
    :media/author [[:author/id "paul_butcher"]]}
   {:media/id "7l7w"
    :media/type :media.type/book
@@ -418,6 +434,7 @@ Ebook ISBN: 978-1-4493-6616-2 | ISBN 10: 1-4493-6616-3"
    :media/subtitle "A Pragmatic Guide to Learning Programming Languages"
    :media/essential false
    :media/experience 1
+   :media/url "https://pragprog.com/book/btlang/seven-languages-in-seven-weeks"
    :media/isbn "ISBN: 978-1-93435-659-3"
    :media/year 2010
    :media/author [[:author/id "bruce_tate"]]}
@@ -427,6 +444,7 @@ Ebook ISBN: 978-1-4493-6616-2 | ISBN 10: 1-4493-6616-3"
    :media/subtitle "Languages That Are Shaping the Future"
    :media/essential false
    :media/experience 3
+   :media/url "https://pragprog.com/book/7lang/seven-more-languages-in-seven-weeks"
    :media/isbn " ISBN: 978-1-94122-215-7"
    :media/year 2014
    :media/author [[:author/id "bruce_tate"]
@@ -439,6 +457,7 @@ Ebook ISBN: 978-1-4493-6616-2 | ISBN 10: 1-4493-6616-3"
    :media/subtitle "A Guide to Modern Databases and NoSQL Movement"
    :media/essential false
    :media/experience 1
+   :media/url "https://pragprog.com/book/rwdata/seven-databases-in-seven-weeks"
    :media/isbn "ISBN: 978-1-93435-692-0"
    :media/year 2013
    :media/author [[:author/id "eric_freeman"][:author/id "jim_wilson"]]}
@@ -448,6 +467,7 @@ Ebook ISBN: 978-1-4493-6616-2 | ISBN 10: 1-4493-6616-3"
    :media/subtitle "Adventures in Better Web Apps"
    :media/essential false
    :media/experience 2
+   :media/url "https://pragprog.com/book/7web/seven-web-frameworks-in-seven-weeks"
    :media/isbn "ISBN: 978-1-93778-563-5"
    :media/year 2013
    :media/author [[:author/id "jack_moffitt"][:author/id "fred_daoud"]]}
@@ -456,6 +476,7 @@ Ebook ISBN: 978-1-4493-6616-2 | ISBN 10: 1-4493-6616-3"
    :media/title "Thinking Fast and Slow"
    :media/essential true
    :media/experience 0
+   :media/url "http://www.amazon.com/Thinking-Fast-Slow-Daniel-Kahneman/dp/0374533555"
    :media/isbn "ISBN13: 9780374275631"
    :media/year 2010
    :media/author [[:author/id "daniel_kahneman"]]}
@@ -548,6 +569,7 @@ Ebook ISBN: 978-1-4493-6616-2 | ISBN 10: 1-4493-6616-3"
    :media/subtitle "The Essentials of Interaction Design"
    :media/essential true
    :media/experience 1
+   :media/url "www.amazon.com/About-Face-Essentials-Interaction-Design/dp/1118766571"
    :media/isbn "ISBN-13: 978-1118766576 ISBN-10: 1118766571"
    :media/year 2014
    :media/author [[:author/id "alan_cooper"]
