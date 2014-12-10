@@ -224,6 +224,8 @@
    :author/name "David Holmes"}
   {:author/id "doug_lea"
    :author/name "Doug Lea"}
+  {:author/id "neal_ford"
+   :author/name "Neal Ford"}
 
   ]
 
@@ -416,7 +418,19 @@ Ebook ISBN: 978-1-4493-6616-2 | ISBN 10: 1-4493-6616-3"
    :media/isbn "ISBN 139781782162643"
    :media/year 2013
    :media/author [[:author/id "eric_rochester"]]}
+
 ;; Clojure Books end
+
+  {:media/id "functional_thinking"
+   :media/type :media.type/book
+   :media/title "Functional Thinking"
+   :media/subtitle "Paradigm Over Syntax"
+   :media/essential false
+   :media/experience 1
+   :media/isbn "ISBN: 978-1-4493-6551-6 | ISBN 10: 1-4493-6551-5"
+   :media/year 2014
+   :media/url "http://shop.oreilly.com/product/0636920029687.do"
+   :media/author [[:author/id "neal_ford"]]}
 
   {:media/id "7cm7w"
    :media/type :media.type/book
@@ -719,7 +733,12 @@ Ebook ISBN: 978-1-4493-6616-2 | ISBN 10: 1-4493-6616-3"
    :recommendation/priority 300
    :recommendation/necessary false
    :recommendation/description "Seven Web Frameworks in Seven Weeks is optional recommendation for software engineer specialization, because... //TBD @alexpetrov"}
-
+  {:recommendation/specialization [:specialization/id "developer"]
+   :recommendation/media [:media/id "functional_thinking"]
+   :recommendation/id "developer_functional_thinking"
+   :recommendation/priority 200
+   :recommendation/necessary false
+   :recommendation/description "Functional Thinking is optional recommendation for developer specialization, because... //TBD @alexpetrov"}
 ;; Recommendations for Java Developer
   {:recommendation/specialization [:specialization/id "java_developer"]
    :recommendation/media [:media/id "jp24ht"]
@@ -766,6 +785,12 @@ Ebook ISBN: 978-1-4493-6616-2 | ISBN 10: 1-4493-6616-3"
    :recommendation/description "Java Concurrency in Practice is optional recommendation for java_developer specialization, because... //TBD @alexpetrov"}
 
 ;; Recommendations for Software Engineer
+  {:recommendation/specialization [:specialization/id "software_engineer"]
+   :recommendation/media [:media/id "functional_thinking"]
+   :recommendation/id "software_engineer_functional_thinking"
+   :recommendation/priority 1100
+   :recommendation/necessary true
+   :recommendation/description "Functional Thinking is must recommendation for software engineer specialization, because... //TBD @alexpetrov"}
   {:recommendation/specialization [:specialization/id "software_engineer"]
    :recommendation/media [:media/id "7cm7w"]
    :recommendation/id "software_engineer_7cm7w"
