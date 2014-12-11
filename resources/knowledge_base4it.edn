@@ -226,6 +226,10 @@
    :author/name "Doug Lea"}
   {:author/id "neal_ford"
    :author/name "Neal Ford"}
+  {:author/id "ethan_watrall"
+   :author/name "Ethan Watrall"}
+  {:author/id "jeff_siarto"
+   :author/name "Jeff Siarto"}
 
   ]
 
@@ -278,6 +282,15 @@
    :media/url "http://www.headfirstlabs.com/books/hfdp/"
    :media/isbn "Print ISBN: 978-0-596-00712-6 | ISBN 10:0-596-00712-4 Ebook ISBN: 978-0-596-55656-3 | ISBN 10:0-596-55656-X"
    :media/author [[:author/id "eric_freeman"] [:author/id "bert_bates"] [:author/id "kathy_sierra"] [:author/id "elisabeth_robson"]]}
+  {:media/id "head_first_web_design"
+   :media/type :media.type/book
+   :media/title "Head First: Web Design"
+   :media/essential true
+   :media/experience 0
+   :media/year 2008
+   :media/url "http://www.headfirstlabs.com/books/hfwd/"
+   :media/isbn " ISBN: 978-0-596-52030-4 | ISBN 10: 0-596-52030-1"
+   :media/author [[:author/id "ethan_watrall"] [:author/id "jeff_siarto"]]}
   {:media/id "sicp"
    :media/type :media.type/book
    :media/title "Structure And Interpretation Of Computer Programs"
@@ -739,6 +752,12 @@ Ebook ISBN: 978-1-4493-6616-2 | ISBN 10: 1-4493-6616-3"
    :recommendation/priority 200
    :recommendation/necessary false
    :recommendation/description "Functional Thinking is optional recommendation for developer specialization, because... //TBD @alexpetrov"}
+  {:recommendation/specialization [:specialization/id "developer"]
+   :recommendation/media [:media/id "head_first_web_design"]
+   :recommendation/id "developer_head_first_web_design"
+   :recommendation/priority 100
+   :recommendation/necessary false
+   :recommendation/description "Head First Web Design is optional recommendation for developer specialization, because it is good to understand web design basics to every developer. It is pretty old for this kind of area and site examples looks outdated sometimes, but basics not changed that much. Information Archiecture, Working with color, Golden Rule are still the same."}
 ;; Recommendations for Java Developer
   {:recommendation/specialization [:specialization/id "java_developer"]
    :recommendation/media [:media/id "jp24ht"]
@@ -879,6 +898,12 @@ Ebook ISBN: 978-1-4493-6616-2 | ISBN 10: 1-4493-6616-3"
    :recommendation/necessary false
    :recommendation/description "Functional Geekery podcast is optional recommendation for Clojure Engineer specialization, because... //TBD @alexpetrov"}
 ;; Recommendations for UX Engineer
+  {:recommendation/specialization [:specialization/id "ux_engineer"]
+   :recommendation/media [:media/id "head_first_web_design"]
+   :recommendation/id "ux_engineer_first_web_design"
+   :recommendation/priority 1100
+   :recommendation/necessary true
+   :recommendation/description "Head First Web Design is must recommendation for UX Engineer specialization, because it is necessary to understand web design basics. It is pretty old for this kind of area and site examples looks outdated sometimes, but basics not changed that much. Information Archiecture, Working with color, Golden Rule are still the same. Look at Table of Contents and if you already know this stuff, mark it as completed."}
   {:recommendation/specialization [:specialization/id "ux_engineer"]
    :recommendation/media [:media/id "about_face"]
    :recommendation/id "ux_engineer_about_face"
