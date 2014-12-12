@@ -841,6 +841,12 @@ Ebook ISBN: 978-1-4493-6616-2 | ISBN 10: 1-4493-6616-3"
    :recommendation/necessary false
    :recommendation/description "Thinking Fast and Slow is optional recommendation for software engineer specialization, because... //TBD @alexpetrov"}
   {:recommendation/specialization [:specialization/id "software_engineer"]
+   :recommendation/media [:media/id "head_first_web_design"]
+   :recommendation/id "software_engineer_first_web_design"
+   :recommendation/priority 500
+   :recommendation/necessary true
+   :recommendation/description "Head First Web Design is must recommendation for Software Engineer specialization, because it is necessary to understand web design basics. It is pretty old for this kind of area and site examples looks outdated sometimes, but basics not changed that much. Information Archiecture, Working with color, Golden Rule are still the same. Look at Table of Contents and if you already know this stuff, mark it as completed."}
+  {:recommendation/specialization [:specialization/id "software_engineer"]
    :recommendation/media [:media/id "functional_geekery"]
    :recommendation/id "software_engineer_functional_geekery"
    :recommendation/priority 250
