@@ -121,6 +121,7 @@
   (if (data-changed? data data-part) (render-function (data-part data))))
 
 (defn render-whole-user-data [data]
+  #_(recommendation-list (:recommendations data))
   (render-if-changed recommendation-list data :recommendations)
   (render-if-changed recommendation-completed-list data :recommendations-completed)
   (render-if-changed specialization-available-list data :specializations-available)
@@ -177,6 +178,7 @@
                        (refresh)))))
 
 (defn start []
+
   (ef/at ".container"
          (ef/do-> (ef/content (kmg-header))
                   (ef/append (kmg-content))
