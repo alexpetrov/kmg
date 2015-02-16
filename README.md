@@ -10,7 +10,7 @@ To be a good specialists we have to know a lot about our profession and it's his
 Otherwise we will reproduce all mistakes and reinvent all wheels and biсycles over and over again.
 
 We have to read, listen, watch a lot, but as I can see, there are not so much people doing it.
-And I understand why. It is not so trivial to come up with what to invest first and in any particular time of a career. Especially in the beginning of your path.
+And I understand why. It is not so trivial to come up with decision: what to invest first in any particular moment of your career. Especially in the beginning of your path.
 
 From my practice of being trainer of software developers I know that you can read some essential books to accelerate your professional growth.
 
@@ -28,7 +28,7 @@ It impressed me so much and "puzzle was solved".
 As we know from Pragmatic Programmer book, plain text is the most powerful and independent format. Therefore, the basic idea is to represent knowledge base as easily editable plain text.
 So *Experts* could contribute to *Knowledge Base* by sending *Pull Requests*.
 It is possible thanks to representation of entities as *Clojure EDN* maps with meaningful references between them.
-These maps are loadable *Datomic entities*, but with some tricks.
+These maps are loadable *Datomic entities* (with some tricks).
 
 Example of how knowledge base will look like is [here](https://github.com/alexpetrov/kmg/blob/domain-layer/resources/knowledge_base4it.edn).
 
