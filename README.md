@@ -93,3 +93,5 @@ Making Docker containers for application and transactor.
 Copyright © 2014 Alexander Petrov (a.k.a. Lysenko by passport)
 
 Distributed under the Eclipse Public License version 1.0.
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/alexpetrov/kmg/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
