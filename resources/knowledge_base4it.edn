@@ -359,9 +359,9 @@
    :media/url "http://www.amazon.com/Refactoring-Patterns-Joshua-Kerievsky/dp/0321213351"
    :media/isbn "ISBN: 0321213351 ISBN13: 0785342213355;"
    :media/author [[:author/id "gerard_meszaros"]]}
-  {:media/id "weflc"
+  {:media/id "wewlc"
    :media/type :media.type/book
-   :media/title "Working Effectively with legacy code"
+   :media/title "Working Effectively with Legacy Code"
    :media/essential true
    :media/experience 1
    :media/year 2004
@@ -711,8 +711,8 @@ Ebook ISBN: 978-1-4493-6616-2 | ISBN 10: 1-4493-6616-3"
    :recommendation/necessary true
    :recommendation/description "XUnit is must recommendation for developer specialization, because... //TBD @alexpetrov"}
   {:recommendation/specialization [:specialization/id "developer"]
-   :recommendation/media [:media/id "weflc"]
-   :recommendation/id "developer_weflc"
+   :recommendation/media [:media/id "wewlc"]
+   :recommendation/id "developer_wewlc"
    :recommendation/priority 800
    :recommendation/necessary false
    :recommendation/description "Working Effectively with legacy code is optional recommendation for developer specialization, because... //TBD @alexpetrov"}
