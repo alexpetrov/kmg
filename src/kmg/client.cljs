@@ -2,8 +2,7 @@
   (:require [enfocus.core :as ef :refer (set-attr from at get-prop do-> after
                                                   remove-node content substitute)]
             [enfocus.events :as events :refer (listen)]
-            [ajax.core :refer [GET POST]]
-            [figwheel.client :as fw])
+            [ajax.core :refer [GET POST]])
   (:require-macros [enfocus.macros :as em]))
 
 (declare try-mark-as-completed try-change-goal try-load-recommendations try-load-recommendations-completed start media-title)
@@ -33,7 +32,6 @@
 
 (em/defsnippet domain-title tmpl "#domain-title" [domain]
   "#domain-title" (ef/content (str (:domain/title domain))))
-
 
 (defn not-all-backgrounds-completed? [backgrounds]
   (some false? (for [b backgrounds] (:completed b))))
@@ -178,7 +176,6 @@
                        (refresh)))))
 
 (defn start []
-
   (ef/at ".container"
          (ef/do-> (ef/content (kmg-header))
                   (ef/append (kmg-content))
