@@ -9,6 +9,7 @@
                  [datomic-schema-grapher "0.0.1"]
                  [compojure "1.2.2"]
                  [http-kit "2.1.18"]
+                 [enlive "1.1.6"]
                  [javax.servlet/servlet-api "2.5"]
                  [environ "1.0.0"]
                  [com.taoensso/timbre "3.3.1"]
