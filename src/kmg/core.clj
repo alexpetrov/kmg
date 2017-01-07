@@ -116,6 +116,10 @@
 (html/defsnippet specialization-completed tmpl [:div.specialization-complete] [specialization]
   [:.specialization-complete-title] (html/content (:specialization/title specialization)))
 
+(html/defsnippet translation-media tmpl [:#recommendation-translation] [{:keys [media]}]
+  [:#translation-media-title] (html/html-content (media-title media))
+  [:#translation-media-language] (html/content (:media/locale media)))
+
 (html/defsnippet background-media tmpl [:#recommendation-background] [{:keys [media completed]}]
   [:#background-media-title] (html/html-content (media-title media))
   [:#background-media-status] (html/content (str "Is completed: " completed)))
@@ -135,8 +139,8 @@
                                        " media/id: " (:media/id media)))
   ;;  [:#complete] (if (not-all-backgrounds-completed? backgrounds) (html/set-attr :disabled "disabled"))
   [:.recommendation-backgrounds] (html/content (map background-media backgrounds))
+  [:.recommendation-translations] (html/content (map translation-media translations))
   )
-
 
 (html/deftemplate base tmpl
   [data]
