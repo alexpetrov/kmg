@@ -100,7 +100,7 @@
          (ef/content (map recommendation data))))
 
 (defn recommendation-completed-list [data]
-  (ef/at "#recommenations-completed"
+  (ef/at "#recommendations-completed"
          (ef/content (map recommendation-completed data))))
 
 (defn specialization-available-list [data]
