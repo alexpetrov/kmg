@@ -139,8 +139,7 @@
                                        " media/id: " (:media/id media)))
   [:#complete] (if (not-all-backgrounds-completed? backgrounds) (html/set-attr :disabled "disabled") (html/set-attr :dummy "dummy"))
   [:.recommendation-backgrounds] (html/content (map background-media backgrounds))
-  [:.recommendation-translations] (html/content (map translation-media translations))
-  )
+  [:.recommendation-translations] (html/content (map translation-media translations)))
 
 (html/deftemplate base tmpl
   [data]
@@ -149,8 +148,9 @@
   [:div#specializations-available] (html/substitute (map specialization-available (:specializations-available data)))
   [:div#specializations-completed] (html/substitute (map specialization-completed (:specializations-completed data)))
   [:div#recommendations-completed] (html/substitute (map recommendation-completed (:recommendations-completed data)))
-
-  )
+  [:#recommendation-background] nil
+  [:#recommendation-translation] nil
+  [:#user-choose] nil)
 
 (defn index []
   (render-to-response (base (model/whole-user-data current-user))))
