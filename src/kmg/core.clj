@@ -1,6 +1,7 @@
 (ns kmg.core
   (:import (java.io ByteArrayOutputStream))
   (:require [compojure.route :as route]
+            [net.cgrand.enlive-html :as html]
             [clojure.java.io :as io]
             [kmg.domain-facade :as model]
             [taoensso.timbre :as log]
@@ -26,6 +27,10 @@
   {:status (or status 200)
    :headers {"Content-Type" "application/transit+json; charset=utf-8"}
    :body (write data)})
+
+(defn html-response [data & [status]]
+  {:status (or status 200)
+   :body data})
 
 (defn recommendations
   ([user]
@@ -64,6 +69,27 @@
   (model/change-goal user specialization)
   (response nil))
 
+;; View layer
+;; FIXME: Extract View layer to separate namespace
+;; (def tmpl "../../resources/public/html/kmg.html")
+
+(defn render [t]
+  (reduce str t))
+
+(def render-to-response
+  (comp html-response render))
+
+(def tmpl "public/html/kmg.html")
+
+(html/deftemplate base tmpl
+  []
+  [:span#domain-title] (html/content (:domain/title (model/domain))))
+
+(defn index []
+  (render-to-response (base)))
+
+;; End of view layer
+
 (defroutes recommendation-routes
   (GET "/list/:user" [user] (recommendations user))
   (GET "/list/:user/:spec" [user spec] (recommendations user spec))
@@ -82,7 +108,9 @@
   (GET "/list" [] (user-list)))
 
 (defroutes compojure-handler
-  (GET "/" [] (slurp (io/resource "public/html/index.html")))
+  #_(GET "/" [] (slurp (io/resource "public/html/kmg.html")))
+  (GET "/" [] (index))
+
   (GET "/data/:user" [user] (whole-user-data user))
   (context "/recommendation" [] recommendation-routes)
   (context "/specialization" [] specialization-routes)
