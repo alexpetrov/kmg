@@ -102,6 +102,9 @@
     (str "<a href='" (:media/url media) "'>" (:media/url media) "</a> <br/> ")
     ""))
 
+(defn not-all-backgrounds-completed? [backgrounds]
+  (some false? (for [b backgrounds] (:completed b))))
+
 (def tmpl "public/html/kmg.html")
 
 (html/defsnippet recommendation-completed tmpl [:div.recommendation-completed] [{:keys [media]}]
@@ -112,6 +115,10 @@
 
 (html/defsnippet specialization-completed tmpl [:div.specialization-complete] [specialization]
   [:.specialization-complete-title] (html/content (:specialization/title specialization)))
+
+(html/defsnippet background-media tmpl [:#recommendation-background] [{:keys [media completed]}]
+  [:#background-media-title] (html/html-content (media-title media))
+  [:#background-media-status] (html/content (str "Is completed: " completed)))
 
 (html/defsnippet recommendation tmpl [:div.recommendation]
   [{:keys [recommendation media backgrounds translations authors]}]
@@ -126,6 +133,8 @@
                                        " Necessary: " (:recommendation/necessary recommendation) " Priority: " (:recommendation/priority recommendation)
                                        " Type: " (:media/type media)
                                        " media/id: " (:media/id media)))
+  ;;  [:#complete] (if (not-all-backgrounds-completed? backgrounds) (html/set-attr :disabled "disabled"))
+  [:.recommendation-backgrounds] (html/content (map background-media backgrounds))
   )
 
 
