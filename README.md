@@ -2,7 +2,7 @@
 
 Systematization and recommendation service on professional *knowledge media*, supposed to be driven by community of experts.
 
-[ ![Codeship Status for alexpetrov/kmg](https://www.codeship.io/projects/580c52e0-ded2-0131-ed85-3ee96e1cc881/status)](https://www.codeship.io/projects/24875)
+[![Vexor status](https://ci.vexor.io/projects/e69891ed-74f3-47b8-acd1-06c2da0612cd/status.svg)](https://ci.vexor.io/ui/projects/e69891ed-74f3-47b8-acd1-06c2da0612cd/builds)
 
 ## Problem description
 
@@ -93,5 +93,3 @@ Making Docker containers for application and transactor.
 Copyright © 2014 Alexander Petrov (a.k.a. Lysenko by passport)
 
 Distributed under the Eclipse Public License version 1.0.
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/alexpetrov/kmg/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
