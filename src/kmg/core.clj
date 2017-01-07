@@ -71,7 +71,7 @@
 
 ;; View layer
 ;; FIXME: Extract View layer to separate namespace
-(def current-user "user1")
+(def current-user "user2")
 
 (defn render [t]
   (reduce str t))
@@ -92,6 +92,16 @@
 (defn media-title [media]
   (str (media-icon-span media) (:media/title media) " " ))
 
+(defn authors-string [authors]
+  (->> (map :author authors)
+       (map :author/name)
+       (clojure.string/join ", ")))
+
+(defn media-url [media]
+  (if (:media/url media)
+    (str "<a href='" (:media/url media) "'>" (:media/url media) "</a> <br/> ")
+    ""))
+
 (def tmpl "public/html/kmg.html")
 
 (html/defsnippet recommendation-completed tmpl [:div.recommendation-completed] [{:keys [media]}]
@@ -103,9 +113,26 @@
 (html/defsnippet specialization-completed tmpl [:div.specialization-complete] [specialization]
   [:.specialization-complete-title] (html/content (:specialization/title specialization)))
 
+(html/defsnippet recommendation tmpl [:div.recommendation]
+  [{:keys [recommendation media backgrounds translations authors]}]
+  [:#recommendation-title] (html/html-content (media-title media))
+  [:#recommendation-subtitle] (html/content (:media/subtitle media))
+  [:#recommendation-authors] (html/content (authors-string authors))
+  [:#recommendation-description] (html/html-content
+                                  (str (media-url media)
+                                       " Why bother: "(:recommendation/description recommendation) " <br/> "
+                                       " ISBN: " (:media/isbn media)
+                                       " Year of issue: " (:media/year media)
+                                       " Necessary: " (:recommendation/necessary recommendation) " Priority: " (:recommendation/priority recommendation)
+                                       " Type: " (:media/type media)
+                                       " media/id: " (:media/id media)))
+  )
+
+
 (html/deftemplate base tmpl
   [data]
   [:span#domain-title] (html/content (:domain/title (model/domain)))
+  [:div#inner-content] (html/content (map recommendation (:recommendations data)))
   [:div#specializations-available] (html/substitute (map specialization-available (:specializations-available data)))
   [:div#specializations-completed] (html/substitute (map specialization-completed (:specializations-completed data)))
   [:div#recommendations-completed] (html/substitute (map recommendation-completed (:recommendations-completed data)))
@@ -116,7 +143,8 @@
   (render-to-response (base (model/whole-user-data current-user))))
 
 (comment
-(index)
+  (index)
+  (model/whole-user-data current-user)
 )
 
 ;; End of view layer
