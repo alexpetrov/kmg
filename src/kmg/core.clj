@@ -137,7 +137,7 @@
                                        " Necessary: " (:recommendation/necessary recommendation) " Priority: " (:recommendation/priority recommendation)
                                        " Type: " (:media/type media)
                                        " media/id: " (:media/id media)))
-  ;;  [:#complete] (if (not-all-backgrounds-completed? backgrounds) (html/set-attr :disabled "disabled"))
+  [:#complete] (if (not-all-backgrounds-completed? backgrounds) (html/set-attr :disabled "disabled") (html/set-attr :dummy "dummy"))
   [:.recommendation-backgrounds] (html/content (map background-media backgrounds))
   [:.recommendation-translations] (html/content (map translation-media translations))
   )
