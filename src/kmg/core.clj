@@ -79,10 +79,23 @@
 (def render-to-response
   (comp html-response render))
 
+(def type->icon {:media.type/book "book"
+                 :media.type/article "file"
+                 :media.type/video "film"
+                 :media.type/podcast "headphones"
+                 :media.type/course "book"
+                 :media.type/blog "file"})
+
+(defn media-icon-span [media]
+  (str "<span class=\"glyphicon glyphicon-" (type->icon (:media/type media)) "\"></span> "))
+
+(defn media-title [media]
+  (str (media-icon-span media) (:media/title media) " " ))
+
 (def tmpl "public/html/kmg.html")
 
 (html/defsnippet recommendation-completed tmpl [:div.recommendation-completed] [{:keys [media]}]
-  [:.recommendation-completed-title] (html/content (:media/title media)))
+  [:.recommendation-completed-title] (html/html-content (media-title media)))
 
 (html/defsnippet specialization-available tmpl [:div.specialization-available] [specialization]
   [:.specialization-available-title] (html/content (:specialization/title specialization)))
