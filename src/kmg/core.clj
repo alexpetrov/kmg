@@ -71,7 +71,7 @@
 
 ;; View layer
 ;; FIXME: Extract View layer to separate namespace
-;; (def tmpl "../../resources/public/html/kmg.html")
+(def current-user "user1")
 
 (defn render [t]
   (reduce str t))
@@ -81,12 +81,37 @@
 
 (def tmpl "public/html/kmg.html")
 
+(def type->icon {:media.type/book "book"
+                 :media.type/article "file"
+                 :media.type/video "film"
+                 :media.type/podcast "headphones"
+                 :media.type/course "book"
+                 :media.type/blog "file"})
+
+(defn media-icon-span [media]
+  (str "<span class=\"glyphicon glyphicon-" (type->icon (:media/type media)) "\"></span> "))
+
+(defn media-title [media]
+  (str (media-icon-span media) (:media/title media) " " ))
+
+(html/defsnippet recommendation-completed tmpl [:div.recommendation-completed] [{:keys [media]}]
+  [:.recommendation-completed-title] (html/content (media-title media)))
+
+(html/defsnippet specialization-available tmpl [:div.specialization-available] [specialization]
+  [:.specialization-available-title] (html/content (:specialization/title specialization)))
+
 (html/deftemplate base tmpl
-  []
-  [:span#domain-title] (html/content (:domain/title (model/domain))))
+  [data]
+  [:span#domain-title] (html/content (:domain/title (model/domain)))
+  [:div#recommendations-completed] (html/substitute (map recommendation-completed (:recommendations-completed data)))
+  [:div#specializations-available] (html/substitute (map specialization-available (:specializations-available data))))
 
 (defn index []
-  (render-to-response (base)))
+  (render-to-response (base (model/whole-user-data current-user))))
+
+(comment
+(index)
+)
 
 ;; End of view layer
 
