@@ -5,6 +5,9 @@
             [ajax.core :refer [GET POST]])
   (:require-macros [enfocus.macros :as em]))
 
+;; DEPRECATED. From now on application will be SPA less. Remain it here just for convinience of migration.
+;; FIXME: Delete this after migration to Enlive will be finished
+
 (declare try-mark-as-completed try-change-goal try-load-recommendations try-load-recommendations-completed start media-title)
 
 (enable-console-print!)

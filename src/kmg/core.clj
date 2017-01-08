@@ -30,6 +30,11 @@
    :headers {"Content-Type" "application/transit+json; charset=utf-8"}
    :body (write data)})
 
+(def redirect-home
+  {:status 302
+   :headers {"Location" "/"}
+   :body ""})
+
 (defn html-response [data & [status]]
   {:status (or status 200)
    :body data})
@@ -58,18 +63,29 @@
   (log/info "whole-user-data for user: " user)
   (response (model/whole-user-data user)))
 
-(defn user-list []
-  (response (model/users)))
+(defn change-goal
+  ([specialization]
+   (log/info "user: " current-user "change goal to specialization: " specialization)
+   (model/change-goal current-user specialization)
+   redirect-home)
+  ([user specialization]
+   (log/info "user: " user "change goal to specialization: " specialization)
+   (model/change-goal user specialization)
+   (response nil)))
 
-(defn change-goal [user specialization]
-  (log/info "user: " user "change goal to specialization: " specialization)
-  (model/change-goal user specialization)
-  (response nil))
+(defn mark-as-completed
+  ([recommendation]
+   (log/info "user: " current-user "mark-as-completed recommendation:" recommendation)
+   (model/mark-as-completed current-user recommendation)
+   redirect-home)
+  ([user recommendation]
+   (log/info "user: " user "mark-as-completed recommendation:" recommendation)
+   (model/mark-as-completed user recommendation)
+   (response nil))
+  )
 
 ;; View layer
 ;; FIXME: Extract View layer to separate namespace
-
-
 (defn render [t]
   (reduce str t))
 
@@ -108,7 +124,8 @@
   [:.recommendation-completed-title] (html/html-content (media-title media)))
 
 (html/defsnippet specialization-available tmpl [:div.specialization-available] [specialization]
-  [:.specialization-available-title] (html/content (:specialization/title specialization)))
+  [:.specialization-available-title] (html/content (:specialization/title specialization))
+  [:#choose] (html/set-attr :href (str "choose/" (:specialization/id specialization))))
 
 (html/defsnippet specialization-completed tmpl [:div.specialization-complete] [specialization]
   [:.specialization-complete-title] (html/content (:specialization/title specialization)))
@@ -155,19 +172,6 @@
   (model/whole-user-data current-user)
 )
 
-(defn mark-as-completed
-  ([recommendation]
-   (log/info "user: " current-user "mark-as-completed recommendation:" recommendation)
-   (model/mark-as-completed current-user recommendation)
-   {:status 302
-    :headers {"Location" "/"}
-    :body ""})
-  ([user recommendation]
-   (log/info "user: " user "mark-as-completed recommendation:" recommendation)
-   (model/mark-as-completed user recommendation)
-   (response nil))
-  )
-
 ;; End of view layer
 
 (defroutes recommendation-routes
@@ -183,19 +187,13 @@
   (POST "/change-goal/:user/:specialization" [user specialization]
        (change-goal user specialization)))
 
-
-(defroutes user-routes
-  (GET "/list" [] (user-list)))
-
 (defroutes compojure-handler
-  #_(GET "/" [] (slurp (io/resource "public/html/kmg.html")))
   (GET "/" [] (index))
   (GET "/complete/:recommendation" [recommendation] (mark-as-completed recommendation))
-
+  (GET "/choose/:specialization" [specialization] (change-goal specialization))
   (GET "/data/:user" [user] (whole-user-data user))
   (context "/recommendation" [] recommendation-routes)
   (context "/specialization" [] specialization-routes)
-  (context "/user" [] user-routes)
   (GET "/domain" [] (response (model/domain)))
   (GET "/req" request (str request))
   (route/resources "/")
