@@ -12,6 +12,8 @@
         org.httpkit.server)
   (:gen-class))
 
+(def current-user "user2")
+
 (log/set-config! [:appenders :spit :enabled?] true)
 (log/set-config! [:shared-appender-config :spit-filename] (env :log-file-path))
 
@@ -59,11 +61,6 @@
 (defn user-list []
   (response (model/users)))
 
-(defn mark-as-completed [user recommendation]
-  (log/info "user: " user "mark-as-completed recommendation:" recommendation)
-  (model/mark-as-completed user recommendation)
-  (response nil))
-
 (defn change-goal [user specialization]
   (log/info "user: " user "change goal to specialization: " specialization)
   (model/change-goal user specialization)
@@ -71,7 +68,7 @@
 
 ;; View layer
 ;; FIXME: Extract View layer to separate namespace
-(def current-user "user2")
+
 
 (defn render [t]
   (reduce str t))
@@ -137,7 +134,7 @@
                                        " Necessary: " (:recommendation/necessary recommendation) " Priority: " (:recommendation/priority recommendation)
                                        " Type: " (:media/type media)
                                        " media/id: " (:media/id media)))
-  [:#complete] (if (not-all-backgrounds-completed? backgrounds) (html/set-attr :disabled "disabled") (html/set-attr :dummy "dummy"))
+  [:#complete] (if (not-all-backgrounds-completed? backgrounds) (html/set-attr :disabled "disabled") (html/set-attr :href (str "complete/" (:recommendation/id recommendation))))
   [:.recommendation-backgrounds] (html/content (map background-media backgrounds))
   [:.recommendation-translations] (html/content (map translation-media translations)))
 
@@ -157,6 +154,19 @@
   (index)
   (model/whole-user-data current-user)
 )
+
+(defn mark-as-completed
+  ([recommendation]
+   (log/info "user: " current-user "mark-as-completed recommendation:" recommendation)
+   (model/mark-as-completed current-user recommendation)
+   {:status 302
+    :headers {"Location" "/"}
+    :body ""})
+  ([user recommendation]
+   (log/info "user: " user "mark-as-completed recommendation:" recommendation)
+   (model/mark-as-completed user recommendation)
+   (response nil))
+  )
 
 ;; End of view layer
 
@@ -180,6 +190,7 @@
 (defroutes compojure-handler
   #_(GET "/" [] (slurp (io/resource "public/html/kmg.html")))
   (GET "/" [] (index))
+  (GET "/complete/:recommendation" [recommendation] (mark-as-completed recommendation))
 
   (GET "/data/:user" [user] (whole-user-data user))
   (context "/recommendation" [] recommendation-routes)
