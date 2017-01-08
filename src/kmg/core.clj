@@ -127,8 +127,8 @@
   [:.specialization-available-title] (html/content (:specialization/title specialization))
   [:#choose] (html/set-attr :href (str "choose/" (:specialization/id specialization))))
 
-(html/defsnippet specialization-completed tmpl [:div.specialization-complete] [specialization]
-  [:.specialization-complete-title] (html/content (:specialization/title specialization)))
+(html/defsnippet specialization-completed tmpl [:div.specialization-completed] [specialization]
+  [:.specialization-completed-title] (html/content (:specialization/title specialization)))
 
 (html/defsnippet translation-media tmpl [:#recommendation-translation] [{:keys [media]}]
   [:#translation-media-title] (html/html-content (media-title media))
@@ -151,7 +151,9 @@
                                        " Necessary: " (:recommendation/necessary recommendation) " Priority: " (:recommendation/priority recommendation)
                                        " Type: " (:media/type media)
                                        " media/id: " (:media/id media)))
-  [:#complete] (if (not-all-backgrounds-completed? backgrounds) (html/set-attr :disabled "disabled") (html/set-attr :href (str "complete/" (:recommendation/id recommendation))))
+  [:#complete] (if (not-all-backgrounds-completed? backgrounds)
+                 (html/set-attr :disabled "disabled")
+                 (html/set-attr :href (str "complete/" (:recommendation/id recommendation))))
   [:.recommendation-backgrounds] (html/content (map background-media backgrounds))
   [:.recommendation-translations] (html/content (map translation-media translations)))
 
@@ -161,16 +163,10 @@
   [:div#inner-content] (html/content (map recommendation (:recommendations data)))
   [:div#specializations-available] (html/substitute (map specialization-available (:specializations-available data)))
   [:div#specializations-completed] (html/substitute (map specialization-completed (:specializations-completed data)))
-  [:div#recommendations-completed] (html/substitute (map recommendation-completed (:recommendations-completed data)))
-  )
+  [:div#recommendations-completed] (html/substitute (map recommendation-completed (:recommendations-completed data))))
 
 (defn index []
   (render-to-response (base (model/whole-user-data current-user))))
-
-(comment
-  (index)
-  (model/whole-user-data current-user)
-)
 
 ;; End of view layer
 
