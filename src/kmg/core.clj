@@ -148,9 +148,7 @@
   [:div#specializations-available] (html/substitute (map specialization-available (:specializations-available data)))
   [:div#specializations-completed] (html/substitute (map specialization-completed (:specializations-completed data)))
   [:div#recommendations-completed] (html/substitute (map recommendation-completed (:recommendations-completed data)))
-  [:#recommendation-background] nil
-  [:#recommendation-translation] nil
-  [:#user-choose] nil)
+  )
 
 (defn index []
   (render-to-response (base (model/whole-user-data current-user))))
