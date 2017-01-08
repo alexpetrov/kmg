@@ -222,6 +222,10 @@
    :media.relationship/to [:media/id "book14"]
    :media.relationship/type :translation
    :media.relationship/description "book14 is translation of book1 to spanish language"}
+  {:media.relationship/from [:media/id "book2"]
+   :media.relationship/to [:media/id "book13"]
+   :media.relationship/type :translation
+   :media.relationship/description "book3 is translation of book10 to english language"}
   {:media.relationship/from [:media/id "book10"]
    :media.relationship/to [:media/id "book3"]
    :media.relationship/type :translation
