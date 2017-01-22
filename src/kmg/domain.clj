@@ -26,9 +26,7 @@
            db)
       ffirst
       (entity db)))
-;; (domain-data (db))
 
-;; (sort-by-second + [[1 200] [3 400] [2 300]])
 (defn user-current-goal [db user]
   (ffirst (d/q '[:find ?sid
                  :in $ ?userid
@@ -38,8 +36,6 @@
 
 (defn user-current-goal-id [db user]
   (:specialization/id (d/entity db (user-current-goal db user))))
-
-;;(user-current-goal (db) "user1")
 
 (defn user-goals-history-dataset
   [db user]
@@ -55,8 +51,7 @@
                  :in $ ?user-id ?spec-id
                  :where
                  [?fid :feedback/user ?user-id]
-                 [?fid :feedback/recommendation ?rec-id]
-                 []]
+                 [?fid :feedback/recommendation ?rec-id]]
                db [:user/id user] [:spec/id spec])))
 
 
@@ -75,8 +70,6 @@
        (sort-by-second -)
        (every-first)))
 
-;; (recommendations-completed-by-user-dataset (db) "user2")
-;; (recommendations-completed-by-user (db) "user2")
 (defn recommendations-for-user [db user spec]
   (->> (d/q '[:find ?id ?priority
          :in $ ?uid ?sid
@@ -100,7 +93,6 @@
               (str "Trying get recommendations for specialization that is not one of users history of goals; User: "
                    user "; Specialization: " (specialization-title db spec)))))))
 
-;; (recommendations-for-user (db) "user2")
 (defn recommendation-ids
   "Gives recommendation ids for user by specialization"
   [db user spec]
@@ -108,10 +100,6 @@
   (let [recs (recommendations-for-user db user spec)
         completed (set (recommendations-completed-by-user db user))]
     (remove completed recs)))
-
-;; (recommendation-ids (db) "user1")
-;; (recommendation-ids (db) "user2")
-;;
 
 (defn recommendation-dbid [db id]
   (ffirst (d/q '[:find ?rid
@@ -124,16 +112,6 @@
               :where
               [?rid :recommendation/media ?mid]]
             db recommend-id)))
-
-;;(media-id-by-recommendation-id (db) 17592186045434)
-
-;; This function very likely will be not useful inside domain logic
-#_(defn media-id-by-dbid [db dbid]
-  (ffirst (d/q '[:find ?id
-                 :in $ ?dbid
-                 :where
-                 [?dbid :media/id ?id]]
-                 db dbid)))
 
 (defn media-dbid-by-id [db id]
   (ffirst (d/q '[:find ?dbid
@@ -160,19 +138,11 @@
          [(< ?mid ?mid2)]]
        db translation-rule media-id))
 
-;;(media-translations-dataset (db) (media-dbid-by-id (db) "book1"))
-
-
-
 (defn media-translations [db media-id]
   (set (every-first (media-translations-dataset db media-id))))
 
-;;(media-translations (db) (media-dbid-by-id (db) "book1"))
-
 (defn media-translation-data [db media-id]
   {:media (entity db media-id)})
-
-;;(media-translation-data (db) (media-dbid-by-id (db) "book2"))
 
 (defn authors-dataset [db media-id]
   (d/q '[:find ?aid
@@ -180,7 +150,6 @@
          :where
          [?media-id :media/author ?aid]]
        db media-id))
-;; (authors-dataset (db) (media-dbid-by-id (db) "book1"))
 
 (defn media-authors [db media-id]
   (set (every-first (authors-dataset db media-id))))
@@ -195,17 +164,12 @@
   (let [media-dbid (media-id-by-recommendation-id db rid)
         media-backgrounds (media-backgrounds db media-dbid)
         media-translations (media-translations db media-dbid)
-        media-authors (media-authors db media-dbid)
-]
+        media-authors (media-authors db media-dbid)]
     {:recommendation (entity db rid)
      :media (entity db media-dbid)
      :authors (vec (map #(author-data db %) media-authors))
      :backgrounds (vec (map #(background-data db % user) media-backgrounds))
      :translations (vec (map #(media-translation-data db %) media-translations))}))
-
-;;(recommendation-data (db) (recommendation-dbid db "spec1_book1") "user1")
-;;(recommendations "user1")
-;;(recommendations "user2")
 
 (defn- get-feedback
   [user recommendation]
@@ -220,21 +184,14 @@
        ffirst
        (entity (db))))
 
-;; (get-feedback "user1" "spec1_book4")
-
-
 (defn children-specialization-ids [db spec]
   (->> (d/q '[:find ?specid
               :in $ ?parent-id
-;;              :in $ ?parent-spec
-
               :where
-;;              [?parent-id :specialization/id ?parent-spec]
               [?rid :specialization.relationship/to ?parent-id]
               [?rid :specialization.relationship/from ?specid]]
             db spec)
        every-first))
-;; (children-specialization-ids (db) (get-spec-id (db) "spec1"))
 
 (defn required-recommendation-ids [db spec]
   (->> (d/q '[:find ?rid
@@ -245,9 +202,7 @@
               db spec)
        (every-first)
        set))
-;; (required-recommendation-ids (db) "spec1")
 
-;; set of required recommendations for this specialization is a subset of comleted recommendations for this user
 (defn is-specialization-completed?
   "Specialization is completed if all required recommendations are completed by the user"
   [db user spec]
@@ -257,20 +212,17 @@
 
 
 (defn user-goals-history
-  "All specializations, that were goals of this user, in ordered by date desc"
+  "All specializations, that were goals of this user, ordered by date desc"
   [db user]
   (->> (user-goals-history-dataset db user)
        (sort-by-second -)
        (every-first)))
 
-;;(user-goals-history (db) "user2")
 (defn completed-specialization-ids
   "All specializations that were goals of this user and that are completed"
   [db user]
   (set (filter #(is-specialization-completed? db user %)
           (user-goals-history db user))))
-
-;;(completed-specialization-ids (db) "user2")
 
 (defn get-spec-id [db spec]
   (ffirst (d/q '[:find ?sid
@@ -278,17 +230,13 @@
          :where
          [?sid :specialization/id ?spec-id]]
         db spec)))
-;; (get-spec-id (db) "spec1")
 
 (defn available-specialization-ids
   [db user]
-  (let [completed  (completed-specialization-ids db user)]
+  (let [completed (completed-specialization-ids db user)]
     (->> (map #(children-specialization-ids db %) completed)
          flatten
          (remove completed))))
-
-;; (available-specialization-ids (db) "user1")
-;; (get-spec-id (db) "spec2")
 
 (defn in?
   "true if seq contains elm"
@@ -299,18 +247,6 @@
   (let [available-specs (available-specialization-ids db user)
         spec-id (get-spec-id db spec)]
     (in? available-specs spec-id)))
-
-;; (some #(= 1 %) [1 2 3]) ;:=> true
-;;(is-specialization-available?  (db) "user1" "spec2")
-
-#_(defn media-background-dataset [db media]
-  (d/q '[:find ?mto
-         :in $ ?mfr
-         :where
-         [?mrid :media.relationship/from ?mfr]
-         [?mrid :media.relationship/to ?mto]
-         [?mrid :media.relationship/type :background]]
-       db [:media/id media]))
 
 (defn media-background-dataset [db media-id]
   (d/q '[:find ?mto
@@ -350,8 +286,6 @@
    :feedback/recommendation [:recommendation/id recommendation]
    :feedback/complete true
    :db/id (d/tempid :db.part/user)}])
-
-;; (create-feedback "user1" "spec1_book2")
 
 (defn mark-as-completed-command [user recommendation]
   (let [feedback (create-feedback user recommendation)]
