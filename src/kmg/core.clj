@@ -1,11 +1,9 @@
 (ns kmg.core
-  (:import (java.io ByteArrayOutputStream))
   (:require [compojure.route :as route]
             [net.cgrand.enlive-html :as html]
             [clojure.java.io :as io]
             [kmg.domain-facade :as model]
             [taoensso.timbre :as log]
-            [cognitect.transit :as transit]
             [environ.core :refer [env]])
   (:use compojure.core
         compojure.handler
@@ -17,72 +15,28 @@
 (log/set-config! [:appenders :spit :enabled?] true)
 (log/set-config! [:shared-appender-config :spit-filename] (env :log-file-path))
 
-(defn write [x]
-  (let [baos (ByteArrayOutputStream.)
-        w    (transit/writer baos :json)
-        _    (transit/write w x)
-        ret  (.toString baos)]
-    (.reset baos)
-    ret))
+(defn redirect
+  ([]
+   (redirect ""))
+  ([path]
+   {:status 302
+    :headers {"Location" (str "/" path)}
+    :body ""}))
 
 (defn response [data & [status]]
   {:status (or status 200)
-   :headers {"Content-Type" "application/transit+json; charset=utf-8"}
-   :body (write data)})
-
-(def redirect-home
-  {:status 302
-   :headers {"Location" "/"}
-   :body ""})
-
-(defn html-response [data & [status]]
-  {:status (or status 200)
    :body data})
 
-(defn recommendations
-  ([user]
-     (log/info "recommendations for user: " user)
-     (response (model/recommendations user)))
-  ([user spec]
-     (log/info "recommendations for user: " user "; specialization: " spec)
-     (response (model/recommendations user spec))))
-
-(defn recommendations-completed [user]
-  (log/info "recommendations-completed for user: " user)
-  (response (model/recommendations-completed user)))
-
-(defn specializations-completed [user]
-  (log/info "specializations-completed for user: " user)
-  (response (model/specializations-completed user)))
-
-(defn specializations-available [user]
-  (log/info "specializations-available for user: " user)
-  (response (model/specializations-available user)))
-
-(defn whole-user-data [user]
-  (log/info "whole-user-data for user: " user)
-  (response (model/whole-user-data user)))
-
-(defn change-specialization
-  ([specialization]
-   (log/info "user: " current-user "change specialization to specialization: " specialization)
-   (model/change-specialization current-user specialization)
-   redirect-home)
-  ([user specialization]
-   (log/info "user: " user "change specialization to specialization: " specialization)
-   (model/change-specialization user specialization)
-   (response nil)))
+(defn change-specialization [specialization]
+  (log/info "user: " current-user "change specialization to specialization: " specialization)
+  (model/change-specialization current-user specialization)
+  (redirect))
 
 (defn mark-as-completed
   ([recommendation]
    (log/info "user: " current-user "mark-as-completed recommendation:" recommendation)
    (model/mark-as-completed current-user recommendation)
-   redirect-home)
-  ([user recommendation]
-   (log/info "user: " user "mark-as-completed recommendation:" recommendation)
-   (model/mark-as-completed user recommendation)
-   (response nil))
-  )
+   (redirect)))
 
 ;; View layer
 ;; FIXME: Extract View layer to separate namespace
@@ -90,7 +44,7 @@
   (reduce str t))
 
 (def render-to-response
-  (comp html-response render))
+  (comp response render))
 
 (def type->icon {:media.type/book "book"
                  :media.type/article "file"
@@ -170,27 +124,10 @@
 
 ;; End of view layer
 
-(defroutes recommendation-routes
-  (GET "/list/:user" [user] (recommendations user))
-  (GET "/list/:user/:spec" [user spec] (recommendations user spec))
-  (GET "/completed/:user" [user] (recommendations-completed user))
-  (POST "/mark-as-completed/:user/:recommendation" [user recommendation]
-        (mark-as-completed user recommendation)))
-
-(defroutes specialization-routes
-  (GET "/completed/:user" [user] (specializations-completed user))
-  (GET "/available/:user" [user] (specializations-available user))
-  (POST "/change-specialization/:user/:specialization" [user specialization]
-       (change-specialization user specialization)))
-
 (defroutes compojure-handler
   (GET "/" [] (index))
   (GET "/complete/:recommendation" [recommendation] (mark-as-completed recommendation))
   (GET "/choose/:specialization" [specialization] (change-specialization specialization))
-  (GET "/data/:user" [user] (whole-user-data user))
-  (context "/recommendation" [] recommendation-routes)
-  (context "/specialization" [] specialization-routes)
-  (GET "/domain" [] (response (model/domain)))
   (GET "/req" request (str request))
   (route/resources "/")
   (route/not-found "Not found!"))
