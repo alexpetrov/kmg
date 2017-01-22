@@ -103,11 +103,11 @@
  [{:user/name "user1"
    :user/start-career-year 2014
    :user/locale :en
-   :user/goal [:specialization/id "basic"]}
+   :user/specialization [:specialization/id "basic"]}
   {:user/name "user2"
    :user/start-career-year 2013
    :user/locale :ru
-   :user/goal [:specialization/id "basic"]}]
+   :user/specialization [:specialization/id "basic"]}]
 
 ;; Authors
  [{:author/id "dave_thomas"

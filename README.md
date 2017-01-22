@@ -30,9 +30,9 @@ So *Experts* could contribute to *Knowledge Base* by sending *Pull Requests*.
 It is possible thanks to representation of entities as *Clojure EDN* maps with meaningful references between them.
 These maps are loadable *Datomic entities* (with some tricks).
 
-Example of how knowledge base will look like is [here](https://github.com/alexpetrov/kmg/blob/domain-layer/resources/knowledge_base4it.edn).
+Example of how knowledge base will look like is [here](https://github.com/alexpetrov/kmg/blob/master/resources/knowledge_base4it.edn).
 
-Here is the [data model](https://github.com/alexpetrov/kmg/blob/domain-layer/kmg-schema.png).
+Here is the [data model](https://github.com/alexpetrov/kmg/blob/master/kmg-schema.png).
 
 ## Installation
 
@@ -67,22 +67,6 @@ To check current state of Knowledge Base for IT Domain:
 lein cljsbuild once
 lein ring server
 ```
-
-### Run interactive ClojureScript environent
-
-Run [lein-figwheel](https://github.com/bhauman/lein-figwheel) Leiningen plugin in console:
-
-```
-lein figwheel
-```
-
-Open browser on this page:
-
-```
-http://localhost:3449/html/development.html
-```
-
-and enjoy hacking by editing kmg/client.cljs file and see immediate result!
 
 ### Installation roadmap
 

@@ -326,7 +326,7 @@
    :db/id (d/tempid :db.part/db)
    :db.install/_attribute :db.part/db}
 
-  {:db/ident :user/goal
+  {:db/ident :user/specialization
    :db/valueType :db.type/ref
    :db/cardinality :db.cardinality/one
    :db/doc "Goal is current user specialization in progress. From history this field will be formed list off all specializations of user."

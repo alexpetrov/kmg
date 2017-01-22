@@ -63,14 +63,14 @@
   (log/info "whole-user-data for user: " user)
   (response (model/whole-user-data user)))
 
-(defn change-goal
+(defn change-specialization
   ([specialization]
-   (log/info "user: " current-user "change goal to specialization: " specialization)
-   (model/change-goal current-user specialization)
+   (log/info "user: " current-user "change specialization to specialization: " specialization)
+   (model/change-specialization current-user specialization)
    redirect-home)
   ([user specialization]
-   (log/info "user: " user "change goal to specialization: " specialization)
-   (model/change-goal user specialization)
+   (log/info "user: " user "change specialization to specialization: " specialization)
+   (model/change-specialization user specialization)
    (response nil)))
 
 (defn mark-as-completed
@@ -180,13 +180,13 @@
 (defroutes specialization-routes
   (GET "/completed/:user" [user] (specializations-completed user))
   (GET "/available/:user" [user] (specializations-available user))
-  (POST "/change-goal/:user/:specialization" [user specialization]
-       (change-goal user specialization)))
+  (POST "/change-specialization/:user/:specialization" [user specialization]
+       (change-specialization user specialization)))
 
 (defroutes compojure-handler
   (GET "/" [] (index))
   (GET "/complete/:recommendation" [recommendation] (mark-as-completed recommendation))
-  (GET "/choose/:specialization" [specialization] (change-goal specialization))
+  (GET "/choose/:specialization" [specialization] (change-specialization specialization))
   (GET "/data/:user" [user] (whole-user-data user))
   (context "/recommendation" [] recommendation-routes)
   (context "/specialization" [] specialization-routes)

@@ -40,11 +40,11 @@
  [{:user/name "user1"
    :user/start-career-year 2014
    :user/locale :en
-   :user/goal [:specialization/id "spec1"]}
+   :user/specialization [:specialization/id "spec1"]}
   {:user/name "user2"
    :user/start-career-year 2013
    :user/locale :ru
-   :user/goal [:specialization/id "spec1"]}]
+   :user/specialization [:specialization/id "spec1"]}]
 
  ;; :authors
  [{:author/id "author1"

@@ -141,7 +141,7 @@
          [:db.type/long :db.cardinality/one]))
   (is (= (attr-spec :user/locale)
          [:db.type/keyword :db.cardinality/one]))
-  (is (= (attr-spec :user/goal)
+  (is (= (attr-spec :user/specialization)
          [:db.type/ref :db.cardinality/one])))
 
 (deftest test-kmg-schema-for-feedback

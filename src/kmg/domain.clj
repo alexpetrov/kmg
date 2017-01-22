@@ -5,7 +5,7 @@
   (:use clojure.data
         kmg.datomic-helpers))
 
-(declare in? user-goals-history media-backgrounds media-background-dataset is-media-complete?)
+(declare in? user-specializations-history media-backgrounds media-background-dataset is-media-complete?)
 
 (defn query [description f]
   (p/profile :info description
@@ -27,22 +27,22 @@
       ffirst
       (entity db)))
 
-(defn user-current-goal [db user]
+(defn user-current-specialization [db user]
   (ffirst (d/q '[:find ?sid
                  :in $ ?userid
                  :where
-                 [?userid :user/goal ?sid]]
+                 [?userid :user/specialization ?sid]]
                 db [:user/name user])))
 
-(defn user-current-goal-id [db user]
-  (:specialization/id (d/entity db (user-current-goal db user))))
+(defn user-current-specialization-id [db user]
+  (:specialization/id (d/entity db (user-current-specialization db user))))
 
-(defn user-goals-history-dataset
+(defn user-specializations-history-dataset
   [db user]
    (d/q '[:find ?sid ?timestamp
           :in $ ?userid
           :where
-          [?userid :user/goal ?sid ?tx]
+          [?userid :user/specialization ?sid ?tx]
           [?tx :db/txInstant ?timestamp]]
           (d/history db) [:user/name user]))
 
@@ -85,18 +85,18 @@
 (defn specialization-title [db spec-id]
   (:specialization/title (d/entity db spec-id)))
 
-(defn check-if-spec-is-one-of-goal-history
+(defn check-if-spec-is-one-of-specialization-history
   [db user spec]
-  (let [goal-history (user-goals-history db user)]
-    (if (not (in? goal-history spec))
+  (let [specialization-history (user-specializations-history db user)]
+    (if (not (in? specialization-history spec))
       (throw (IllegalArgumentException.
-              (str "Trying get recommendations for specialization that is not one of users history of goals; User: "
+              (str "Trying get recommendations for specialization that is not one of users history of specializations; User: "
                    user "; Specialization: " (specialization-title db spec)))))))
 
 (defn recommendation-ids
   "Gives recommendation ids for user by specialization"
   [db user spec]
-  (p/p :check-permission (check-if-spec-is-one-of-goal-history db user spec))
+  (p/p :check-permission (check-if-spec-is-one-of-specialization-history db user spec))
   (let [recs (recommendations-for-user db user spec)
         completed (set (recommendations-completed-by-user db user))]
     (remove completed recs)))
@@ -211,18 +211,18 @@
     (clojure.set/subset? required-recommendations completed-recommendations)))
 
 
-(defn user-goals-history
-  "All specializations, that were goals of this user, ordered by date desc"
+(defn user-specializations-history
+  "All specializations, that were specializations of this user, ordered by date desc"
   [db user]
-  (->> (user-goals-history-dataset db user)
+  (->> (user-specializations-history-dataset db user)
        (sort-by-second -)
        (every-first)))
 
 (defn completed-specialization-ids
-  "All specializations that were goals of this user and that are completed"
+  "All specializations that were specializations of this user and that are completed"
   [db user]
   (set (filter #(is-specialization-completed? db user %)
-          (user-goals-history db user))))
+          (user-specializations-history db user))))
 
 (defn get-spec-id [db spec]
   (ffirst (d/q '[:find ?sid
@@ -292,11 +292,11 @@
     @(d/transact (conn) feedback)))
 
 
-(defn change-goal-fact [user spec]
-  [[:db/add [:user/name user] :user/goal [:specialization/id spec]]])
+(defn change-specialization-fact [user spec]
+  [[:db/add [:user/name user] :user/specialization [:specialization/id spec]]])
 
-(defn change-goal-command [user spec]
+(defn change-specialization-command [user spec]
   (if (not (is-specialization-available? (db) user spec))
-    (throw (IllegalArgumentException. (str "Trying to change user goal to unavailable specialization; User: " user "; Specialization: " spec))))
+    (throw (IllegalArgumentException. (str "Trying to change user specialization to unavailable specialization; User: " user "; Specialization: " spec))))
   @(d/transact (conn)
-      (change-goal-fact user spec)))
+      (change-specialization-fact user spec)))

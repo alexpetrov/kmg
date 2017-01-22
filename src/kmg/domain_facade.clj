@@ -27,7 +27,7 @@
 
 (defn recommendations
   ([user]
-     (recommendations user (user-current-goal-id (db) user)))
+     (recommendations user (user-current-specialization-id (db) user)))
   ([user spec]
      (query :recommendations
        (fn []
@@ -79,9 +79,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Commands
 
-(defn change-goal [user spec]
-  (command :change-goal
-           #(change-goal-command user spec)))
+(defn change-specialization [user spec]
+  (command :change-specialization
+           #(change-specialization-command user spec)))
 
 (defn mark-as-completed [user recommendation]
   (command :mark-as-completed
