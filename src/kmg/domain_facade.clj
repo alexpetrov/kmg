@@ -25,6 +25,10 @@
        (db))
       every-first))
 
+(defn current-specialization [user]
+  (let [db (db)]
+    (entity db (user-current-specialization db user))))
+
 (defn recommendations
   ([user]
      (recommendations user (user-current-specialization-id (db) user)))
@@ -66,7 +70,8 @@
 (defn whole-user-data [user]
   (p/profile :info :whole-user-data
              (do (p/p :sync @(d/sync (conn)))
-                 {:recommendations (vec (recommendations user))
+                 {:current-specialization (current-specialization user)
+                  :recommendations (vec (recommendations user))
                   :recommendations-completed (vec (recommendations-completed user))
                   :specializations-available (vec (specializations-available user))
                   :specializations-completed (vec (specializations-completed user))})))

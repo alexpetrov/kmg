@@ -10,6 +10,10 @@
 
 (use-fixtures :each before)
 
+(deftest test-current-speicalization
+  (is (= (:specialization/id (current-specialization "user1"))
+         "spec1")))
+
 (deftest test-children-specializations
   (is (= (project-value :specialization/id
                         (children-specializations "spec1"))
@@ -27,6 +31,8 @@
 
 (deftest test-whole-user-data
   (let [user-data (whole-user-data "user2")]
+    (is (not= (:current-specialization user-data)
+              nil))
     (is (not= (:recommendations user-data)
               nil))
     (is (not= (:recommendations-completed user-data)
