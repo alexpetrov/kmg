@@ -1,8 +1,6 @@
 (ns kmg.domain-test
   (:require
-   [datomic.api :as d]
-   [clojure.test :refer :all]
-   [taoensso.timbre.profiling :as p])
+   [clojure.test :refer :all])
   (:use
    kmg.helpers
    kmg.domain))

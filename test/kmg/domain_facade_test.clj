@@ -1,11 +1,9 @@
 (ns kmg.domain-facade-test
   (:require
    [datomic.api :as d]
-   [clojure.test :refer :all]
-   [taoensso.timbre.profiling :as p])
+   [clojure.test :refer :all])
   (:use
    kmg.helpers
-   kmg.domain
    kmg.domain-facade))
 
 (use-fixtures :each before)
