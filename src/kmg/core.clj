@@ -90,13 +90,13 @@
   [:.specialization-completed-title] (html/content (:specialization/title specialization))
   [:#show-recommendations] nil) ;; TODO: Implement somehow showing completed specialization recommendations in future
 
-(html/defsnippet translation-media tmpl [:#recommendation-translation] [{:keys [media]}]
-  [:#translation-media-title] (html/html-content (media-title media))
-  [:#translation-media-language] (html/content (:media/locale media)))
+(html/defsnippet translation-media tmpl [:.recommendation-translation] [{:keys [media]}]
+  [:.translation-media-title] (html/html-content (media-title media))
+  [:.translation-media-language] (html/content (:media/locale media)))
 
-(html/defsnippet background-media tmpl [:#recommendation-background] [{:keys [media completed]}]
-  [:#background-media-title] (html/html-content (media-title media))
-  [:#background-media-status] (html/content (str "Is completed: " completed)))
+(html/defsnippet background-media tmpl [:.recommendation-background] [{:keys [media completed]}]
+  [:.background-media-title] (html/html-content (media-title media))
+  [:.background-media-status] (html/content (str "Is completed: " completed)))
 
 (html/defsnippet recommendation tmpl [:div.recommendation]
   [{:keys [recommendation media backgrounds translations authors]}]
@@ -114,7 +114,9 @@
   [:#complete] (if (not-all-backgrounds-completed? backgrounds)
                  (html/set-attr :disabled "disabled")
                  (html/set-attr :href (str "complete/" (:recommendation/id recommendation))))
+  [:.recommendation-backgrounds-title] (if (empty? backgrounds) (html/substitute nil) identity)
   [:.recommendation-backgrounds] (html/content (map background-media backgrounds))
+  [:.recommendation-translations-title] (if (empty? translations) (html/substitute nil) identity)
   [:.recommendation-translations] (html/content (map translation-media translations)))
 
 (html/deftemplate base tmpl
@@ -122,8 +124,11 @@
   [:span#domain-title] (html/content (:domain/title (model/domain)))
   [:div#current-specialization] (html/substitute (current-specialization (:current-specialization data)))
   [:div#inner-content] (html/content (map recommendation (:recommendations data)))
+  [:.specializations-available-title] (if (empty? (:specializations-available data)) (html/substitute nil) identity)
   [:div#specializations-available] (html/substitute (map specialization-available (:specializations-available data)))
+  [:.specializations-completed-title] (if (empty? (:specializations-completed data)) (html/substitute nil) identity)
   [:div#specializations-completed] (html/substitute (map specialization-completed (:specializations-completed data)))
+  [:.recommendations-completed-title] (if (empty? (:recommendations-completed data)) (html/substitute nil) identity)
   [:div#recommendations-completed] (html/substitute (map recommendation-completed (:recommendations-completed data))))
 
 (defn index []
