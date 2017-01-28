@@ -79,16 +79,16 @@
   [:.recommendation-completed-title] (html/html-content (media-title media)))
 
 (html/defsnippet current-specialization tmpl [:div#current-specialization] [{:keys [specialization/title specialization/annotation]}]
-  [:#current-specialization-title] (html/content title)
-  [:#current-specialization-annotation] (html/content annotation))
+  [:.current-specialization-title] (html/content title)
+  [:.current-specialization-annotation] (html/content annotation))
 
 (html/defsnippet specialization-available tmpl [:div.specialization-available] [specialization]
   [:.specialization-available-title] (html/content (:specialization/title specialization))
-  [:#choose] (html/set-attr :href (str "choose/" (:specialization/id specialization))))
+  [:.choose] (html/set-attr :href (str "choose/" (:specialization/id specialization))))
 
 (html/defsnippet specialization-completed tmpl [:div.specialization-completed] [specialization]
   [:.specialization-completed-title] (html/content (:specialization/title specialization))
-  [:#show-recommendations] nil) ;; TODO: Implement somehow showing completed specialization recommendations in future
+  [:.show-recommendations] nil) ;; TODO: Implement somehow showing completed specialization recommendations in future
 
 (html/defsnippet translation-media tmpl [:.recommendation-translation] [{:keys [media]}]
   [:.translation-media-title] (html/html-content (media-title media))
@@ -100,10 +100,10 @@
 
 (html/defsnippet recommendation tmpl [:div.recommendation]
   [{:keys [recommendation media backgrounds translations authors]}]
-  [:#recommendation-title] (html/html-content (media-title media))
-  [:#recommendation-subtitle] (html/content (:media/subtitle media))
-  [:#recommendation-authors] (html/content (authors-string authors))
-  [:#recommendation-description] (html/html-content
+  [:.recommendation-title] (html/html-content (media-title media))
+  [:.recommendation-subtitle] (html/content (:media/subtitle media))
+  [:.recommendation-authors] (html/content (authors-string authors))
+  [:.recommendation-description] (html/html-content
                                   (str (media-url media)
                                        " Why bother: "(:recommendation/description recommendation) " <br/> "
                                        " ISBN: " (:media/isbn media)
@@ -111,7 +111,7 @@
                                        " Necessary: " (:recommendation/necessary recommendation) " Priority: " (:recommendation/priority recommendation)
                                        " Type: " (:media/type media)
                                        " media/id: " (:media/id media)))
-  [:#complete] (if (not-all-backgrounds-completed? backgrounds)
+  [:.complete] (if (not-all-backgrounds-completed? backgrounds)
                  (html/set-attr :disabled "disabled")
                  (html/set-attr :href (str "complete/" (:recommendation/id recommendation))))
   [:.recommendation-backgrounds-title] (if (empty? backgrounds) (html/substitute nil) identity)
