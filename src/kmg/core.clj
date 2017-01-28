@@ -82,7 +82,8 @@
   [:#choose] (html/set-attr :href (str "choose/" (:specialization/id specialization))))
 
 (html/defsnippet specialization-completed tmpl [:div.specialization-completed] [specialization]
-  [:.specialization-completed-title] (html/content (:specialization/title specialization)))
+  [:.specialization-completed-title] (html/content (:specialization/title specialization))
+  [:#show-recommendations] nil) ;; TODO: Implement somehow showing completed specialization recommendations in future
 
 (html/defsnippet translation-media tmpl [:#recommendation-translation] [{:keys [media]}]
   [:#translation-media-title] (html/html-content (media-title media))
@@ -128,7 +129,6 @@
   (GET "/" [] (index))
   (GET "/complete/:recommendation" [recommendation] (mark-as-completed recommendation))
   (GET "/choose/:specialization" [specialization] (change-specialization specialization))
-  (GET "/req" request (str request))
   (route/resources "/")
   (route/not-found "Not found!"))
 

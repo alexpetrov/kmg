@@ -41,7 +41,6 @@
                  recommend-ids (take 10 (recommendations-completed-by-user db user))]
     (map #(recommendation-data db % user) recommend-ids)))))
 
-
 ;; FIXME: Remove this function if it turns out to be not used from anywhere
 (defn children-specializations
   "This function supposed to be used from presentation layer"
