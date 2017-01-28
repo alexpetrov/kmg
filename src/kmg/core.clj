@@ -25,6 +25,7 @@
 
 (defn response [data & [status]]
   {:status (or status 200)
+   :headers {"Content-Type" "text/html;charset=utf-8"}
    :body data})
 
 (defn change-specialization [specialization]
