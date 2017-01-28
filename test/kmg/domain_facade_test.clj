@@ -1,14 +1,16 @@
 (ns kmg.domain-facade-test
   (:require
    [datomic.api :as d]
-   [clojure.test :refer :all]
-   [taoensso.timbre.profiling :as p])
+   [clojure.test :refer :all])
   (:use
    kmg.helpers
-   kmg.domain
    kmg.domain-facade))
 
 (use-fixtures :each before)
+
+(deftest test-current-speicalization
+  (is (= (:specialization/id (current-specialization "user1"))
+         "spec1")))
 
 (deftest test-children-specializations
   (is (= (project-value :specialization/id
@@ -27,6 +29,8 @@
 
 (deftest test-whole-user-data
   (let [user-data (whole-user-data "user2")]
+    (is (not= (:current-specialization user-data)
+              nil))
     (is (not= (:recommendations user-data)
               nil))
     (is (not= (:recommendations-completed user-data)

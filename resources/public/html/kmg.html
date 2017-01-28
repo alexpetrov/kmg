@@ -4,16 +4,16 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Knowledge Media Guide</title>
         <link rel="stylesheet" href="/css/site.min.css">
         <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800,700,400italic,600italic,700italic,800italic,300italic" rel="stylesheet" type="text/css">
-        <script type="text/javascript" src="/js/site.min.js"></script>
     </head>
     <body>
         <div class="container">
 
             <div class="kmg-header">
                 <h1 class="kmg-title"><span class="glyphicon glyphicon-book"></span> Knowledge Media Guide</h1>
-                <p class="lead kmg-description">Your personal Guide in professional Knowledge Media for <span id="domain-title">Domain title</span> domain</p>
+                <p class="lead kmg-description">Personal Guide in Knowledge Media for <span id="domain-title">Domain title</span> Domain</p>
             </div>
 
             <div class="row">
@@ -21,61 +21,64 @@
 
                     <div id="inner-content">
                         <div class="recommendation">
-                            <h2 id="recommendation-title" class="recommendation-title">Another recommendation</h2>
-                            <h3 id="recommendation-subtitle" class="recommendation-subtitle">Another recommendation subtitle</h3>
-                            <h4 id="recommendation-authors">Another author1, Another author2</h4>
-                            <div id="recommendation-description">Recommendation description</div>
+                            <h2 class="recommendation-title">Another recommendation</h2>
+                            <h3 class="recommendation-subtitle">Another recommendation subtitle</h3>
+                            <h4 class="recommendation-authors">Another author1, Another author2</h4>
+                            <div class="recommendation-description">Recommendation description</div>
                             <br/>
-                            <a href="#" id="complete" class="btn btn-info btn-xs">Complete</a>
-                            <h3 id="recommendation-backgrounds-title">Backgrounds</h3>
+                            <a href="#" class="btn btn-info btn-xs complete">Complete</a>
+                            <h3 class="recommendation-backgrounds-title">Backgrounds</h3>
                             <div class="recommendation-backgrounds">
+                                <div class="recommendation-background">
+                                    <h4 class="background-media-title">Another Background Media</h4><div class="background-media-status">Completed: false</div>
+                                </div>
                             </div>
-                            <h3 id="recommendation-translations-title">Translations</h3>
+                            <h3 class="recommendation-translations-title">Translations</h3>
                             <div class="recommendation-translations">
+                                <div class="recommendation-translation">
+                                    <h4 class="translation-media-title">Another Translation Media</h4><div class="translation-media-language">:ru</div>
+                                </div>
                             </div>
-
                         </div>
                     </div>
                     <br/>
                 </div><!-- /.kmg-main -->
 
-                <div id="recommendation-background">
-                    <h4 id="background-media-title">Another Background Media</h4><div id="background-media-status">Completed: false</div>
-                </div>
-
-                <div id="recommendation-translation">
-                    <h4 id="translation-media-title">Another Translation Media</h4><div id="translation-media-language">:ru</div>
-                </div>
                 <!-- col-sm-offset-1 This can be helpful to add barrier between content and sidebar -->
                 <div class="col-sm-4 blog-sidebar" id="sidebar">
                     <div class="sidebar-module sidebar-module-inset">
                         <h4>About</h4>
-                        <p>This is Knowledge Media systematization and recommendation service, driven by community of experts.</p>
+                        <p>Knowledge Media systematization and recommendation service, driven by community of experts.</p>
+                    </div>
+
+                    <div class="sidebar-module sidebar-module-inset" id="current-specialization">
+                        <h4>Current specialization</h4>
+                        <h5 class="current-specialization-title">Basic</h5>
+                        <p class="current-specialization-annotation">Such a specialization</p>
                     </div>
 
                     <div class="sidebar-module" >
-                        <h4>Available specializations:</h4>
+                        <h4 class="specializations-available-title">Available specializations</h4>
                         <div id="specializations-available">
                             <ol class="list-unstyled">
                                 <li>
                                     <div class="specialization-available">
                                         <h6 class="specialization-available-title">Another available specialization</h6>
-                                        <a href="#" id="choose" class="btn btn-info btn-xs">Choose</a>
+                                        <a href="#" class="btn btn-info btn-xs choose">Choose</a>
                                     </div>
-
                                 </li>
                             </ol>
                         </div>
                     </div>
 
                     <div class="sidebar-module" >
-                        <h4>Completed specializations:</h4>
+                        <h4 class="specializations-completed-title">Completed specializations</h4>
                         <div id="specializations-completed">
                             <ol class="list-unstyled">
                                 <li>
                                     <div class="specialization-completed">
                                         <h6 class="specialization-completed-title">Another completed specialization</h6>
-                                        <a href="#" id="show-recommendations" class="btn btn-info btn-xs">Recommendations</a>
+                                        <a href="#" class="btn btn-info btn-xs show-recommendations">Recommendations</a>
                                     </div>
                                 </li>
                             </ol>
@@ -83,8 +86,8 @@
                     </div>
 
                     <div class="sidebar-module" >
-                        <h4>Completed recommendations:</h4>
-                        <div id="recommenations-completed">
+                        <h4 class="recommendations-completed-title ">Completed recommendations</h4>
+                        <div id="recommendations-completed">
                             <ol class="list-unstyled">
                                 <li>
                                     <div class="recommendation-completed">
@@ -95,15 +98,6 @@
                         </div>
                     </div>
 
-                    <div id="user-choose">
-                        <form action="#" method="POST" name="user-choose">
-                            <h3 id="user-choose">Choose user:</h3>
-                                <select name="users" id="users-id" size="1">
-                                    <option value="sample-user" class="user-option-id"></option>
-                                </select>
-                        </form>
-                    </div>
-
                     <div class="sidebar-module">
                         <h4>Elsewhere</h4>
                         <ol class="list-unstyled">
@@ -111,28 +105,8 @@
                             <li><a href="http://twitter.com/alexpetrov_rb">Twitter</a></li>
                         </ol>
                     </div>
-                </div><!-- /.blog-sidebar -->
-
+                </div><!-- /.kmg-sidebar -->
             </div><!-- /.row -->
-
-            <div class="row">
-	        <div id="article-form">
-	            Title:<br/>
-	            <input id="article-title" type="text"/ class="form-control"><br/>
-	            Text:<br/>
-	            <textarea id="article-body" class="form-control"></textarea><br/>
-	            <a id="save-btn" href="#" class="btn btn-primary" onclick="client.core.try_create_article()">Save</a>
-	            <a href="#" class="btn btn-default" onclick="client.core.close_form()">Cancel</a>
-	        </div>
-
-	        <div id="view-article">
-	            <h2 id="view-title"></h2>
-	            <span id="view-body"></span>
-	            <br/><br/>
-	            <a href="#" class="btn btn-default" onclick="client.core.close_form()">Close</a>
-	        </div>
-            </div>
-
         </div><!-- /.container -->
     </body>
 </html>

@@ -18,8 +18,6 @@
       (log/info (str "Connection is broken: " (.getMessage ex)))
            false)))
 
-;;(ensure-db-connectivity)
-
 (defn users []
   (->> (d/q '[:find ?username
          :where
@@ -27,9 +25,13 @@
        (db))
       every-first))
 
+(defn current-specialization [user]
+  (let [db (db)]
+    (entity db (user-current-specialization db user))))
+
 (defn recommendations
   ([user]
-     (recommendations user (user-current-goal-id (db) user)))
+     (recommendations user (user-current-specialization-id (db) user)))
   ([user spec]
      (query :recommendations
        (fn []
@@ -43,14 +45,13 @@
                  recommend-ids (take 10 (recommendations-completed-by-user db user))]
     (map #(recommendation-data db % user) recommend-ids)))))
 
-
+;; FIXME: Remove this function if it turns out to be not used from anywhere
 (defn children-specializations
   "This function supposed to be used from presentation layer"
   [spec]
   (let [db (db)
         children-spec-ids (children-specialization-ids db (get-spec-id db spec))]
     (map #(entity db %) children-spec-ids)))
-;;(children-specializations "spec1")
 
 (defn specializations-completed [user]
   (query :specializations-completed
@@ -59,8 +60,6 @@
             completed-specs (completed-specialization-ids db user)]
         (map #(entity db %) completed-specs)))))
 
-;; (completed-specializations "user2")
-
 (defn specializations-available [user]
   (query :specializations-available
     (fn []
@@ -68,12 +67,11 @@
             available-specs (available-specialization-ids db user)]
         (map #(entity db %) available-specs)))))
 
-;;(available-specializations "user2")
-
 (defn whole-user-data [user]
   (p/profile :info :whole-user-data
              (do (p/p :sync @(d/sync (conn)))
-                 {:recommendations (vec (recommendations user))
+                 {:current-specialization (current-specialization user)
+                  :recommendations (vec (recommendations user))
                   :recommendations-completed (vec (recommendations-completed user))
                   :specializations-available (vec (specializations-available user))
                   :specializations-completed (vec (specializations-completed user))})))
@@ -85,12 +83,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Commands
 
-(defn change-goal [user spec]
-  (command :change-goal
-           #(change-goal-command user spec)))
+(defn change-specialization [user spec]
+  (command :change-specialization
+           #(change-specialization-command user spec)))
 
 (defn mark-as-completed [user recommendation]
   (command :mark-as-completed
            #(mark-as-completed-command user recommendation)))
-
-;; (mark-as-completed "user1" "spec1_book4")

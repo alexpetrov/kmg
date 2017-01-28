@@ -1,8 +1,6 @@
 (ns kmg.domain-test
   (:require
-   [datomic.api :as d]
-   [clojure.test :refer :all]
-   [taoensso.timbre.profiling :as p])
+   [clojure.test :refer :all])
   (:use
    kmg.helpers
    kmg.domain))
@@ -20,13 +18,13 @@
     (is (= (spec-ids db #(available-specialization-ids db "user2")))
         #{"spec2" "spec3"})))
 
-(deftest test-user-goals-history
+(deftest test-user-specializations-history
   (let [before-db (db)]
-    (is (= (spec-ids before-db #(user-goals-history before-db "user2"))
+    (is (= (spec-ids before-db #(user-specializations-history before-db "user2"))
            #{"spec1"}))
-    (change-goal-command "user2" "spec2")
+    (change-specialization-command "user2" "spec2")
     (let [after-db (db)]
-      (is (= (spec-ids after-db #(user-goals-history after-db "user2"))
+      (is (= (spec-ids after-db #(user-specializations-history after-db "user2"))
            #{"spec1" "spec2"})))
     ))
 
@@ -34,9 +32,9 @@
   (let [before-db (db)]
     (is (= (spec-ids before-db #(completed-specialization-ids before-db "user2"))
            #{"spec1"}))
-    (change-goal-command "user2" "spec2")
+    (change-specialization-command "user2" "spec2")
     (mark-as-completed-command "user2" "spec2_book3")
-    (let [after-db (db)](is (= (spec-ids after-db #(user-goals-history after-db "user2"))
+    (let [after-db (db)](is (= (spec-ids after-db #(user-specializations-history after-db "user2"))
            #{"spec1" "spec2"})))))
 
 (deftest test-children-specialization-ids
@@ -63,7 +61,7 @@
     (is (= (rec-ids db #(recommendation-ids db "user2" (get-spec-id db "spec1"))))
         #{"spec1_book3" "spec1_book4" "spec1_book5"})))
 
-(deftest test-reommendations-throws-exception-if-specializaion-is-not-one-from-goal-history
+(deftest test-reommendations-throws-exception-if-specializaion-is-not-one-from-specialization-history
   (let [db (db)]
     (is (thrown? IllegalArgumentException (recommendation-ids db "user2" (get-spec-id db "spec2"))))))
 
@@ -74,12 +72,12 @@
 
 (deftest test-recommendatons-for-user
   (let [db (db)]
-    (is (= (rec-ids db #(recommendations-for-user db "user1" (user-current-goal db "user1")))
+    (is (= (rec-ids db #(recommendations-for-user db "user1" (user-current-specialization db "user1")))
            #{"spec1_book4" "spec1_book5" "spec1_book1" "spec1_book3" "spec1_book2"}))))
 
-(deftest test-user-current-goal
+(deftest test-user-current-specialization
   (let [db (db)]
-    (is (= (spec-ids db #(vector (user-current-goal db "user2")))
+    (is (= (spec-ids db #(vector (user-current-specialization db "user2")))
            #{"spec1"}))))
 
 (deftest test-media-backgrounds
@@ -131,22 +129,22 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Commands tests
 
-(deftest test-change-goal
+(deftest test-change-specialization
   (let [db-before (db)]
-    (is (= (spec-ids db-before #(vector (user-current-goal db-before "user2")))
+    (is (= (spec-ids db-before #(vector (user-current-specialization db-before "user2")))
            #{"spec1"}))
-    (change-goal-command "user2" "spec2")
+    (change-specialization-command "user2" "spec2")
     (let [db-after (db)]
-          (is (= (spec-ids db-after #(vector (user-current-goal db-after "user2")))
+          (is (= (spec-ids db-after #(vector (user-current-specialization db-after "user2")))
            #{"spec2"})))))
 
-(deftest test-change-goal-to-unavailable-spcialization
+(deftest test-change-specialization-to-unavailable-spcialization
   (let [db-before (db)]
-    (is (= (spec-ids db-before #(vector (user-current-goal db-before "user2")))
+    (is (= (spec-ids db-before #(vector (user-current-specialization db-before "user2")))
            #{"spec1"}))
-    (is (thrown? IllegalArgumentException (change-goal-command "user2" "spec4")))
+    (is (thrown? IllegalArgumentException (change-specialization-command "user2" "spec4")))
     (let [db-after (db)]
-          (is (= (spec-ids db-after #(vector (user-current-goal db-after "user2")))
+          (is (= (spec-ids db-after #(vector (user-current-specialization db-after "user2")))
            #{"spec1"})))))
 
 (deftest test-mark-as-completed

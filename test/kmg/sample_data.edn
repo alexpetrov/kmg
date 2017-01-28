@@ -40,11 +40,11 @@
  [{:user/name "user1"
    :user/start-career-year 2014
    :user/locale :en
-   :user/goal [:specialization/id "spec1"]}
+   :user/specialization [:specialization/id "spec1"]}
   {:user/name "user2"
    :user/start-career-year 2013
    :user/locale :ru
-   :user/goal [:specialization/id "spec1"]}]
+   :user/specialization [:specialization/id "spec1"]}]
 
  ;; :authors
  [{:author/id "author1"
@@ -64,6 +64,8 @@
    :media/isbn "ISBN 978-5-9775-0294-8"
    :media/essential true
    :media/experience 0
+   :media/year 1995
+   :media/url "http://github.com"
    :media/author [[:author/id "author1"] [:author/id "author2"] [:author/id "author3"]]}
   {:media/id "book2"
    :media/type :media.type/article
@@ -72,78 +74,111 @@
    :media/isbn "ISBN 978-5-98227-708-4"
    :media/essential true
    :media/experience 1
+   :media/year 1996
+   :media/url "http://github.com"
    :media/author [[:author/id "author1"] [:author/id "author2"] [:author/id "author3"]]}
   {:media/id "book3"
    :media/type :media.type/video
    :media/title "book3_title"
    :media/subtitle "book3_subtitle"
+   :media/isbn "ISBN 978-5-9775-0294-8"
    :media/essential true
    :media/experience 2
+   :media/year 1997
+   :media/url "http://github.com"
    :media/author [[:author/id "author1"] [:author/id "author2"] [:author/id "author3"]]}
   {:media/id "book4"
    :media/type :media.type/podcast
    :media/title "book4_title"
    :media/subtitle "book4_subtitle"
+   :media/isbn "ISBN 978-5-9775-0294-8"
    :media/essential false
    :media/experience 3
+   :media/year 1998
+   :media/url "http://github.com"
    :media/author [[:author/id "author1"] [:author/id "author2"] [:author/id "author3"]]}
   {:media/id "book5"
    :media/type :media.type/course
    :media/title "book5_title"
    :media/subtitle "book5_subtitle"
+   :media/isbn "ISBN 978-5-9775-0294-8"
    :media/essential false
    :media/experience 0
+   :media/year 1999
+   :media/url "http://github.com"
    :media/author [[:author/id "author1"] [:author/id "author2"] [:author/id "author3"]]}
   {:media/id "book6"
    :media/type :media.type/blog
    :media/title "book6_title"
    :media/subtitle "book6_subtitle"
+   :media/isbn "ISBN 978-5-9775-0294-8"
    :media/essential false
    :media/experience 0
+   :media/year 2000
+   :media/url "http://github.com"
    :media/author [[:author/id "author1"] [:author/id "author2"] [:author/id "author3"]]}
   {:media/id "book7"
    :media/type :media.type/book
    :media/title "book7_title"
    :media/subtitle "book7_subtitle"
+   :media/isbn "ISBN 978-5-9775-0294-8"
    :media/essential false
+   :media/year 2001
+   :media/url "http://github.com"
    :media/experience 0}
   {:media/id "book8"
    :media/type :media.type/book
    :media/title "book8_title"
    :media/subtitle "book8_subtitle"
+   :media/isbn "ISBN 978-5-9775-0294-8"
    :media/essential false
+   :media/year 2002
+   :media/url "http://github.com"
    :media/experience 3}
   {:media/id "book9"
    :media/type :media.type/book
    :media/title "book9_title"
    :media/subtitle "book9_subtitle"
+   :media/isbn "ISBN 978-5-9775-0294-8"
    :media/essential false
+   :media/year 2003
+   :media/url "http://github.com"
    :media/experience 2}
   {:media/id "book10"
    :media/type :media.type/book
    :media/title "book10_title"
    :media/subtitle "book10_subtitle"
+   :media/isbn "ISBN 978-5-9775-0294-8"
    :media/essential false
+   :media/year 2004
+   :media/url "http://github.com"
    :media/experience 1}
   {:media/id "book11"
    :media/type :media.type/book
    :media/title "book11_title"
    :media/subtitle "book11_subtitle"
+   :media/isbn "ISBN 978-5-9775-0294-8"
    :media/essential false
+   :media/year 2005
+   :media/url "http://github.com"
    :media/experience 1}
   {:media/id "book12"
    :media/type :media.type/book
    :media/title "книга12_название"
    :media/subtitle "книга12_под_название"
+   :media/isbn "ISBN 978-5-9775-0294-8"
    :media/locale :ru
    :media/essential false
+   :media/year 2006
    :media/experience 0}
   {:media/id "book13"
    :media/type :media.type/book
    :media/title "книга13_название"
    :media/subtitle "книга13_под_название"
+   :media/isbn "ISBN 978-5-9775-0294-8"
    :media/locale :ru
    :media/essential false
+   :media/year 2007
    :media/experience 0}
   {:media/id "book14"
    :media/type :media.type/book
@@ -151,13 +186,16 @@
    :media/subtitle "libro_14_nombre_subtitile"
    :media/locale :es
    :media/essential false
+   :media/year 2008
    :media/experience 0}
   {:media/id "book15"
    :media/type :media.type/book
    :media/title "libro_15_nombre"
    :media/subtitle "libro_15_nombre_subtitle"
+   :media/isbn "ISBN 978-5-9775-0294-8"
    :media/locale :es
    :media/essential false
+   :media/year 2009
    :media/experience 0}]
  ;;  :media.relationships
  [{:media.relationship/from [:media/id "book2"]
@@ -187,7 +225,11 @@
   {:media.relationship/from [:media/id "book2"]
    :media.relationship/to [:media/id "book13"]
    :media.relationship/type :translation
-   :media.relationship/description "book2 is translation of book13 to english language"}
+   :media.relationship/description "book3 is translation of book10 to english language"}
+  {:media.relationship/from [:media/id "book10"]
+   :media.relationship/to [:media/id "book3"]
+   :media.relationship/type :translation
+   :media.relationship/description "book3 is translation of book10 to english language"}
   ]
  ;;  :recommendations
  [{:recommendation/specialization [:specialization/id "spec1"]
