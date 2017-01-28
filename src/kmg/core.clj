@@ -77,6 +77,10 @@
 (html/defsnippet recommendation-completed tmpl [:div.recommendation-completed] [{:keys [media]}]
   [:.recommendation-completed-title] (html/html-content (media-title media)))
 
+(html/defsnippet current-specialization tmpl [:div#current-specialization] [{:keys [specialization/title specialization/annotation]}]
+  [:#current-specialization-title] (html/content title)
+  [:#current-specialization-annotation] (html/content annotation))
+
 (html/defsnippet specialization-available tmpl [:div.specialization-available] [specialization]
   [:.specialization-available-title] (html/content (:specialization/title specialization))
   [:#choose] (html/set-attr :href (str "choose/" (:specialization/id specialization))))
@@ -115,6 +119,7 @@
 (html/deftemplate base tmpl
   [data]
   [:span#domain-title] (html/content (:domain/title (model/domain)))
+  [:div#current-specialization] (html/substitute (current-specialization (:current-specialization data)))
   [:div#inner-content] (html/content (map recommendation (:recommendations data)))
   [:div#specializations-available] (html/substitute (map specialization-available (:specializations-available data)))
   [:div#specializations-completed] (html/substitute (map specialization-completed (:specializations-completed data)))
