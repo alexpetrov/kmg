@@ -12,7 +12,7 @@ Otherwise we will reproduce all mistakes and reinvent all the wheels over and ov
 We have to read, listen, watch, but as far as I can see, there are not so much people doing it.
 And I understand why. It is not so trivial to come up with decision: what to invest first in any particular moment of your career. Especially in the beginning of your path.
 
-From my practice of being trainer of software developers I know that you can read some essential books to accelerate your professional growth significantly.
+From my practice of being a software developers trainer I know that you can read some essential books to accelerate your professional growth significantly.
 
 And around the middle of 2013 I came up with the idea of *Knowledge Media Guide* application.
 It is obviously possible to systematize essential *Knowledge Medium* by *Specialization* and recommend it to professionals just in time they need it most.
@@ -21,13 +21,13 @@ So I wanted to make a platform easy to use by *Experts* and quite *simple* to im
 
 ## Solution
 
-When I came up with this idea in 2013 my main technologies were JavaEE and Ruby On Rails. But I felt like there is too much accidental complexity even with Rails.
+When I came up with this idea in 2013 my main technologies were JavaEE and Ruby On Rails. But I felt like there is too much accidental complexity there even with Rails.
 I couldn't start implementing application until I mastered [Clojure](http://clojure.org) and especially [Datomic](http://www.datomic.com/) database in 2014.
 It impressed me so much and architectural puzzle was solved.
 
 As we know from Pragmatic Programmer book, plain text is the most powerful format. Therefore, the basic idea is to represent knowledge base as an easily editable plain text.
 So *Experts* could contribute to *Knowledge Base* by sending *Pull Requests* editing plain text files.
-It is possible thanks to elegant representation of domain entities as *Clojure EDN* maps with meaningful references between them.
+It is possible thanks to elegant text representation of domain entities as *Clojure EDN* maps with meaningful references between them.
 These maps are loadable *Datomic entities*.
 
 Example of how knowledge base will look like is [here](https://github.com/alexpetrov/kmg/blob/master/resources/knowledge_base4it.edn).
