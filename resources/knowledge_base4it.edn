@@ -629,7 +629,7 @@ Ebook ISBN: 978-1-4493-6616-2 | ISBN 10: 1-4493-6616-3"
     {:media.relationship/from [:media/id "prclj"]
      :media.relationship/to [:media/id "domain_driven_design"]
      :media.relationship/type :background
-     :media.relationship/description "Programming Clojure requires Domain Driven Design to be understandable"}
+     :media.relationship/description "Programming Clojure requires Domain Driven Design to make sense"}
     ]
 ;; Recommendations
  [{:recommendation/specialization [:specialization/id "basic"]
