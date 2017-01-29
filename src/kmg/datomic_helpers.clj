@@ -73,7 +73,7 @@
 
 (defn create-db-and-import-sample-data-for-test
   "This function creates schema and imports knowledge base data and users sample data
-It needs only for test in memory database. Does not work with real database, for some reason"
+It needs only for test in memory database."
   []
   (let [data-path (env :sample-data-path)]
     (import-knowledge-base-data data-path (fresh-conn))))
