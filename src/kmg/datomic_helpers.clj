@@ -23,10 +23,7 @@
   (map first v))
 
 (defn entity [db id]
-  (->> (d/touch (d/entity db id))
-         (remove #(or (set? (val %))
-                      (= (type (val %)) datomic.query.EntityMap)))
-         (into {})))
+  (d/pull db '[*] id))
 
 (defn prepare-entity [data]
   (if (contains? data :db/id)
