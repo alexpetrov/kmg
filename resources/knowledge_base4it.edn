@@ -230,7 +230,9 @@
    :author/name "Ethan Watrall"}
   {:author/id "jeff_siarto"
    :author/name "Jeff Siarto"}
-
+  {:author/id "sandi_metz"
+   :author/name "Sandi Metz"}
+  
   ]
 
  [{:media/id "pragmatic_programmer"
@@ -273,6 +275,16 @@
    :media/url "http://dddcommunity.org/book/evans_2003/"
    :media/isbn "ISBN-13: 978-0321125217 ISBN-10: 0321125215"
    :media/author [[:author/id "eric_evans"]]}
+  {:media/id "poodr"
+   :media/type :media.type/book
+   :media/title "Practical Object-Oriented Design in Ruby"
+   :media/subtitle "An Agile Primer (2nd Edition)"
+   :media/essential true
+   :media/experience 0
+   :media/year 2017
+   :media/url "http://www.poodr.com/"
+   :media/isbn "ISBN-13: 978-0134456478 ISBN-10: 0134456475"
+   :media/author [[:author/id "sandi_metz"]]}
   {:media/id "head_first_design_patterns"
    :media/type :media.type/book
    :media/title "Head First: Design Patterns"
@@ -630,7 +642,8 @@ Ebook ISBN: 978-1-4493-6616-2 | ISBN 10: 1-4493-6616-3"
      :media.relationship/to [:media/id "domain_driven_design"]
      :media.relationship/type :background
      :media.relationship/description "Programming Clojure requires Domain Driven Design to make sense"}
-    ]
+  ]
+ 
 ;; Recommendations
  [{:recommendation/specialization [:specialization/id "basic"]
    :recommendation/media [:media/id "pragmatic_programmer"]
@@ -638,31 +651,41 @@ Ebook ISBN: 978-1-4493-6616-2 | ISBN 10: 1-4493-6616-3"
    :recommendation/priority 1000
    :recommendation/necessary true
    :recommendation/description "Pragmatic Programmer is must for every IT specialist, because... //TBD @alexpetrov"}
+  
   {:recommendation/specialization [:specialization/id "basic"]
    :recommendation/media [:media/id "refactoring"]
    :recommendation/id "basic_refactoring"
    :recommendation/priority 900
    :recommendation/necessary true
    :recommendation/description "Refacotring is must for every IT specialist, because... //TBD @alexpetrov"}
+  
   {:recommendation/specialization [:specialization/id "basic"]
    :recommendation/media [:media/id "head_first_design_patterns"]
    :recommendation/id "basic_head_first_design_patterns"
    :recommendation/priority 800
    :recommendation/necessary true
    :recommendation/description "Head First Design Patterns is must for every IT specialist, because... //TBD @alexpetrov"}
+  
   {:recommendation/specialization [:specialization/id "basic"]
    :recommendation/media [:media/id "domain_driven_design"]
    :recommendation/id "basic_domain_driven_design"
-   :recommendation/priority 800
+   :recommendation/priority 700
    :recommendation/necessary true
    :recommendation/description "Domain Driven Design is must for every IT specialist, because... //TBD @alexpetrov"}
+  
   {:recommendation/specialization [:specialization/id "basic"]
    :recommendation/media [:media/id "clean_code"]
    :recommendation/id "basic_clean_code"
-   :recommendation/priority 700
+   :recommendation/priority 650
    :recommendation/necessary true
    :recommendation/description "Clean Code is must for every IT specialist, because... //TBD @alexpetrov"}
-
+  
+  {:recommendation/specialization [:specialization/id "basic"]
+   :recommendation/media [:media/id "poodr"]
+   :recommendation/id "basic_poodr"
+   :recommendation/priority 600
+   :recommendation/necessary false
+   :recommendation/description "POODR is recommended to every IT specialist, because it is the most approachable book on object-oriented design"}
 
   {:recommendation/specialization [:specialization/id "basic"]
    :recommendation/media [:media/id "ilsd"]
@@ -670,12 +693,14 @@ Ebook ISBN: 978-1-4493-6616-2 | ISBN 10: 1-4493-6616-3"
    :recommendation/priority 500
    :recommendation/necessary false
    :recommendation/description "Implementing Lean Software Develpment is optional recommendation for basic specialization, because... //TBD @alexpetrov"}
+
   {:recommendation/specialization [:specialization/id "basic"]
    :recommendation/media [:media/id "sicp"]
    :recommendation/id "basic_sicp"
    :recommendation/priority 400
    :recommendation/necessary false
    :recommendation/description "SICP is optional recommendation for basic specialization, because... //TBD @alexpetrov"}
+
   {:recommendation/specialization [:specialization/id "basic"]
    :recommendation/media [:media/id "mymamo"]
    :recommendation/id "basic_mymamo"
@@ -698,6 +723,12 @@ Ebook ISBN: 978-1-4493-6616-2 | ISBN 10: 1-4493-6616-3"
    :recommendation/description "About Face is optional recommendation for basic specialization, because... //TBD @alexpetrov"}
 
 ;; Recommendations for Developer specialization
+  {:recommendation/specialization [:specialization/id "developer"]
+   :recommendation/media [:media/id "poodr"]
+   :recommendation/id "developer_poodr"
+   :recommendation/priority 1100
+   :recommendation/necessary true
+   :recommendation/description "POODR is must to every IT specialist, because it is the most approachable, modern and wise book on object-oriented design."}
   {:recommendation/specialization [:specialization/id "developer"]
    :recommendation/media [:media/id "rftg2ptns"]
    :recommendation/id "deveoper_rftg2ptns"
