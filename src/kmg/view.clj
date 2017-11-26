@@ -13,7 +13,7 @@
                  :media.type/blog "file"})
 
 (defn media-icon-span [media]
-  (str "<span class=\"glyphicon glyphicon-" (type->icon (:media/type media)) "\"></span> "))
+  (str "<span class=\"glyphicon glyphicon-" (type->icon (:db/ident (:media/type media))) "\"></span> "))
 
 (defn media-title [media]
   (str (media-icon-span media) (:media/title media) " " ))

@@ -23,7 +23,7 @@
   (map first v))
 
 (defn entity [db id]
-  (d/pull db '[*] id))
+  (d/pull db '[* {:media/type [:db/ident]}] id))
 
 (defn prepare-entity [data]
   (if (contains? data :db/id)

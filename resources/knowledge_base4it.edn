@@ -232,7 +232,7 @@
    :author/name "Jeff Siarto"}
   {:author/id "sandi_metz"
    :author/name "Sandi Metz"}
-  
+
   ]
 
  [{:media/id "pragmatic_programmer"
@@ -643,43 +643,43 @@ Ebook ISBN: 978-1-4493-6616-2 | ISBN 10: 1-4493-6616-3"
      :media.relationship/type :background
      :media.relationship/description "Programming Clojure requires Domain Driven Design to make sense"}
   ]
- 
+
 ;; Recommendations
  [{:recommendation/specialization [:specialization/id "basic"]
+   :recommendation/media [:media/id "domain_driven_design"]
+   :recommendation/id "basic_domain_driven_design"
+   :recommendation/priority 1100
+   :recommendation/necessary true
+   :recommendation/description "Domain Driven Design is must for every IT specialist, because... //TBD @alexpetrov"}
+
+  {:recommendation/specialization [:specialization/id "basic"]
    :recommendation/media [:media/id "pragmatic_programmer"]
    :recommendation/id "basic_pragmatic_programmer"
    :recommendation/priority 1000
-   :recommendation/necessary true
+   :recommendation/necessary false
    :recommendation/description "Pragmatic Programmer is must for every IT specialist, because... //TBD @alexpetrov"}
-  
+
   {:recommendation/specialization [:specialization/id "basic"]
    :recommendation/media [:media/id "refactoring"]
    :recommendation/id "basic_refactoring"
    :recommendation/priority 900
-   :recommendation/necessary true
+   :recommendation/necessary false
    :recommendation/description "Refacotring is must for every IT specialist, because... //TBD @alexpetrov"}
-  
+
   {:recommendation/specialization [:specialization/id "basic"]
    :recommendation/media [:media/id "head_first_design_patterns"]
    :recommendation/id "basic_head_first_design_patterns"
    :recommendation/priority 800
-   :recommendation/necessary true
+   :recommendation/necessary false
    :recommendation/description "Head First Design Patterns is must for every IT specialist, because... //TBD @alexpetrov"}
-  
-  {:recommendation/specialization [:specialization/id "basic"]
-   :recommendation/media [:media/id "domain_driven_design"]
-   :recommendation/id "basic_domain_driven_design"
-   :recommendation/priority 700
-   :recommendation/necessary true
-   :recommendation/description "Domain Driven Design is must for every IT specialist, because... //TBD @alexpetrov"}
-  
+
   {:recommendation/specialization [:specialization/id "basic"]
    :recommendation/media [:media/id "clean_code"]
    :recommendation/id "basic_clean_code"
-   :recommendation/priority 650
-   :recommendation/necessary true
+   :recommendation/priority 700
+   :recommendation/necessary false
    :recommendation/description "Clean Code is must for every IT specialist, because... //TBD @alexpetrov"}
-  
+
   {:recommendation/specialization [:specialization/id "basic"]
    :recommendation/media [:media/id "poodr"]
    :recommendation/id "basic_poodr"
@@ -724,71 +724,110 @@ Ebook ISBN: 978-1-4493-6616-2 | ISBN 10: 1-4493-6616-3"
 
 ;; Recommendations for Developer specialization
   {:recommendation/specialization [:specialization/id "developer"]
+   :recommendation/media [:media/id "pragmatic_programmer"]
+   :recommendation/id "developer_pragmatic_programmer"
+   :recommendation/priority 1500
+   :recommendation/necessary true
+   :recommendation/description "Pragmatic Programmer is must for every developer, because... //TBD @alexpetrov"}
+
+  {:recommendation/specialization [:specialization/id "developer"]
    :recommendation/media [:media/id "poodr"]
    :recommendation/id "developer_poodr"
+   :recommendation/priority 1400
+   :recommendation/necessary true
+   :recommendation/description "POODR is must to every developer, because it is the most approachable, modern and wise book on object-oriented design."}
+
+  {:recommendation/specialization [:specialization/id "developer"]
+   :recommendation/media [:media/id "refactoring"]
+   :recommendation/id "developer_refactoring"
+   :recommendation/priority 1300
+   :recommendation/necessary true
+   :recommendation/description "Refacotring is must for every developer, because... //TBD @alexpetrov"}
+
+  {:recommendation/specialization [:specialization/id "developer"]
+   :recommendation/media [:media/id "head_first_design_patterns"]
+   :recommendation/id "developer_head_first_design_patterns"
+   :recommendation/priority 1200
+   :recommendation/necessary true
+   :recommendation/description "Head First Design Patterns is must for every developer, because... //TBD @alexpetrov"}
+
+  {:recommendation/specialization [:specialization/id "developer"]
+   :recommendation/media [:media/id "clean_code"]
+   :recommendation/id "developer_clean_code"
    :recommendation/priority 1100
    :recommendation/necessary true
-   :recommendation/description "POODR is must to every IT specialist, because it is the most approachable, modern and wise book on object-oriented design."}
+   :recommendation/description "Clean Code is must for every developer, because... //TBD @alexpetrov"}
+
   {:recommendation/specialization [:specialization/id "developer"]
    :recommendation/media [:media/id "rftg2ptns"]
    :recommendation/id "deveoper_rftg2ptns"
    :recommendation/priority 1000
    :recommendation/necessary true
    :recommendation/description "Refactoring to Patterns is must recommendation for developer specialization, because... //TBD @alexpetrov"}
+
   {:recommendation/specialization [:specialization/id "developer"]
    :recommendation/media [:media/id "xunit"]
    :recommendation/id "developer_xunit"
    :recommendation/priority 900
    :recommendation/necessary true
    :recommendation/description "XUnit is must recommendation for developer specialization, because... //TBD @alexpetrov"}
+
   {:recommendation/specialization [:specialization/id "developer"]
    :recommendation/media [:media/id "wewlc"]
    :recommendation/id "developer_wewlc"
    :recommendation/priority 800
    :recommendation/necessary false
    :recommendation/description "Working Effectively with legacy code is optional recommendation for developer specialization, because... //TBD @alexpetrov"}
+
   {:recommendation/specialization [:specialization/id "developer"]
    :recommendation/media [:media/id "pofeaa"]
    :recommendation/id "developer_pofeaa"
    :recommendation/priority 700
    :recommendation/necessary false
    :recommendation/description "Patterns of Enterprise Application Architecture is optional recommendation for developer specialization, because... //TBD @alexpetrov"}
+
   {:recommendation/specialization [:specialization/id "developer"]
    :recommendation/media [:media/id "prclj"]
    :recommendation/id "developer_prclj"
    :recommendation/priority 600
    :recommendation/necessary false
    :recommendation/description "Programming Clojure is optional recommendation for developer specialization, because... //TBD @alexpetrov"}
+
   {:recommendation/specialization [:specialization/id "developer"]
    :recommendation/media [:media/id "7l7w"]
    :recommendation/id "developer_7l7w"
    :recommendation/priority 500
    :recommendation/necessary false
    :recommendation/description "Seven Languages in Seven Weeks is optional recommendation for software engineer specialization, because... //TBD @alexpetrov"}
+
   {:recommendation/specialization [:specialization/id "developer"]
    :recommendation/media [:media/id "7db7w"]
    :recommendation/id "developer_7db7w"
    :recommendation/priority 400
    :recommendation/necessary false
    :recommendation/description "Seven Databases in Seven Weeks is optional recommendation for software engineer specialization, because... //TBD @alexpetrov"}
+
   {:recommendation/specialization [:specialization/id "developer"]
    :recommendation/media [:media/id "7wf7w"]
    :recommendation/id "developer_7wf7w"
    :recommendation/priority 300
    :recommendation/necessary false
    :recommendation/description "Seven Web Frameworks in Seven Weeks is optional recommendation for software engineer specialization, because... //TBD @alexpetrov"}
+
   {:recommendation/specialization [:specialization/id "developer"]
    :recommendation/media [:media/id "functional_thinking"]
    :recommendation/id "developer_functional_thinking"
    :recommendation/priority 200
    :recommendation/necessary false
    :recommendation/description "Functional Thinking is optional recommendation for developer specialization, because... //TBD @alexpetrov"}
+
   {:recommendation/specialization [:specialization/id "developer"]
    :recommendation/media [:media/id "head_first_web_design"]
    :recommendation/id "developer_head_first_web_design"
    :recommendation/priority 100
    :recommendation/necessary false
    :recommendation/description "Head First Web Design is optional recommendation for developer specialization, because it is good to understand web design basics to every developer. It is pretty old for this kind of area and site examples looks outdated sometimes, but basics not changed that much. Information Archiecture, Working with color, Golden Rule are still the same."}
+
 ;; Recommendations for Java Developer
   {:recommendation/specialization [:specialization/id "java_developer"]
    :recommendation/media [:media/id "jp24ht"]
