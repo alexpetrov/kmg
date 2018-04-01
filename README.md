@@ -4,9 +4,11 @@ Systematization and recommendation service about professional *Knowledge Media*,
 
 [![Vexor status](https://ci.vexor.io/projects/e69891ed-74f3-47b8-acd1-06c2da0612cd/status.svg)](https://ci.vexor.io/ui/projects/e69891ed-74f3-47b8-acd1-06c2da0612cd/builds)
 
+![kmg screenshot](https://github.com/alexpetrov/kmg/blob/master/resources/kmg.png)
+
 ## Problem
 
-To be a good specialists we have to know a lot about our profession and it's history.
+To be good specialists we have to know a lot about our profession and it's history.
 Otherwise we will reproduce all mistakes and reinvent all the wheels over and over again.
 
 We have to read, listen, watch, but as far as I can see, there are not so much people doing it.
